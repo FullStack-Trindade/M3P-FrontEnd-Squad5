@@ -1,6 +1,8 @@
-import PropTypes from "prop-types";
+import TextField from "@mui/material/TextField";
 import { useState } from "react";
-
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import PropTypes from "prop-types";
 import * as Styled from "./Input.style";
 
 export const InputComponent = ({
@@ -14,8 +16,7 @@ export const InputComponent = ({
   as,
   onInput,
 }) => {
-  /*
-  const [showPassword, setShowPassword] = useState(false);*/
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -23,41 +24,25 @@ export const InputComponent = ({
 
   return (
     <Styled.InputGroup>
-      <Styled.Label $color={error && "danger"} htmlFor={id}>
-        {label}
-      </Styled.Label>
-
-      {type !== "textarea" && (
-        <Styled.InputContainer>
-          <Styled.Input
-            onInput={onInput}
-            mask={mask}
-            as={as}
-            $color={error && "danger"}
-            type={type}
-            id={id}
-            placeholder={placeholder}
-            {...register}
-          />
-          {/*type === "password" && (
-            <Styled.Icon
-              $color={error && "danger"}
-              type="button"
-              onClick={handleShowPassword}
-            >
-              {!showPassword ? <MdVisibility /> : <MdVisibilityOff />}
-            </Styled.Icon>
-          )*/}
-        </Styled.InputContainer>
-      )}
-
-      {type === "textarea" && (
-        <Styled.TextArea
-          $color={error && "danger"}
-          id={id}
-          placeholder={placeholder}
-          {...register}
-        />
+      <TextField
+        id={id}
+        onInput={onInput}
+        mask={mask}
+        as={as}
+        label={label}
+        error={error}
+        type={showPassword ? "text" : type}
+        placeholder={placeholder}
+        {...register}
+      />
+      {type === "password" && (
+        <Styled.Icon type="button" onClick={handleShowPassword}>
+          {!showPassword ? (
+            <VisibilityOutlinedIcon />
+          ) : (
+            <VisibilityOffOutlinedIcon />
+          )}
+        </Styled.Icon>
       )}
     </Styled.InputGroup>
   );

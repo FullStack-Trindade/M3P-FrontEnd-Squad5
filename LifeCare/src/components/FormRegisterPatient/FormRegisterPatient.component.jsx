@@ -1,10 +1,6 @@
 import Button from "@mui/material/Button";
-import InputMask from "react-input-mask";
-
-import { useParams } from "react-router-dom";
+import { InputComponent } from "../Input/Input.component";
 import { useForm } from "react-hook-form";
-import { InputComponent } from "../Input/Input.component.jsx";
-import { useEffect, useState } from "react";
 
 export const FormRegisterComponent = () => {
   const {
@@ -110,29 +106,26 @@ export const FormRegisterComponent = () => {
               }}
               error={errors.birthdate}
             />
-
             <InputComponent
               id="cpf"
               type="text"
-              as={InputMask}
-              mask="999.999.999-99"
               label="CPF"
               register={{
                 ...register("cpf", {
                   required: true,
-                  maxLength: 14,
+                  maxLength: 11,
                 }),
               }}
               error={errors.cpf}
             />
-
+            ;
             <InputComponent
               id="rg"
               type="text"
               placeholder="Digite seu RG"
               label="RG"
               register={{
-                ...register("rg", { required: true, maxLength: 20 }),
+                ...register("rg", { required: true, maxLength: 11 }),
               }}
               error={errors.rg}
             />
@@ -156,8 +149,6 @@ export const FormRegisterComponent = () => {
             <InputComponent
               id="telephone"
               type="text"
-              as={InputMask}
-              mask="(99) 9 9999-99999"
               label="Telefone"
               register={{
                 ...register("telephone", { required: true }),
@@ -167,8 +158,6 @@ export const FormRegisterComponent = () => {
             <InputComponent
               id="emergency"
               type="text"
-              as={InputMask}
-              mask="(99) 9 9999-99999"
               label="Contato de Emergência"
               register={{
                 ...register("emergency", { required: true }),
@@ -380,35 +369,7 @@ export const FormRegisterComponent = () => {
             <Button variant="outlined" onClick={handleSubmit(submitDelete)}>
               Deletar
             </Button>
-            <Button
-              variant="outlined"
-              type="submit"
-              disabled={
-                errors.name ||
-                errors.age ||
-                errors.url ||
-                errors.birthdate ||
-                errors.cpf ||
-                errors.rg ||
-                errors.telephone ||
-                errors.emergency ||
-                errors.email ||
-                errors.nationality ||
-                errors.allergies ||
-                errors.specificCa ||
-                errors.insurance ||
-                errors.insuranceN ||
-                errors.expireDate ||
-                errors.cep ||
-                errors.city ||
-                errors.state ||
-                errors.place ||
-                errors.number ||
-                errors.complement ||
-                errors.street ||
-                errors.referenceP
-              }
-            >
+            <Button variant="outlined" type="submit">
               Salvar
             </Button>
           </div>
