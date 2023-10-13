@@ -5,12 +5,17 @@ import { ApiService } from '../../services/Api.service';
 import { LocalStorageService } from '../../services/LocalStorage.service';
 import { useContext } from 'react';
 import { ModalContext } from '../../contexts/ModalContext/Modal.context';
+import { ModalComponent } from '../ModalComponent/Modal.component';
+import { RoleComponent } from '../RoleComponent/Role.component';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/auth/auth.context';
 
 export const FormLoginComponent = () => {
 
     const { showModal, setShowModal } = useContext(ModalContext);
 
     const handleShowModal = () => {
+        console.log('abriu')
         setShowModal(!showModal)
     }
 
@@ -35,6 +40,10 @@ export const FormLoginComponent = () => {
         formState: {errors},
     } = useForm();
 
+    const navigate = useNavigate();
+
+    const { setAuth } = useContext(AuthContext);
+
     const submitForm = (data) => {
         const {email, password} = data;
 
@@ -45,8 +54,21 @@ export const FormLoginComponent = () => {
             reset();
             return;
         }
+        console.log('chegou aqui')
 
         password === user.password ? redirectToHome(user) : alert('Ops! User or password invalid')
+    }
+
+    const isDisabled = () => {
+        return !data.email || !data.password || !data.email.includes('@') || data.password.length < 8
+    }
+
+    const redirectToHome = (user) => {
+        setAuth({
+            user,
+            isLogged: true,
+        })
+        navigate('/')
     }
 
     return(
@@ -56,12 +78,13 @@ export const FormLoginComponent = () => {
                     <Styled.Title>Login</Styled.Title>
                     <Styled.Subtitle>Type here the credentials of yours to acess the system</Styled.Subtitle>
                 </Styled.Header>
+                <RoleComponent/>
 
                 <Styled.InputGroup>
                     <InputComponent
                         id='email'
                         label='Email'
-                        type='text'
+                        type='email'
                         register={{...register('email', {
                             required: true,
                             validate: {matchPath: (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v)}
@@ -86,6 +109,7 @@ export const FormLoginComponent = () => {
                     <Styled.Button type='button' onClick={handleShowModal}>Create account</Styled.Button>
                 </Styled.Action>
             </Styled.Form>
+            {showModal && <ModalComponent/>}
         </>
     );
 }
