@@ -1,6 +1,7 @@
-import Button from "@mui/material/Button";
 import { InputComponent } from "../Input/Input.component";
+import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
+import * as Styled from "./FormRegisterPatient.styles";
 
 export const FormRegisterComponent = () => {
   const {
@@ -39,15 +40,12 @@ export const FormRegisterComponent = () => {
   const submitDelete = async () => {};
 
   return (
-    <div>
-      <form
-        className="formRegisterPContainer"
-        onSubmit={handleSubmit(submitForm)}
-      >
+    <>
+      <Styled.FormPatient onSubmit={handleSubmit(submitForm)}>
         <legend className="formTitle">Preencha os campos para cadastrar</legend>
         <div className="formContent">
           <legend className="formTitle">Indentificação</legend>
-          <div className="formRow">
+          <Styled.FormRow>
             <InputComponent
               id="name"
               type="text"
@@ -95,8 +93,8 @@ export const FormRegisterComponent = () => {
                 <option value="Outro">outro</option>
               </select>
             </div>
-          </div>
-          <div className="formRow">
+          </Styled.FormRow>
+          <Styled.FormRow>
             <InputComponent
               id="birthdate"
               type="date"
@@ -144,8 +142,8 @@ export const FormRegisterComponent = () => {
                 <option value="Viúvo">Viúvo</option>
               </select>
             </div>
-          </div>
-          <div className="formRow">
+          </Styled.FormRow>
+          <Styled.FormRow>
             <InputComponent
               id="telephone"
               type="text"
@@ -194,8 +192,8 @@ export const FormRegisterComponent = () => {
               }}
               error={errors.nationality}
             />
-          </div>
-          <div className="formRow ">
+          </Styled.FormRow>
+          <Styled.FormRow>
             <InputComponent
               id="allergies"
               type="textarea"
@@ -218,12 +216,12 @@ export const FormRegisterComponent = () => {
               }}
               error={errors.specificCare}
             />
-          </div>
+          </Styled.FormRow>
         </div>
         <div className="formContent">
           <legend className="formTitle">Convênio</legend>
 
-          <div className="formRow">
+          <Styled.FormRow>
             <InputComponent
               id="insurance"
               type="text"
@@ -253,7 +251,7 @@ export const FormRegisterComponent = () => {
               }}
               error={errors.expireDate}
             />
-          </div>
+          </Styled.FormRow>
         </div>
         <div className="formContent">
           <legend className="formTitle">Dados de Endereço</legend>
@@ -274,7 +272,7 @@ export const FormRegisterComponent = () => {
               type="button"
             ></Button>
           </div>
-          <div className="formRow">
+          <Styled.FormRow>
             <InputComponent
               id="city"
               type="text"
@@ -297,8 +295,8 @@ export const FormRegisterComponent = () => {
               }}
               error={errors.state}
             />
-          </div>
-          <div className="formRow">
+          </Styled.FormRow>
+          <Styled.FormRow>
             <InputComponent
               id="place"
               type="text"
@@ -322,8 +320,8 @@ export const FormRegisterComponent = () => {
               error={errors.number}
               readOnly
             />
-          </div>
-          <div className="formRow">
+          </Styled.FormRow>
+          <Styled.FormRow>
             <InputComponent
               id="complement"
               type="text"
@@ -357,7 +355,7 @@ export const FormRegisterComponent = () => {
               error={errors.referencePoint}
               readOnly
             />
-          </div>
+          </Styled.FormRow>
           <div>
             <Button
               variant="outlined"
@@ -374,7 +372,7 @@ export const FormRegisterComponent = () => {
             </Button>
           </div>
         </div>
-      </form>
-    </div>
+      </Styled.FormPatient>
+    </>
   );
 };

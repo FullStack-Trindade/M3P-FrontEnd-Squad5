@@ -1,7 +1,7 @@
 import { FormRegisterComponent } from "../../components/FormRegisterPatient/FormRegisterPatient.component";
-import * as Styled from "./RegisterPatient.styles";
+import * as Styled from "./PatientRegistration.styles";
 
-export const RegisterPatientPage = () => {
+export const PatientRegistrationPage = () => {
   return (
     <div>
       <Styled.RegisterPatientMain>
