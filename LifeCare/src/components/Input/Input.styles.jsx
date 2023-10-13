@@ -6,6 +6,22 @@ export const InputGroup = styled.div`
     width: 100%;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
-    margin: 20px 0;
+`
+
+export const InputContainer = styled.div`
+    position: relative;
+    width: 100%;
+`
+
+export const Icon = styled.button`
+    position: absolute;
+    top: .7rem;
+    right: .7rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `

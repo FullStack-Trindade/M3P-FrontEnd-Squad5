@@ -41,7 +41,17 @@ export const Action = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    align-items: stretch;
+    align-self: stretch;
+`
+
+export const InputGroup = styled.div`
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
 `
 
 export const Button = styled.button`
@@ -50,7 +60,7 @@ export const Button = styled.button`
     width: 100%;
     justify-content: center;
     align-items: flex-start;
-    align-items: stretch;
+    align-self: stretch;
     border-radius: 5px;
     border: none;
     background-color: #03dffc;
