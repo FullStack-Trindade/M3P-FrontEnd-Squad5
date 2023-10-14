@@ -54,6 +54,11 @@ export const InputGroup = styled.div`
     width: 100%;
 `
 
+export const InputContainer = styled.div`
+    position: relative;
+    width: 100%;
+`
+
 export const Button = styled.button`
     display: flex;
     padding: 8px 16px;

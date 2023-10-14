@@ -6,7 +6,6 @@ import { LocalStorageService } from '../../services/LocalStorage.service';
 import { useContext } from 'react';
 import { ModalContext } from '../../contexts/ModalContext/Modal.context';
 import { ModalComponent } from '../ModalComponent/Modal.component';
-import { RoleComponent } from '../RoleComponent/Role.component';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/auth/auth.context';
 
@@ -15,12 +14,19 @@ export const FormLoginComponent = () => {
     const { showModal, setShowModal } = useContext(ModalContext);
 
     const handleShowModal = () => {
-        console.log('abriu')
-        setShowModal(!showModal)
+        let admin = false;
+
+        if(!admin) {
+            alert('Contact an administrator to acess the system');
+            console.log('User contacted an admin to create account');
+        } else {
+            setShowModal(!showModal);
+        }
     }
 
     const offLink = () => {
         alert("Sorry, this feature isn't done yet")
+        console.log("Sorry, this feature isn't done yet");
     }
 
     if(!LocalStorageService.get('users')) {
@@ -50,17 +56,14 @@ export const FormLoginComponent = () => {
         const user = ApiService.ShowUserByEmail(email)
 
         if(!user) {
-            alert('User not registered yet')
+            alert('User not registered yet');
+            console.log('User not registered yet');
             reset();
             return;
         }
-        console.log('chegou aqui')
 
         password === user.password ? redirectToHome(user) : alert('Ops! User or password invalid')
-    }
-
-    const isDisabled = () => {
-        return !data.email || !data.password || !data.email.includes('@') || data.password.length < 8
+        console.log('User accessed system');
     }
 
     const redirectToHome = (user) => {
@@ -78,7 +81,6 @@ export const FormLoginComponent = () => {
                     <Styled.Title>Login</Styled.Title>
                     <Styled.Subtitle>Type here the credentials of yours to acess the system</Styled.Subtitle>
                 </Styled.Header>
-                <RoleComponent/>
 
                 <Styled.InputGroup>
                     <InputComponent

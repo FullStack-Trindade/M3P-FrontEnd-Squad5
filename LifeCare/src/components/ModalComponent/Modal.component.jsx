@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { ModalContext } from '../../contexts/ModalContext/Modal.context.jsx';
 import { ApiService } from '../../services/Api.service.jsx';
 import { InputComponent } from '../Input/Input.component.jsx';
-import { RoleComponent } from '../RoleComponent/Role.component.jsx';
 
 export const ModalComponent = () => {
     const { showModal, setShowModal } = useContext(ModalContext);
@@ -34,7 +33,6 @@ export const ModalComponent = () => {
                 <Styled.Title>Create your account here</Styled.Title>
                 <Styled.SubTitle>Fill the inputs to create an account to acess the system</Styled.SubTitle>
             </Styled.Header>
-            <RoleComponent/>
             
 
             <Styled.InputGroup>

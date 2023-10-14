@@ -1,16 +1,6 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
-    /* display: flex;
-    flex-direction: column;
-    padding: 32px;
-    position: absolute;
-    min-width: 600px;
-    justify-content: center;
-    box-shadow: 10px 10px 10px 0 #8fa4a7;
-    background-color: yellow;
-    border-radius: 10px;
-    z-index: 2; */
     display: inline-flex;
     position: absolute;
     padding: 32px;
