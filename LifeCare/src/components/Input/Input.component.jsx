@@ -15,6 +15,8 @@ export const InputComponent = ({
   mask,
   as,
   onInput,
+  helperText,
+  readOnly,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -27,23 +29,25 @@ export const InputComponent = ({
       <TextField
         id={id}
         onInput={onInput}
-        mask={mask}
         as={as}
         label={label}
+        mask={mask}
         error={error}
         type={showPassword ? "text" : type}
         placeholder={placeholder}
+        helperText={helperText}
         {...register}
-      />
-      {type === "password" && (
-        <Styled.Icon type="button" onClick={handleShowPassword}>
-          {!showPassword ? (
-            <VisibilityOutlinedIcon />
-          ) : (
-            <VisibilityOffOutlinedIcon />
-          )}
-        </Styled.Icon>
-      )}
+      >
+        {type === "password" && (
+          <Styled.Icon type="button" onClick={handleShowPassword}>
+            {!showPassword ? (
+              <VisibilityOutlinedIcon />
+            ) : (
+              <VisibilityOffOutlinedIcon />
+            )}
+          </Styled.Icon>
+        )}
+      </TextField>
     </Styled.InputGroup>
   );
 };

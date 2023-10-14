@@ -1,5 +1,6 @@
 import { InputComponent } from "../Input/Input.component";
 import Button from "@mui/material/Button";
+
 import { useForm } from "react-hook-form";
 import * as Styled from "./FormRegisterPatient.styles";
 
@@ -34,8 +35,6 @@ export const FormRegisterComponent = () => {
     const body = {
       ...data,
     };
-
-    await setValue("birthdate", new Date(body.birthdate));
   };
   const submitDelete = async () => {};
 
@@ -47,30 +46,25 @@ export const FormRegisterComponent = () => {
           <legend className="formTitle">Indentificação</legend>
           <Styled.FormRow>
             <InputComponent
-              id="name"
+              id="fullName"
               type="text"
               placeholder="Digite seu nome"
               label="Nome Completo"
               register={{
-                ...register("name", {
-                  required: true,
-                  minLength: 5,
-                  maxLength: 50,
+                ...register("fullName", {
+                  required: "Campo obrigatório",
+                  minLength: {
+                    value: 8,
+                    message: "Campo precisa ter acima de 8 caracteres",
+                  },
+                  maxLength: {
+                    value: 64,
+                    message: "Campo precisa ter menos de 64 caracteres",
+                  },
                 }),
               }}
-              error={errors.name}
-            />
-            <InputComponent
-              id="age"
-              type="number"
-              placeholder="Digite sua Idade"
-              label="Idade"
-              register={{
-                ...register("age", {
-                  required: true,
-                }),
-              }}
-              error={errors.age}
+              error={!!errors.fullName}
+              helperText={errors.fullName?.message}
             />
             <InputComponent
               id="url"
@@ -78,31 +72,34 @@ export const FormRegisterComponent = () => {
               placeholder="Link sua Imagem"
               label="Imagem"
               register={{
-                ...register("url", {}),
+                ...register("url"),
               }}
-              error={errors.url}
             />
 
             <div className="select">
               <label className="genderLabel" htmlFor="gender">
                 Gênero
               </label>
-              <select id="gender" {...register("gender", { required: true })}>
-                <option value="Homem">Homem</option>
-                <option value="Mulher">Mulher</option>
-                <option value="Outro">outro</option>
+              <select
+                id="gender"
+                {...register("gender", { required: "Campo obrigatório" })}
+              >
+                <option value="">Selecione</option>
+                <option value="male">Homem</option>
+                <option value="female">Mulher</option>
+                <option value="other">outro</option>
               </select>
             </div>
           </Styled.FormRow>
           <Styled.FormRow>
             <InputComponent
-              id="birthdate"
+              id="birthday"
               type="date"
-              label="Data de Nascimento"
               register={{
-                ...register("birthdate", { required: true }),
+                ...register("birthday", { required: "Campo obrigatório" }),
               }}
-              error={errors.birthdate}
+              error={!!errors.birthday}
+              helperText={errors.birthday?.message}
             />
             <InputComponent
               id="cpf"
@@ -110,36 +107,56 @@ export const FormRegisterComponent = () => {
               label="CPF"
               register={{
                 ...register("cpf", {
-                  required: true,
-                  maxLength: 11,
+                  required: "Campo obrigatório",
+                  minLength: {
+                    value: 11,
+                    message: "Campo precisa ter acima de 11 caracteres",
+                  },
+                  maxLength: {
+                    value: 14,
+                    message: "Campo precisa ter menos de 14 caracteres",
+                  },
                 }),
               }}
-              error={errors.cpf}
+              error={!!errors.cpf}
+              helperText={errors.cpf?.message}
             />
-            ;
+
             <InputComponent
               id="rg"
               type="text"
               placeholder="Digite seu RG"
               label="RG"
               register={{
-                ...register("rg", { required: true, maxLength: 11 }),
+                ...register("rg", {
+                  required: "Campo obrigatório",
+                  minLength: {
+                    value: 14,
+                    message: "Campo precisa ter acima de 14 caracteres",
+                  },
+                  maxLength: {
+                    value: 20,
+                    message: "Campo precisa ter menos de 20 caracteres",
+                  },
+                }),
               }}
-              error={errors.rg}
+              error={!!errors.rg}
+              helperText={errors.rg?.message}
             />
             <div className="select">
-              <label className="labelMstatus" htmlFor="maritalStatus">
+              <label className="civilStatus" htmlFor="civilStatus">
                 Estado Civil
               </label>
               <select
-                id="maritalStatus"
-                {...register("maritalStatus", { required: true })}
+                id="civilStatus"
+                {...register("civilStatus", { required: true })}
               >
-                <option value="Solteiro">Solteiro</option>
-                <option value="Casado">Casado</option>
-                <option value="Separado">Separado</option>
-                <option value="Divorciado">Divorciado </option>
-                <option value="Viúvo">Viúvo</option>
+                <option value="">Selecione</option>
+                <option value="single">Solteiro</option>
+                <option value="married">Casado</option>
+                <option value="separated">Separado</option>
+                <option value="divorced">Divorciado </option>
+                <option value="widowed">Viúvo</option>
               </select>
             </div>
           </Styled.FormRow>
@@ -149,18 +166,23 @@ export const FormRegisterComponent = () => {
               type="text"
               label="Telefone"
               register={{
-                ...register("telephone", { required: true }),
+                ...register("telephone", { required: "Campo obrigatório" }),
               }}
-              error={errors.telephone}
+              error={!!errors.telephone}
+              helperText={errors.telephone?.message}
             />
+
             <InputComponent
-              id="emergency"
+              id="emergencyContact"
               type="text"
               label="Contato de Emergência"
               register={{
-                ...register("emergency", { required: true }),
+                ...register("emergencyContact", {
+                  required: "Campo obrigatório",
+                }),
               }}
-              error={errors.emergency}
+              error={!!errors.emergencyContact}
+              helperText={errors.emergencyContact?.message}
             />
 
             <InputComponent
@@ -170,13 +192,15 @@ export const FormRegisterComponent = () => {
               label="email"
               register={{
                 ...register("email", {
+                  required: "Campo obrigatório",
                   validate: {
                     matchPath: (v) =>
                       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v),
                   },
                 }),
               }}
-              error={errors.email}
+              error={!!errors.email}
+              helperText={errors.email?.message}
             />
             <InputComponent
               id="nationality"
@@ -185,25 +209,40 @@ export const FormRegisterComponent = () => {
               label="Naturalidade"
               register={{
                 ...register("nationality", {
-                  required: true,
-                  minLength: 5,
-                  maxLength: 50,
+                  required: "Campo obrigatório",
+                  minLength: {
+                    value: 8,
+                    message: "Campo precisa ter acima de 5 caracteres",
+                  },
+                  maxLength: {
+                    value: 64,
+                    message: "Campo precisa ter menos de 64 caracteres",
+                  },
                 }),
               }}
-              error={errors.nationality}
+              error={!!errors.nationality}
+              helperText={errors.nationality?.message}
             />
           </Styled.FormRow>
           <Styled.FormRow>
             <InputComponent
-              id="allergies"
+              id="listOfAllergies"
               type="textarea"
               placeholder="Lista de Alergias"
               register={{
-                ...register("allergies", {
-                  maxLength: 500,
+                ...register("listOfAllergies", {
+                  minLength: {
+                    value: 1,
+                    message: "Campo precisa ter acima de 5 caracteres",
+                  },
+                  maxLength: {
+                    value: 100,
+                    message: "Campo precisa ter menos de 100 caracteres",
+                  },
                 }),
               }}
-              error={errors.allergies}
+              error={!!errors.listOfAllergies}
+              helperText={errors.listOfAllergies?.message}
             />
             <InputComponent
               id="specificCare"
@@ -211,10 +250,16 @@ export const FormRegisterComponent = () => {
               placeholder="Lista de Cuidados Específicos"
               register={{
                 ...register("specificCare", {
-                  maxLength: 500,
+                  minLength: {
+                    value: 1,
+                    message: "Campo precisa ter acima de 5 caracteres",
+                  },
+                  maxLength: {
+                    value: 100,
+                    message: "Campo precisa ter menos de 100 caracteres",
+                  },
                 }),
               }}
-              error={errors.specificCare}
             />
           </Styled.FormRow>
         </div>
@@ -223,14 +268,13 @@ export const FormRegisterComponent = () => {
 
           <Styled.FormRow>
             <InputComponent
-              id="insurance"
+              id="healthInsurance"
               type="text"
               placeholder="Unimed"
               label="Convênio"
               register={{
-                ...register("insurance"),
+                ...register("healthInsurance"),
               }}
-              error={errors.insurance}
             />
             <InputComponent
               id="insuranceNumber"
@@ -240,16 +284,13 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("insuranceNumber"),
               }}
-              error={errors.insuranceNumber}
             />
             <InputComponent
-              id="expireDate"
+              id="insuranceExpirationDate"
               type="date"
-              label="Validade do Convênio "
               register={{
-                ...register("expireDate"),
+                ...register("insuranceExpirationDate"),
               }}
-              error={errors.expireDate}
             />
           </Styled.FormRow>
         </div>
@@ -264,7 +305,6 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("cep"),
               }}
-              error={errors.cep}
             />
             <Button
               className="cepButton"
@@ -281,19 +321,15 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("city"),
               }}
-              error={errors.city}
-              readOnly
             />
             <InputComponent
               id="state"
               type="text"
               placeholder="Estado"
               label="Estado"
-              readOnly
               register={{
                 ...register("state"),
               }}
-              error={errors.state}
             />
           </Styled.FormRow>
           <Styled.FormRow>
@@ -305,8 +341,6 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("place"),
               }}
-              error={errors.place}
-              readOnly
             />
 
             <InputComponent
@@ -317,8 +351,6 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("number"),
               }}
-              error={errors.number}
-              readOnly
             />
           </Styled.FormRow>
           <Styled.FormRow>
@@ -330,8 +362,6 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("complement"),
               }}
-              error={errors.complement}
-              readOnly
             />
             <InputComponent
               id="street"
@@ -341,8 +371,6 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("street"),
               }}
-              error={errors.street}
-              readOnly
             />
             <InputComponent
               id="referencePoint"
@@ -352,8 +380,6 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("referencePoint"),
               }}
-              error={errors.referencePoint}
-              readOnly
             />
           </Styled.FormRow>
           <div>
