@@ -1,41 +1,62 @@
-import * as Styled from './Input.styles';
-import TextField from '@mui/material/TextField';
-import { useState } from 'react';
-import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
-import PropTypes from 'prop-types';
 
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import PropTypes from "prop-types";
+import * as Styled from "./Input.style";
 
-
-export const InputComponent = ({label, id, type, register}) => {
-
+export const InputComponent = ({
+  label,
+  type,
+  id,
+  placeholder,
+  register,
+  error,
+  mask,
+  as,
+  onInput,
+  helperText,
+  readOnly,
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleShowPassword = () => {
-    setShowPassword(!showPassword)
-  }
+    setShowPassword(!showPassword);
+  };
 
-  return(
+  return (
     <Styled.InputGroup>
       <TextField
         id={id}
+        onInput={onInput}
+        as={as}
         label={label}
-        type={showPassword ? 'text' : type}
+        mask={mask}
+        error={error}
+        type={showPassword ? "text" : type}
+        placeholder={placeholder}
+        helperText={helperText}
         {...register}
-        
-        />
-        {type === 'password' && 
-          <Styled.Icon type='button' onClick={handleShowPassword}>
-            {!showPassword ? <MdVisibility/> : <MdVisibilityOff/>}
+      >
+        {type === "password" && (
+          <Styled.Icon type="button" onClick={handleShowPassword}>
+            {!showPassword ? (
+              <VisibilityOutlinedIcon />
+            ) : (
+              <VisibilityOffOutlinedIcon />
+            )}
           </Styled.Icon>
-        }
+        )}
+      </TextField>
     </Styled.InputGroup>
   );
-}
+};
 
 InputComponent.propTypes = {
-  id: PropTypes.string.isRequired,
   label: PropTypes.string,
   type: PropTypes.string,
+  placeholder: PropTypes.string,
   register: PropTypes.any,
-  error: PropTypes.any
-}
+  error: PropTypes.any,
+};
