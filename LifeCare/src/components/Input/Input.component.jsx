@@ -1,8 +1,8 @@
 
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+// import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+// import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import PropTypes from "prop-types";
 import * as Styled from "./Input.style";
 
@@ -39,7 +39,7 @@ export const InputComponent = ({
         helperText={helperText}
         {...register}
       >
-        {type === "password" && (
+        {/* {type === "password" && (
           <Styled.Icon type="button" onClick={handleShowPassword}>
             {!showPassword ? (
               <VisibilityOutlinedIcon />
@@ -47,7 +47,7 @@ export const InputComponent = ({
               <VisibilityOffOutlinedIcon />
             )}
           </Styled.Icon>
-        )}
+        )} */}
       </TextField>
     </Styled.InputGroup>
   );
