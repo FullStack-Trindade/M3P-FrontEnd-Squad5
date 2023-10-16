@@ -3,7 +3,6 @@ import Button from "@mui/material/Button";
 
 import { useForm } from "react-hook-form";
 import * as Styled from "./FormRegisterPatient.styles";
-import { useEffect } from "react";
 import { ViaCEP } from "../../services/ViaCep/ViaCep.service";
 import { SelectComponent } from "../Select/Select.component";
 
@@ -83,22 +82,15 @@ export const FormRegisterComponent = () => {
               error={!!errors.fullName}
               helperText={errors.fullName?.message}
             />
-            <InputComponent
-              id="url"
-              type="text"
-              placeholder="Link sua Imagem"
-              label="Imagem"
-              register={{
-                ...register("url"),
-              }}
-            />
             <SelectComponent
               id={"gender"}
               label={"Gênero"}
               error={!!errors.gender}
               helperText={errors.gender?.message}
               option={selectGender}
-              {...register("gender", { required: "Selecione uma das opções" })}
+              register={{
+                ...register("gender", { required: "Selecione uma das opções" }),
+              }}
             />
           </Styled.FormRow>
           <Styled.FormRow>
@@ -159,9 +151,11 @@ export const FormRegisterComponent = () => {
               error={!!errors.civilStatus}
               helperText={errors.civilStatus?.message}
               option={selectCivilStatus}
-              {...register("civilStatus", {
-                required: "Selecione uma das opções",
-              })}
+              register={{
+                ...register("civilStatus", {
+                  required: "Selecione uma das opções",
+                }),
+              }}
             />
           </Styled.FormRow>
           <Styled.FormRow>
@@ -170,7 +164,17 @@ export const FormRegisterComponent = () => {
               type="text"
               label="Telefone"
               register={{
-                ...register("phoneNumber", { required: "Campo obrigatório" }),
+                ...register("phoneNumber", {
+                  required: "Campo obrigatório",
+                  minLength: {
+                    value: 8,
+                    message: "Campo precisa ter acima de 8 caracteres",
+                  },
+                  maxLength: {
+                    value: 11,
+                    message: "Campo precisa ter menos de 11 caracteres",
+                  },
+                }),
               }}
               error={!!errors.phoneNumber}
               helperText={errors.phoneNumber?.message}
@@ -183,6 +187,14 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("emergencyContact", {
                   required: "Campo obrigatório",
+                  minLength: {
+                    value: 8,
+                    message: "Campo precisa ter acima de 8 caracteres",
+                  },
+                  maxLength: {
+                    value: 11,
+                    message: "Campo precisa ter menos de 11 caracteres",
+                  },
                 }),
               }}
               error={!!errors.emergencyContact}
