@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import * as Styled from "./FormRegisterPatient.styles";
 import { useEffect } from "react";
 import { ViaCEP } from "../../services/ViaCep/ViaCep.service";
+import { SelectComponent } from "../Select/Select.component";
 
 export const FormRegisterComponent = () => {
   const {
@@ -15,6 +16,21 @@ export const FormRegisterComponent = () => {
     formState: { errors },
   } = useForm();
 
+  const selectGender = [
+    { value: "", label: "Selecione" },
+    { value: "male", label: "Masculino" },
+    { value: "female", label: "Feminino" },
+    { value: "other", label: "Outro" },
+  ];
+
+  const selectCivilStatus = [
+    { value: "", label: "Selecione" },
+    { value: "single", label: "Solteiro" },
+    { value: "married", label: "Casado" },
+    { value: "separated", label: "Separado" },
+    { value: "divorced", label: "Divorciado" },
+    { value: "widowed", label: "Viúvo" },
+  ];
   const handleCep = async () => {
     await ViaCEP(watch("cep")).then((res) => {
       setValue("city", res.localidade);
@@ -76,21 +92,14 @@ export const FormRegisterComponent = () => {
                 ...register("url"),
               }}
             />
-
-            <div className="select">
-              <label className="genderLabel" htmlFor="gender">
-                Gênero
-              </label>
-              <select
-                id="gender"
-                {...register("gender", { required: "Campo obrigatório" })}
-              >
-                <option value="">Selecione</option>
-                <option value="male">Homem</option>
-                <option value="female">Mulher</option>
-                <option value="other">outro</option>
-              </select>
-            </div>
+            <SelectComponent
+              id={"gender"}
+              label={"Gênero"}
+              error={!!errors.gender}
+              helperText={errors.gender?.message}
+              option={selectGender}
+              {...register("gender", { required: "Selecione uma das opções" })}
+            />
           </Styled.FormRow>
           <Styled.FormRow>
             <InputComponent
@@ -144,22 +153,16 @@ export const FormRegisterComponent = () => {
               error={!!errors.rg}
               helperText={errors.rg?.message}
             />
-            <div className="select">
-              <label className="civilStatus" htmlFor="civilStatus">
-                Estado Civil
-              </label>
-              <select
-                id="civilStatus"
-                {...register("civilStatus", { required: true })}
-              >
-                <option value="">Selecione</option>
-                <option value="single">Solteiro</option>
-                <option value="married">Casado</option>
-                <option value="separated">Separado</option>
-                <option value="divorced">Divorciado </option>
-                <option value="widowed">Viúvo</option>
-              </select>
-            </div>
+            <SelectComponent
+              id={"civilStatus"}
+              label={"Estado Civil"}
+              error={!!errors.civilStatus}
+              helperText={errors.civilStatus?.message}
+              option={selectCivilStatus}
+              {...register("civilStatus", {
+                required: "Selecione uma das opções",
+              })}
+            />
           </Styled.FormRow>
           <Styled.FormRow>
             <InputComponent
