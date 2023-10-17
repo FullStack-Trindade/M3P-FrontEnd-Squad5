@@ -2,12 +2,18 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { PatientRegistrationPage } from "../pages/PatientRegistrationPage/PatientRegistration.page";
 import { LoginPage } from "../pages/LoginPage/Login.page.jsx";
 import { Layout } from "../layouts/Layout";
+import { UserRegistrationPage } from "../pages/UserRegistrationPage/UserRegistration.page";
 
 export const AppRoutes = () => {
   return (
     <Router>
       <Routes>
         <Route path="login" element={<LoginPage />} />
+        <Route path="/cadastro/usuario/" element={<UserRegistrationPage />} />
+        <Route
+          path="/cadastro/usuario/:id"
+          element={<UserRegistrationPage />}
+        />
         <Route
           path="/cadastro/paciente"
           element={<PatientRegistrationPage />}
