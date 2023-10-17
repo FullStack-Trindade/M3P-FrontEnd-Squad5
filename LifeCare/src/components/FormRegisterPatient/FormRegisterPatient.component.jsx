@@ -56,7 +56,7 @@ export const FormRegisterComponent = () => {
 
   return (
     <>
-      <Styled.FormPatient onSubmit={handleSubmit(submitForm)}>
+      <Styled.Form onSubmit={handleSubmit(submitForm)}>
         <Styled.FormTitle>Preencha os campos para cadastrar</Styled.FormTitle>
         <Styled.FormColumn>
           <Styled.FormLegend>Indentificação</Styled.FormLegend>
@@ -408,7 +408,7 @@ export const FormRegisterComponent = () => {
             </Button>
           </Styled.ButtonWrapper>
         </Styled.FormColumn>
-      </Styled.FormPatient>
+      </Styled.Form>
     </>
   );
 };

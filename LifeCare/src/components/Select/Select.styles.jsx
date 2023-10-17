@@ -21,7 +21,7 @@ export const SelectLabel = styled.label`
 
 export const FormSelect = styled.select`
   display: inline-block;
-  width: 8rem;
+  width: 18em;
   cursor: pointer;
   padding: 1rem 1rem;
   outline: 0;

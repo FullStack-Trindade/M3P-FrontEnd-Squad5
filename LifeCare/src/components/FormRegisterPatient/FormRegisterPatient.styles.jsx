@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormPatient = styled.form`
+export const Form = styled.form`
   background-color: #ebf3f3;
   width: 80%;
   height: 48rem;
