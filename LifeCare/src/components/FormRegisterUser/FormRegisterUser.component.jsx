@@ -27,14 +27,23 @@ export const FormRegisterUser = () => {
   ];
   const submitForm = async (data) => {
     const body = {
-      ...data,
+      fullName,
+      gender,
+      type,
+      cpf,
+      email,
+      password,
     };
     console.log(body);
   };
   const submitEdit = async (data) => {
-    true;
     const body = {
-      ...data,
+      fullName,
+      gender,
+      type,
+      cpf,
+      email,
+      password,
     };
   };
   const submitDelete = async () => {};
