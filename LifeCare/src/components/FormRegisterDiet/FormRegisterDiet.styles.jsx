@@ -15,6 +15,7 @@ export const FormColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 75rem;
   padding: 0.5rem;
   gap: 1rem;
 `;
