@@ -10,25 +10,18 @@ export const AppRoutes = () => {
     <Router>
       <Routes>
         <Route path="login" element={<LoginPage />} />
-        <Route path="/cadastro/usuario/" element={<UserRegistrationPage />} />
-        <Route
-          path="/cadastro/usuario/:id"
-          element={<UserRegistrationPage />}
-        />
-        <Route
-          path="/cadastro/paciente"
-          element={<PatientRegistrationPage />}
-        />
-        <Route
-          path="/cadastro/paciente/:id"
-          element={<PatientRegistrationPage />}
-        />
-        <Route
-          path="/cadastro/exame"
-          element={<ExaminationRegistrationPage />}
-        />
-
-        <Route path="/" element={<Layout />}></Route>
+        <Route path="/" element={<Layout />}>
+          <Route
+            path="/cadastro/paciente"
+            element={<PatientRegistrationPage />}
+          />
+          <Route
+            path="/cadastro/paciente/:id"
+            element={<PatientRegistrationPage />}
+          />
+          <Route path="/cadastro/usuario" element={<UserRegistrationPage/>}/>
+          <Route path="/cadastro/exame" element={<ExaminationRegistrationPage/>}/>
+        </Route>
       </Routes>
     </Router>
   );
