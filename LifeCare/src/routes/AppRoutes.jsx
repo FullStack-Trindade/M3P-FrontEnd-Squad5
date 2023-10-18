@@ -4,6 +4,7 @@ import { LoginPage } from "../pages/LoginPage/Login.page.jsx";
 import { Layout } from "../layouts/Layout";
 import { UserRegistrationPage } from "../pages/UserRegistrationPage/UserRegistration.page";
 import { ExaminationRegistrationPage } from "../pages/ExaminationRegistrationPage/ExaminationRegistration.page";
+import { DietRegistrationPage } from "../pages/DietRegistrationPage/DietRegistration.page";
 
 export const AppRoutes = () => {
   return (
@@ -11,6 +12,11 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<Layout />}>
+          <Route path="/cadastro/usuario/" element={<UserRegistrationPage />} />
+          <Route
+            path="/cadastro/usuario/:id"
+            element={<UserRegistrationPage />}
+          />
           <Route
             path="/cadastro/paciente"
             element={<PatientRegistrationPage />}
@@ -19,8 +25,11 @@ export const AppRoutes = () => {
             path="/cadastro/paciente/:id"
             element={<PatientRegistrationPage />}
           />
-          <Route path="/cadastro/usuario" element={<UserRegistrationPage/>}/>
-          <Route path="/cadastro/exame" element={<ExaminationRegistrationPage/>}/>
+          <Route
+            path="/cadastro/exame"
+            element={<ExaminationRegistrationPage />}
+          />
+          <Route path="/cadastro/dieta" element={<DietRegistrationPage/>}/>
         </Route>
       </Routes>
     </Router>
