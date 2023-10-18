@@ -2,9 +2,7 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
   width: 100%;
-  height: 75px;
   background-color: #8ae9f0;
-  margin-bottom: 10px;
   display: flex;
 `;
 
