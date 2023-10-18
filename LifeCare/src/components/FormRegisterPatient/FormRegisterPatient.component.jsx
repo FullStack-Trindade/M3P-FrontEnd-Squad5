@@ -3,6 +3,8 @@ import Button from "@mui/material/Button";
 
 import { useForm } from "react-hook-form";
 import * as Styled from "./FormRegisterPatient.styles";
+import { ViaCEP } from "../../services/ViaCep/ViaCep.service";
+import { SelectComponent } from "../Select/Select.component";
 
 export const FormRegisterComponent = () => {
   const {
@@ -12,18 +14,32 @@ export const FormRegisterComponent = () => {
     setValue,
     formState: { errors },
   } = useForm();
-  /*
+
+  const selectGender = [
+    { value: "", label: "Selecione" },
+    { value: "male", label: "Masculino" },
+    { value: "female", label: "Feminino" },
+    { value: "other", label: "Outro" },
+  ];
+
+  const selectCivilStatus = [
+    { value: "", label: "Selecione" },
+    { value: "single", label: "Solteiro" },
+    { value: "married", label: "Casado" },
+    { value: "separated", label: "Separado" },
+    { value: "divorced", label: "Divorciado" },
+    { value: "widowed", label: "Viúvo" },
+  ];
   const handleCep = async () => {
-  
-    await ViaCep.Get(watch("cep")).then((response) => {
-      setValue("city", response.localidade);
-      setValue("state", response.uf);
-      setValue("place", response.logradouro);
-      setValue("complement", response.complemento);
-      setValue("street", response.bairro);
+    await ViaCEP(watch("cep")).then((res) => {
+      setValue("city", res.localidade);
+      setValue("state", res.uf);
+      setValue("place", res.logradouro);
+      setValue("complement", res.complemento);
+      setValue("street", res.bairro);
     });
   };
-  */
+
   const submitForm = async (data) => {
     const body = {
       ...data,
@@ -40,10 +56,10 @@ export const FormRegisterComponent = () => {
 
   return (
     <>
-      <Styled.FormPatient onSubmit={handleSubmit(submitForm)}>
-        <legend className="formTitle">Preencha os campos para cadastrar</legend>
-        <div className="formContent">
-          <legend className="formTitle">Indentificação</legend>
+      <Styled.Form onSubmit={handleSubmit(submitForm)}>
+        <Styled.FormTitle>Preencha os campos para cadastrar</Styled.FormTitle>
+        <Styled.FormColumn>
+          <Styled.FormLegend>Indentificação</Styled.FormLegend>
           <Styled.FormRow>
             <InputComponent
               id="fullName"
@@ -66,30 +82,16 @@ export const FormRegisterComponent = () => {
               error={!!errors.fullName}
               helperText={errors.fullName?.message}
             />
-            <InputComponent
-              id="url"
-              type="text"
-              placeholder="Link sua Imagem"
-              label="Imagem"
+            <SelectComponent
+              id={"gender"}
+              label={"Gênero"}
+              error={!!errors.gender}
+              helperText={errors.gender?.message}
+              option={selectGender}
               register={{
-                ...register("url"),
+                ...register("gender", { required: "Selecione uma das opções" }),
               }}
             />
-
-            <div className="select">
-              <label className="genderLabel" htmlFor="gender">
-                Gênero
-              </label>
-              <select
-                id="gender"
-                {...register("gender", { required: "Campo obrigatório" })}
-              >
-                <option value="">Selecione</option>
-                <option value="male">Homem</option>
-                <option value="female">Mulher</option>
-                <option value="other">outro</option>
-              </select>
-            </div>
           </Styled.FormRow>
           <Styled.FormRow>
             <InputComponent
@@ -143,33 +145,39 @@ export const FormRegisterComponent = () => {
               error={!!errors.rg}
               helperText={errors.rg?.message}
             />
-            <div className="select">
-              <label className="civilStatus" htmlFor="civilStatus">
-                Estado Civil
-              </label>
-              <select
-                id="civilStatus"
-                {...register("civilStatus", { required: true })}
-              >
-                <option value="">Selecione</option>
-                <option value="single">Solteiro</option>
-                <option value="married">Casado</option>
-                <option value="separated">Separado</option>
-                <option value="divorced">Divorciado </option>
-                <option value="widowed">Viúvo</option>
-              </select>
-            </div>
+            <SelectComponent
+              id={"civilStatus"}
+              label={"Estado Civil"}
+              error={!!errors.civilStatus}
+              helperText={errors.civilStatus?.message}
+              option={selectCivilStatus}
+              register={{
+                ...register("civilStatus", {
+                  required: "Selecione uma das opções",
+                }),
+              }}
+            />
           </Styled.FormRow>
           <Styled.FormRow>
             <InputComponent
-              id="telephone"
+              id="phoneNumber"
               type="text"
               label="Telefone"
               register={{
-                ...register("telephone", { required: "Campo obrigatório" }),
+                ...register("phoneNumber", {
+                  required: "Campo obrigatório",
+                  minLength: {
+                    value: 8,
+                    message: "Campo precisa ter acima de 8 caracteres",
+                  },
+                  maxLength: {
+                    value: 11,
+                    message: "Campo precisa ter menos de 11 caracteres",
+                  },
+                }),
               }}
-              error={!!errors.telephone}
-              helperText={errors.telephone?.message}
+              error={!!errors.phoneNumber}
+              helperText={errors.phoneNumber?.message}
             />
 
             <InputComponent
@@ -179,6 +187,14 @@ export const FormRegisterComponent = () => {
               register={{
                 ...register("emergencyContact", {
                   required: "Campo obrigatório",
+                  minLength: {
+                    value: 8,
+                    message: "Campo precisa ter acima de 8 caracteres",
+                  },
+                  maxLength: {
+                    value: 11,
+                    message: "Campo precisa ter menos de 11 caracteres",
+                  },
                 }),
               }}
               error={!!errors.emergencyContact}
@@ -262,9 +278,9 @@ export const FormRegisterComponent = () => {
               }}
             />
           </Styled.FormRow>
-        </div>
-        <div className="formContent">
-          <legend className="formTitle">Convênio</legend>
+        </Styled.FormColumn>
+        <Styled.FormColumn>
+          <Styled.FormLegend>Convênio</Styled.FormLegend>
 
           <Styled.FormRow>
             <InputComponent
@@ -293,10 +309,10 @@ export const FormRegisterComponent = () => {
               }}
             />
           </Styled.FormRow>
-        </div>
-        <div className="formContent">
-          <legend className="formTitle">Dados de Endereço</legend>
-          <div className="formRowSearch">
+        </Styled.FormColumn>
+        <Styled.FormColumn>
+          <Styled.FormLegend>Dados de Endereço</Styled.FormLegend>
+          <Styled.FormRow>
             <InputComponent
               id="cep"
               type="text"
@@ -309,15 +325,15 @@ export const FormRegisterComponent = () => {
             <Button
               className="cepButton"
               variant="outlined"
+              onClick={handleCep}
               type="button"
             ></Button>
-          </div>
+          </Styled.FormRow>
           <Styled.FormRow>
             <InputComponent
               id="city"
               type="text"
-              placeholder="Endereço"
-              label="Cidade"
+              placeholder="Cidade"
               register={{
                 ...register("city"),
               }}
@@ -326,7 +342,6 @@ export const FormRegisterComponent = () => {
               id="state"
               type="text"
               placeholder="Estado"
-              label="Estado"
               register={{
                 ...register("state"),
               }}
@@ -337,7 +352,6 @@ export const FormRegisterComponent = () => {
               id="place"
               type="text"
               placeholder="Logradouro"
-              label="Logradouro"
               register={{
                 ...register("place"),
               }}
@@ -347,7 +361,6 @@ export const FormRegisterComponent = () => {
               id="number"
               type="text"
               placeholder="Número"
-              label="Número"
               register={{
                 ...register("number"),
               }}
@@ -358,7 +371,6 @@ export const FormRegisterComponent = () => {
               id="complement"
               type="text"
               placeholder="Complemento"
-              label="Complemento"
               register={{
                 ...register("complement"),
               }}
@@ -367,7 +379,6 @@ export const FormRegisterComponent = () => {
               id="street"
               type="text"
               placeholder="Bairro"
-              label="Bairro"
               register={{
                 ...register("street"),
               }}
@@ -376,13 +387,12 @@ export const FormRegisterComponent = () => {
               id="referencePoint"
               type="referencePoint"
               placeholder="Ponto de Referência"
-              label="Ponto de Referência"
               register={{
                 ...register("referencePoint"),
               }}
             />
           </Styled.FormRow>
-          <div>
+          <Styled.ButtonWrapper>
             <Button
               variant="outlined"
               type="button"
@@ -396,9 +406,9 @@ export const FormRegisterComponent = () => {
             <Button variant="outlined" type="submit">
               Salvar
             </Button>
-          </div>
-        </div>
-      </Styled.FormPatient>
+          </Styled.ButtonWrapper>
+        </Styled.FormColumn>
+      </Styled.Form>
     </>
   );
 };

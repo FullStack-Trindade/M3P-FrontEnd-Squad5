@@ -13,11 +13,8 @@ export const InputComponent = ({
   placeholder,
   register,
   error,
-  mask,
-  as,
   onInput,
   helperText,
-  readOnly,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,9 +27,7 @@ export const InputComponent = ({
       <TextField
         id={id}
         onInput={onInput}
-        as={as}
         label={label}
-        mask={mask}
         error={error}
         type={showPassword ? "text" : type}
         placeholder={placeholder}
@@ -56,7 +51,9 @@ export const InputComponent = ({
 InputComponent.propTypes = {
   label: PropTypes.string,
   type: PropTypes.string,
+  id: PropTypes.string,
   placeholder: PropTypes.string,
   register: PropTypes.any,
   error: PropTypes.any,
+  helperText: PropTypes.any,
 };
