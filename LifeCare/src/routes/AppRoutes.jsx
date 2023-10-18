@@ -3,6 +3,7 @@ import { PatientRegistrationPage } from "../pages/PatientRegistrationPage/Patien
 import { LoginPage } from "../pages/LoginPage/Login.page.jsx";
 import { Layout } from "../layouts/Layout";
 import { UserRegistrationPage } from "../pages/UserRegistrationPage/UserRegistration.page";
+import { ExaminationRegistrationPage } from "../pages/ExaminationRegistrationPage/ExaminationRegistration.page";
 
 export const AppRoutes = () => {
   return (
@@ -22,6 +23,11 @@ export const AppRoutes = () => {
           path="/cadastro/paciente/:id"
           element={<PatientRegistrationPage />}
         />
+        <Route
+          path="/cadastro/exame"
+          element={<ExaminationRegistrationPage />}
+        />
+
         <Route path="/" element={<Layout />}></Route>
       </Routes>
     </Router>
