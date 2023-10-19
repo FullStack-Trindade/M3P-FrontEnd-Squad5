@@ -5,6 +5,7 @@ import { Layout } from "../layouts/Layout";
 import { UserRegistrationPage } from "../pages/UserRegistrationPage/UserRegistration.page";
 import { ExaminationRegistrationPage } from "../pages/ExaminationRegistrationPage/ExaminationRegistration.page";
 import { DietRegistrationPage } from "../pages/DietRegistrationPage/DietRegistration.page";
+import { HomePage } from '../pages/HomePage/Home.page';
 
 export const AppRoutes = () => {
   return (
@@ -12,6 +13,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage/>}/>
           <Route path="/cadastro/usuario/" element={<UserRegistrationPage />} />
           <Route
             path="/cadastro/usuario/:id"

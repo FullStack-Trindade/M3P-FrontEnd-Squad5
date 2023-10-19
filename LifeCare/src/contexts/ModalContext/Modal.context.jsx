@@ -5,14 +5,17 @@ export const ModalContext = createContext(
     {
         showModal: false,
         setShowModal: () => {},
+        patient: {},
+        setPatient: () => {},
     }
 );
 
 export const ModalProvider = ({children}) => {
     const [showModal, setShowModal] = useState(false);
+    const [patient, setPatient] = useState();
 
     return(
-        <ModalContext.Provider value={{showModal, setShowModal}}>
+        <ModalContext.Provider value={{showModal, setShowModal, patient, setPatient}}>
             {children}
         </ModalContext.Provider>
     )

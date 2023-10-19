@@ -14,14 +14,7 @@ export const FormLoginComponent = () => {
     const { showModal, setShowModal } = useContext(ModalContext);
 
     const handleShowModal = () => {
-        let admin = false;
-
-        if(!admin) {
-            alert('Contact an administrator to acess the system');
-            console.log('User contacted an admin to create account');
-        } else {
-            setShowModal(!showModal);
-        }
+        setShowModal(!showModal);
     }
 
     const offLink = () => {
@@ -30,13 +23,7 @@ export const FormLoginComponent = () => {
     }
 
     if(!LocalStorageService.get('users')) {
-        LocalStorageService.set('users', [
-            {
-                id: 1,
-                email: 'admin@life.com',
-                password: '12456789'
-            }
-        ])
+        LocalStorageService.set('users', [])
     }
 
     const {
