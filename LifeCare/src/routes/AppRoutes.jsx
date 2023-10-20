@@ -5,7 +5,8 @@ import { Layout } from "../layouts/Layout";
 import { UserRegistrationPage } from "../pages/UserRegistrationPage/UserRegistration.page";
 import { ExaminationRegistrationPage } from "../pages/ExaminationRegistrationPage/ExaminationRegistration.page";
 import { DietRegistrationPage } from "../pages/DietRegistrationPage/DietRegistration.page";
-import { HomePage } from '../pages/HomePage/Home.page';
+import { HomePage } from "../pages/HomePage/Home.page";
+import { PhysicalExerciseRegistrationPage } from "../pages/PhysicalExerciseRegistrationPage/PhysicalExerciseRegistration.page";
 
 export const AppRoutes = () => {
   return (
@@ -13,7 +14,7 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage/>}/>
+          <Route index element={<HomePage />} />
           <Route path="/cadastro/usuario/" element={<UserRegistrationPage />} />
           <Route
             path="/cadastro/usuario/:id"
@@ -31,7 +32,23 @@ export const AppRoutes = () => {
             path="/cadastro/exame"
             element={<ExaminationRegistrationPage />}
           />
-          <Route path="/cadastro/dieta" element={<DietRegistrationPage/>}/>
+          <Route
+            path="/cadastro/exame/:id"
+            element={<ExaminationRegistrationPage />}
+          />
+          <Route path="/cadastro/dieta" element={<DietRegistrationPage />} />
+          <Route
+            path="/cadastro/dieta/:id"
+            element={<DietRegistrationPage />}
+          />
+          <Route
+            path="/cadastro/exercicio"
+            element={<PhysicalExerciseRegistrationPage />}
+          />
+          <Route
+            path="/cadastro/exercicio/:id"
+            element={<PhysicalExerciseRegistrationPage />}
+          />
         </Route>
       </Routes>
     </Router>
