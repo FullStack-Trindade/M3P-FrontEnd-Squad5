@@ -51,6 +51,7 @@ export const AppRoutes = () => {
             element={<PhysicalExerciseRegistrationPage />}
           />
           <Route path="/prontuario" element={<HandbookPage/>}/>
+          <Route path="/prontuario/:id" element={<HandbookPage/>}/>
         </Route>
       </Routes>
     </Router>
