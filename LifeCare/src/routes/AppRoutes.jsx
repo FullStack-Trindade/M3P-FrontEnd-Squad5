@@ -7,6 +7,7 @@ import { ExaminationRegistrationPage } from "../pages/ExaminationRegistrationPag
 import { DietRegistrationPage } from "../pages/DietRegistrationPage/DietRegistration.page";
 import { HomePage } from "../pages/HomePage/Home.page";
 import { PhysicalExerciseRegistrationPage } from "../pages/PhysicalExerciseRegistrationPage/PhysicalExerciseRegistration.page";
+import { HandbookPage } from "../pages/HandbookPage/Handbook.page";
 
 export const AppRoutes = () => {
   return (
@@ -49,6 +50,7 @@ export const AppRoutes = () => {
             path="/cadastro/exercicio/:id"
             element={<PhysicalExerciseRegistrationPage />}
           />
+          <Route path="/prontuario" element={<HandbookPage/>}/>
         </Route>
       </Routes>
     </Router>
