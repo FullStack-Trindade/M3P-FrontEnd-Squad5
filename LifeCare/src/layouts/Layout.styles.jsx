@@ -19,6 +19,6 @@ export const Content = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: grey;
+    background-color: yellow;
     flex: 1;
 `
