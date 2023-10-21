@@ -1,8 +1,8 @@
-import { InputComponent } from "../Input/Input.component";
+import { InputComponent } from "../../Input/Input.component";
 import Button from "@mui/material/Button";
 
 import { useForm } from "react-hook-form";
-import * as Styled from "./FormRegisterExamination.styles";
+import * as Styled from "../Form.styles";
 
 export const FormRegisterComponent = () => {
   const {
@@ -33,9 +33,9 @@ export const FormRegisterComponent = () => {
       <Styled.Form onSubmit={handleSubmit(submitForm)}>
         <Styled.FormTitle>Cadastrar Exame</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormLegend>
+          <Styled.FormSubTitle>
             Preencha os campos para cadastrar
-          </Styled.FormLegend>
+          </Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="name"
