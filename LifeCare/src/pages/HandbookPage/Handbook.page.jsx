@@ -15,8 +15,20 @@ export const HandbookPage = () => {
         },
         {
             id: 3,
+            data: 'Idade',
+        },
+        {
+            id: 4,
+            data: 'Contato',
+        },
+        {
+            id: 5,
+            data: 'Convênio',
+        },
+        {
+            id: 6,
             data: 'Detalhes',
-        }
+        },
     ]
 
     return(
