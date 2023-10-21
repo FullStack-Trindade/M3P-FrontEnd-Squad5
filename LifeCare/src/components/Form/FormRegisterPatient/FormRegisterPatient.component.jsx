@@ -1,12 +1,12 @@
-import { InputComponent } from "../Input/Input.component";
+import { InputComponent } from "../../Input/Input.component";
 import Button from "@mui/material/Button";
 
 import { useForm } from "react-hook-form";
-import * as Styled from "./FormRegisterPatient.styles";
-import { ViaCEP } from "../../services/ViaCep/ViaCep.service";
-import { SelectComponent } from "../Select/Select.component";
+import * as Styled from "../Form.styles";
+import { ViaCEP } from "../../../services/ViaCep/ViaCep.service";
+import { SelectComponent } from "../../Select/Select.component";
 
-export const FormRegisterComponent = () => {
+export const FormRegisterPatientComponent = () => {
   const {
     register,
     handleSubmit,
@@ -59,7 +59,7 @@ export const FormRegisterComponent = () => {
       <Styled.Form onSubmit={handleSubmit(submitForm)}>
         <Styled.FormTitle>Preencha os campos para cadastrar</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormLegend>Indentificação</Styled.FormLegend>
+          <Styled.FormSubTitle>Indentificação</Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="fullName"
@@ -280,7 +280,7 @@ export const FormRegisterComponent = () => {
           </Styled.FormRow>
         </Styled.FormColumn>
         <Styled.FormColumn>
-          <Styled.FormLegend>Convênio</Styled.FormLegend>
+          <Styled.FormSubTitle>Convênio</Styled.FormSubTitle>
 
           <Styled.FormRow>
             <InputComponent
@@ -311,7 +311,7 @@ export const FormRegisterComponent = () => {
           </Styled.FormRow>
         </Styled.FormColumn>
         <Styled.FormColumn>
-          <Styled.FormLegend>Dados de Endereço</Styled.FormLegend>
+          <Styled.FormSubTitle>Dados de Endereço</Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="cep"

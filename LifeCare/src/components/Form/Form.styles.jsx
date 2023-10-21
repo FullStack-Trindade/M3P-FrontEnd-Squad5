@@ -2,8 +2,7 @@ import styled from "styled-components";
 
 export const Form = styled.form`
   background-color: #ebf3f3;
-  width: 70rem;
-  height: 45rem;
+  height: 48rem;
   margin: 1rem;
   border-radius: 0.5rem;
   border: 0.1rem solid #5281dc;
@@ -15,6 +14,7 @@ export const FormColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 75rem;
   padding: 0.5rem;
   gap: 1rem;
 `;
@@ -28,7 +28,15 @@ export const FormRow = styled.div`
 
 export const FormTitle = styled.legend`
   color: #12619d;
-  font-size: 3rem;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 1rem;
+`;
+export const FormSubTitle = styled.legend`
+  color: #12619d;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 700;
   line-height: normal;

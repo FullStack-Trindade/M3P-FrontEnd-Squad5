@@ -1,4 +1,4 @@
-import { FormRegisterPhysicalExerciseComponent } from "../../components/FormRegisterPhysicalExercise/FormRegisterPhysicalExercise.component";
+import { FormRegisterPhysicalExerciseComponent } from "../../components/Form/FormRegisterPhysicalExercise/FormRegisterPhysicalExercise.component";
 import * as Styled from "./PhysicalExerciseRegistration.styles";
 
 export const PhysicalExerciseRegistrationPage = () => {

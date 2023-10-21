@@ -1,6 +1,7 @@
-import { SelectComponent } from "../Select/Select.component";
-import { InputComponent } from "../Input/Input.component";
-import * as Styled from "./FormRegisterUser.styles";
+import { SelectComponent } from "../../Select/Select.component";
+import { InputComponent } from "../../Input/Input.component";
+import * as Styled from "../Form.styles";
+
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 
@@ -53,7 +54,7 @@ export const FormRegisterUser = () => {
       <Styled.Form onSubmit={handleSubmit(submitForm)}>
         <Styled.FormTitle>Preencha os campos para cadastrar</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormLegend>Cadastre um Usuario</Styled.FormLegend>
+          <Styled.FormSubTitle>Cadastre um Usuario</Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="fullName"
