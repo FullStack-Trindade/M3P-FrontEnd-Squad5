@@ -16,8 +16,11 @@ export const ModalDataComponent = () => {
     return(
         <Styled.DataWrapper>
             <Styled.Info key={patient.id}>
-                <h2>{patient.name}</h2>
-                <Button variant="outlined" type='button' onClick={handleShowModal}>Fechar</Button>
+                <h2>{patient.fullName}</h2>
+                <p>{patient.age}</p>
+                <p>{patient.email}</p>
+                <p>{patient.healthInsurance}</p>
+                <Button variant="outlined" type='button'><Link to='/cadastro/paciente'>Fechar</Link></Button>
             </Styled.Info>
         </Styled.DataWrapper>
     );
