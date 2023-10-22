@@ -23,11 +23,7 @@ export const HandbookComponent = () => {
             {patients.map(patient => {
                 return(
                     <Styled.PatientInfo key={patient.id}>
-                        <Styled.PatientData>{patient.id}</Styled.PatientData>
                         <Styled.PatientData>{patient.fullName}aderbal ramos da silva</Styled.PatientData>
-                        <Styled.PatientData>{patient.age}56</Styled.PatientData>
-                        <Styled.PatientData>{patient.phoneNumber}99999999</Styled.PatientData>
-                        <Styled.PatientData>{patient.healthInsurance}unimed</Styled.PatientData>
                         <Button variant="outlined" type="button" onClick={() => handleShowModal(patient)}>Detalhes</Button>
                     </Styled.PatientInfo>
                 );

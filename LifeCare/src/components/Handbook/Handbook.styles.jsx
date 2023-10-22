@@ -6,7 +6,7 @@ export const PatientInfo = styled.div`
     justify-content: space-around;
     height: 10%;
     width: 95%;
-    background-color: yellow;
+    background-color: #46893e;
     margin-top: 10px;
     border-radius: 20px;
 `
