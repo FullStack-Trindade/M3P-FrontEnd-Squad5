@@ -12,11 +12,81 @@ export const ModalDataComponent = () => {
         setPatient(null);
     }
 
+    const titles = [
+        {
+            id: 1,
+            title: 'Consultas'
+        },
+        {
+            id: 2,
+            title: 'Exames'
+        },
+        {
+            id: 3,
+            title: 'Medicamentos'
+        },
+        {
+            id: 4,
+            title: 'Dietas'
+        },
+        {
+            id: 5,
+            title: 'Exercícios'
+        }
+    ]
 
-    return(
+
+    return (
         <Styled.DataWrapper>
             <Styled.Info key={patient.id}>
-                <h2>{patient.name}</h2>
+                <h1>Nome do Paciente: {patient.fullName}</h1>
+                <h3>Idade: {patient.age}</h3>
+                <h3>Contato: {patient.age}</h3>
+                <h3>Convênio: {patient.healthInsurance}</h3>
+                <h3>Alergias: {patient.listOfAllergies}</h3>
+                <h3>Cuidados Especiais: {patient.specificCare}</h3>
+                <Styled.Box>
+                    <Styled.BoxDataWrapper>
+                        <Styled.RoleTitle>Consultas</Styled.RoleTitle>
+                        <h2>Motivo da Consulta: {patient.appointmentReason}</h2>
+                        <h3>Data da Consulta: {patient.appointmentDate}</h3>
+                        <p>Descrição: {patient.description}</p>
+                        <p>Medicamentos Prescritos: {patient.prescriptionMedication}</p>
+                        <p>Precauções de Dosagem: {patient.dosagePrecautions}</p>
+                    </Styled.BoxDataWrapper>
+                </Styled.Box>
+                <Styled.Box>
+                    <Styled.RoleTitle>Exames</Styled.RoleTitle>
+                    <h2>Motivo da Consulta: {patient.appointmentReason}</h2>
+                    <h3>Data da Consulta: {patient.appointmentDate}</h3>
+                    <p>Descrição: {patient.description}</p>
+                    <p>Medicamentos Prescritos: {patient.prescriptionMedication}</p>
+                    <p>Precauções de Dosagem: {patient.dosagePrecautions}</p>
+                </Styled.Box>
+                <Styled.Box>
+                    <Styled.RoleTitle>Medicamentos</Styled.RoleTitle>
+                    <h2>Motivo da Consulta: {patient.appointmentReason}</h2>
+                    <h3>Data da Consulta: {patient.appointmentDate}</h3>
+                    <p>Descrição: {patient.description}</p>
+                    <p>Medicamentos Prescritos: {patient.prescriptionMedication}</p>
+                    <p>Precauções de Dosagem: {patient.dosagePrecautions}</p>
+                </Styled.Box>
+                <Styled.Box>
+                    <Styled.RoleTitle>Dietas</Styled.RoleTitle>
+                    <h2>Motivo da Consulta: {patient.appointmentReason}</h2>
+                    <h3>Data da Consulta: {patient.appointmentDate}</h3>
+                    <p>Descrição: {patient.description}</p>
+                    <p>Medicamentos Prescritos: {patient.prescriptionMedication}</p>
+                    <p>Precauções de Dosagem: {patient.dosagePrecautions}</p>
+                </Styled.Box>
+                <Styled.Box>
+                    <Styled.RoleTitle>Exercícios</Styled.RoleTitle>
+                    <h2>Motivo da Consulta: {patient.appointmentReason}</h2>
+                    <h3>Data da Consulta: {patient.appointmentDate}</h3>
+                    <p>Descrição: {patient.description}</p>
+                    <p>Medicamentos Prescritos: {patient.prescriptionMedication}</p>
+                    <p>Precauções de Dosagem: {patient.dosagePrecautions}</p>
+                </Styled.Box>
                 <Button variant="outlined" type='button' onClick={handleShowModal}>Fechar</Button>
             </Styled.Info>
         </Styled.DataWrapper>

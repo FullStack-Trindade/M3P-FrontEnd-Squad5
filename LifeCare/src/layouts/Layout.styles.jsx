@@ -19,6 +19,10 @@ export const Content = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
     background-color: yellow;
+    border-radius: 10px;
+    padding: 0 5px;
     flex: 1;
 `

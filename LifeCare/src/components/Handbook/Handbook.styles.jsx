@@ -4,9 +4,8 @@ export const PatientInfo = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
-    height: 10%;
-    width: 95%;
-    background-color: yellow;
+    width: 100%;
+    background-color: #b9c1d6;
     margin-top: 10px;
     border-radius: 20px;
 `
