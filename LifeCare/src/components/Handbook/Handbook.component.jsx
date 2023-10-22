@@ -3,7 +3,9 @@ import * as Styled from './Handbook.styles';
 import { ModalContext } from '../../contexts/ModalContext/Modal.context';
 import { ApiService } from '../../services/Api.service';
 import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import { ModalDataComponent } from '../ModalDataComponent/ModalData.component';
+
+
 
 export const HandbookComponent = () => {
 
@@ -26,7 +28,7 @@ export const HandbookComponent = () => {
                         <Styled.PatientData>{patient.age}56</Styled.PatientData>
                         <Styled.PatientData>{patient.phoneNumber}99999999</Styled.PatientData>
                         <Styled.PatientData>{patient.healthInsurance}unimed</Styled.PatientData>
-                        <Button variant="text" type="button"><Link to='/cadastro/paciente'>Detalhes</Link></Button>
+                        <Button variant="outlined" type="button" onClick={() => handleShowModal(patient)}>Detalhes</Button>
                     </Styled.PatientInfo>
                 );
             })}
