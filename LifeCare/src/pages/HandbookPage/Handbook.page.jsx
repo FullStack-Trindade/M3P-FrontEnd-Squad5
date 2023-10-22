@@ -9,9 +9,7 @@ export const HandbookPage = () => {
         <ModalProvider>
             <Styled.HandbookWrapper>
                 <Styled.Input type="text" id='search' name='search' placeholder='Pesquise o paciente pelo email'/>
-                <Styled.HandbookInfoWrapper>
-                    <HandbookComponent/>
-                </Styled.HandbookInfoWrapper>
+                <HandbookComponent/>
             </Styled.HandbookWrapper>
         </ModalProvider>
     );

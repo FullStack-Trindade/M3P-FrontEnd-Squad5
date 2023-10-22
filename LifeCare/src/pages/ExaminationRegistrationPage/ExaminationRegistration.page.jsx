@@ -1,4 +1,4 @@
-import { FormRegisterComponent } from "../../components/FormRegisterExamination/FormRegisterExamination.component";
+import { FormRegisterComponent } from "../../components/Form/FormRegisterExamination/FormRegisterExamination.component";
 import * as Styled from "./ExaminationRegistration.styles";
 
 export const ExaminationRegistrationPage = () => {

@@ -13,7 +13,7 @@ export const BoxDataWrapper = styled.div`
     margin-left: 10px;
     background-color: #dfdfdf;
     border-radius: 10px;
-    padding: 70px;
+    padding: 20px;
 `
 
 export const BoxName = styled.h3`

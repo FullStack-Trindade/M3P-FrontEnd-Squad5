@@ -1,11 +1,11 @@
-import { FormRegisterComponent } from "../../components/FormRegisterPatient/FormRegisterPatient.component";
+import { FormRegisterPatientComponent } from "../../components/Form/FormRegisterPatient/FormRegisterPatient.component";
 import * as Styled from "./PatientRegistration.styles";
 
 export const PatientRegistrationPage = () => {
   return (
     <div>
       <Styled.RegisterPatientMain>
-        <FormRegisterComponent />
+        <FormRegisterPatientComponent />
       </Styled.RegisterPatientMain>
     </div>
   );

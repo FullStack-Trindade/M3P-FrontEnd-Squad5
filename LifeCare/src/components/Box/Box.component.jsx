@@ -1,5 +1,5 @@
 import * as Styled from './Box.styles';
-import { MdPeople, MdNewspaper, MdBook } from 'react-icons/md';
+import { MdPeople, MdNewspaper, MdBook, MdMedication , MdNoMeals, MdSportsGymnastics} from 'react-icons/md';
 
 
 export const BoxComponent = () => {
@@ -22,14 +22,32 @@ export const BoxComponent = () => {
             img: <MdBook/>,
             number: 0,
             name: 'Exames',
-        }
+        },
+        {
+            id: 4,
+            img: <MdMedication/>,
+            number: 0,
+            name: 'Medicamentos',
+        },
+        {
+            id: 5,
+            img: <MdNoMeals/>,
+            number: 0,
+            name: 'Dietas',
+        },
+        {
+            id: 6,
+            img: <MdSportsGymnastics/>,
+            number: 0,
+            name: 'Exercícios',
+        },
     ]
 
     return(
         <Styled.BoxWrapper>
-            {datas.map(data => {
+            {datas.map((data, index) => {
                 return(
-                    <Styled.Box>
+                    <Styled.Box key={index}>
                         <Styled.Tag>{data.img}</Styled.Tag>
                         <Styled.Number>{data.number}</Styled.Number>
                         <Styled.ServiceName>{data.name}</Styled.ServiceName>

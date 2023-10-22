@@ -1,10 +1,10 @@
-import { SelectComponent } from "../Select/Select.component";
-import { InputComponent } from "../Input/Input.component";
+import { SelectComponent } from "../../Select/Select.component";
+import { InputComponent } from "../../Input/Input.component";
 
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 
-import * as Styled from "./FormRegisterDiet.styles";
+import * as Styled from "../Form.styles";
 import { useForm } from "react-hook-form";
 
 export const FormRegisterDiet = () => {
@@ -54,7 +54,9 @@ export const FormRegisterDiet = () => {
       <Styled.Form onSubmit={handleSubmit(submitForm)}>
         <Styled.FormTitle>Cadastrar Dieta</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormLegend>Procure o Paciente pelo email </Styled.FormLegend>
+          <Styled.FormSubTitle>
+            Procure o Paciente pelo email
+          </Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="patientEmail"
