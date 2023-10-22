@@ -27,9 +27,9 @@ export const BoxComponent = () => {
 
     return(
         <Styled.BoxWrapper>
-            {datas.map(data => {
+            {datas.map((data, index) => {
                 return(
-                    <Styled.Box>
+                    <Styled.Box key={index}>
                         <Styled.Tag>{data.img}</Styled.Tag>
                         <Styled.Number>{data.number}</Styled.Number>
                         <Styled.ServiceName>{data.name}</Styled.ServiceName>
