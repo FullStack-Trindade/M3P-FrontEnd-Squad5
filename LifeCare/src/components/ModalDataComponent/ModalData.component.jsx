@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import * as Styled from './ModalData.styles';
-import { ModalContext } from '../contexts/ModalContext/Modal.context';
+import { ModalContext } from '../../contexts/ModalContext/Modal.context';
 import Button from '@mui/material/Button';
 
 export const ModalDataComponent = () => {

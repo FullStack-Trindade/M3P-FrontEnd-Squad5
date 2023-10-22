@@ -2,7 +2,7 @@ import * as Styled from './BoxData.styles';
 import { ApiService } from '../../services/Api.service';
 import { useContext } from 'react';
 import { ModalContext } from '../../contexts/ModalContext/Modal.context';
-import { ModalDataComponent } from '../../ModalDataComponent/ModalData.component';
+import { ModalDataComponent } from '../ModalDataComponent/ModalData.component';
 import Button from '@mui/material/Button'
 
 export const BoxDataComponent = () => {
