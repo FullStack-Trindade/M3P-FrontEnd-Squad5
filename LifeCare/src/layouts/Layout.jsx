@@ -8,7 +8,7 @@ export const Layout = () => {
     return(
         <Styled.App>
             <Styled.Main>
-                <HeaderComponent/>
+                <HeaderComponent name="TESTE" title="PAGE" userType="TIPO"/>
                 <SidebarComponent children={
                     <Styled.Content>
                         <Outlet/>
