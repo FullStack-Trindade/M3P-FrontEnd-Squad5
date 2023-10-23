@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const HandbookWrapper = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -14,10 +15,19 @@ export const HandbookInfoWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 98%;
-    height: 98%;
-    background-color: blue;
+    width: 100vw;
+    height: 100vw;
+    background-color: #4b9fbb;
     border-radius: 20px;
+`
+
+export const Input = styled.input`
+    display: flex;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+    margin: 10px 0;
 `
 
 export const Info = styled.div`

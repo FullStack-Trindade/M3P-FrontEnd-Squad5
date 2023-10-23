@@ -3,7 +3,9 @@ import * as Styled from './Handbook.styles';
 import { ModalContext } from '../../contexts/ModalContext/Modal.context';
 import { ApiService } from '../../services/Api.service';
 import Button from '@mui/material/Button';
-import { ModalDataComponent } from '../../ModalDataComponent/ModalData.component';
+import { ModalDataComponent } from '../ModalDataComponent/ModalData.component';
+
+
 
 export const HandbookComponent = () => {
 
@@ -21,9 +23,8 @@ export const HandbookComponent = () => {
             {patients.map(patient => {
                 return(
                     <Styled.PatientInfo key={patient.id}>
-                        <Styled.PatientData>{patient.id}</Styled.PatientData>
-                        <Styled.PatientData>{patient.name}</Styled.PatientData>
-                        <Button variant="text" type="button" onClick={() => handleShowModal(patient)}>Detalhes</Button>
+                        <Styled.PatientData>{patient.fullName}aderbal ramos da silva</Styled.PatientData>
+                        <Button variant="outlined" type="button" onClick={() => handleShowModal(patient)}>Detalhes</Button>
                     </Styled.PatientInfo>
                 );
             })}

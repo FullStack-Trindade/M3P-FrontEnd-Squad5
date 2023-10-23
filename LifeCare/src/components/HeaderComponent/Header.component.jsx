@@ -1,6 +1,7 @@
-//import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import * as Styled from "./Header.styles";
 import { FaUserCircle } from "react-icons/fa";
+import Logo from '../../assets/lifecare-logo-01.svg'
 
 export const HeaderComponent = (props) => {
   return (
@@ -8,13 +9,13 @@ export const HeaderComponent = (props) => {
       <Styled.HeaderContainer>
         <Styled.Nav>
           <Styled.List>
-            <Styled.ItemList>LifeCircle</Styled.ItemList>
-            <Styled.ItemList>PAGE TITLE</Styled.ItemList>
+            <Styled.ItemList><Styled.AppLogo src={Logo}></Styled.AppLogo></Styled.ItemList>
+            <Styled.ItemList>{props.title}</Styled.ItemList>
             <Styled.ItemList>
                 <Styled.Icon><FaUserCircle /></Styled.Icon>
-                <Styled.ItemList>USER</Styled.ItemList>           
+                <Styled.ItemList>{props.name}</Styled.ItemList>           
             </Styled.ItemList>
-            <Styled.ItemList>USER TYPE</Styled.ItemList>
+            <Styled.ItemList>{props.userType}</Styled.ItemList>
           </Styled.List>
         </Styled.Nav>
       </Styled.HeaderContainer>

@@ -3,8 +3,7 @@ import { ApiService } from '../../services/Api.service';
 import { useContext } from 'react';
 import { ModalContext } from '../../contexts/ModalContext/Modal.context';
 import { ModalDataComponent } from '../../ModalDataComponent/ModalData.component';
-import Button from '@mui/material/Button';
-import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button'
 
 export const BoxDataComponent = () => {
 
@@ -22,11 +21,8 @@ export const BoxDataComponent = () => {
             {patients.map(patient => {
                 return(
                     <Styled.BoxDataWrapper key={patient.id}>
-                        <Styled.BoxName>{patient.fullName}</Styled.BoxName>
-                        <Styled.BoxAge>{patient.age}</Styled.BoxAge>
-                        <Styled.BoxPhone>{patient.phoneNumber}</Styled.BoxPhone>
-                        <Styled.BoxCovenant>{patient.healthInsurance}</Styled.BoxCovenant>
-                        <Button variant="outlined" type='button'><Link to='/cadastro/paciente'>Detalhes</Link></Button>
+                        <Styled.BoxName>{patient.name}</Styled.BoxName>
+                        <Button variant="outlined" type='button' onClick={() => handleShowModal(patient)}>Detalhes</Button>
                     </Styled.BoxDataWrapper>
                 );
             })}
