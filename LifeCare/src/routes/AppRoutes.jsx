@@ -8,6 +8,7 @@ import { DietRegistrationPage } from "../pages/DietRegistrationPage/DietRegistra
 import { HomePage } from "../pages/HomePage/Home.page";
 import { PhysicalExerciseRegistrationPage } from "../pages/PhysicalExerciseRegistrationPage/PhysicalExerciseRegistration.page";
 import { HandbookPage } from "../pages/HandbookPage/Handbook.page";
+import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPage/AppointmentRegistration.page";
 
 export const AppRoutes = () => {
   return (
@@ -16,9 +17,12 @@ export const AppRoutes = () => {
         <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="/cadastro/usuario/" element={<UserRegistrationPage />} />
           <Route
-            path="/cadastro/usuario/:id"
+            path="/cadastro/usuarios/"
+            element={<UserRegistrationPage />}
+          />
+          <Route
+            path="/cadastro/usuarios/:id"
             element={<UserRegistrationPage />}
           />
           <Route
@@ -50,8 +54,16 @@ export const AppRoutes = () => {
             path="/cadastro/exercicio/:id"
             element={<PhysicalExerciseRegistrationPage />}
           />
-          <Route path="/prontuario" element={<HandbookPage/>}/>
-          <Route path="/prontuario/:id" element={<HandbookPage/>}/>
+          <Route
+            path="/cadastro/consulta"
+            element={<AppointmentRegistrationPage />}
+          />
+          <Route
+            path="/cadastro/consulta/:id"
+            element={<AppointmentRegistrationPage />}
+          />
+          <Route path="/prontuario" element={<HandbookPage />} />
+          <Route path="/prontuario/:id" element={<HandbookPage />} />
         </Route>
       </Routes>
     </Router>
