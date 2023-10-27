@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 
 import * as Styled from "../Form.styles";
 import { useForm } from "react-hook-form";
+import { Appointment } from "../../../services/Appointment/Appointment.service";
 
 export const FormRegisterAppointment = () => {
   const {
@@ -25,8 +26,9 @@ export const FormRegisterAppointment = () => {
   const submitForm = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
-    console.log(body);
+    await Appointment.Store(body);
   };
 
   const submitEdit = async (data) => {
