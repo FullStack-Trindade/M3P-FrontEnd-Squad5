@@ -15,6 +15,7 @@ export const InputComponent = ({
   error,
   onInput,
   helperText,
+  readOnly = false
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -33,6 +34,9 @@ export const InputComponent = ({
         placeholder={placeholder}
         helperText={helperText}
         {...register}
+        inputProps={
+					{ readOnly: readOnly, }
+				}
       >
         {/* {type === "password" && (
           <Styled.Icon type="button" onClick={handleShowPassword}>
@@ -56,4 +60,5 @@ InputComponent.propTypes = {
   register: PropTypes.any,
   error: PropTypes.any,
   helperText: PropTypes.any,
+  readOnly: PropTypes.bool
 };

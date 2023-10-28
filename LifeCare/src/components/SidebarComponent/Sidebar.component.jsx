@@ -62,7 +62,7 @@ const menuItem = [
   },
 
   {
-    path: "/prontuarios",
+    path: "/prontuario",
     name: "Prontuários",
     icon: <FaListUl />,
     admin: false
