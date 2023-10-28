@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Form = styled.form`
   background-color: #ebf3f3;
+  width: 65rem;
   height: 38rem;
   margin: 1rem;
   border-radius: 0.5rem;
@@ -14,7 +15,7 @@ export const FormColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 75rem;
+  width: 100%;
   padding: 0.5rem;
   gap: 1rem;
 `;
@@ -22,6 +23,7 @@ export const FormColumn = styled.div`
 export const FormRow = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
   gap: 1rem;
   margin: 0.5rem;
 `;
