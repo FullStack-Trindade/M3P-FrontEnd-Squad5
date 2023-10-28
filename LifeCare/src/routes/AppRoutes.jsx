@@ -9,6 +9,7 @@ import { HomePage } from "../pages/HomePage/Home.page";
 import { PhysicalExerciseRegistrationPage } from "../pages/PhysicalExerciseRegistrationPage/PhysicalExerciseRegistration.page";
 import { HandbookPage } from "../pages/HandbookPage/Handbook.page";
 import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPage/AppointmentRegistration.page";
+import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
 
 export const AppRoutes = () => {
   return (
@@ -64,6 +65,8 @@ export const AppRoutes = () => {
           />
           <Route path="/prontuario" element={<HandbookPage />} />
           <Route path="/prontuario/:id" element={<HandbookPage />} />
+          <Route path="/cadastro/medicamento" element={<MedicineRegistrationPage />} />
+          <Route path="/cadastro/medicamento/:id" element={<MedicineRegistrationPage />} />
         </Route>
       </Routes>
     </Router>
