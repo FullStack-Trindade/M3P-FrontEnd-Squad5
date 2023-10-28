@@ -5,6 +5,9 @@ import Button from "@mui/material/Button";
 
 import * as Styled from "../Form.styles";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { Appointment } from "../../../services/Appointment/Appointment.service";
+import { useEffect, useState } from "react";
 
 export const FormRegisterAppointment = () => {
   const {
@@ -12,8 +15,32 @@ export const FormRegisterAppointment = () => {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
+  const { id } = useParams();
+  const [disable, setDisable] = useState(true);
+  const [saveDisable, setSaveDisable] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      const getAppointment = async () => {
+        await Appointment.GetID(id).then(async (res) => {
+          setValue("appointmentReason", res.appointmentReason);
+          setValue("appointmentDate", res.appointmentDate);
+          setValue("appointmentTime", res.appointmentTime);
+          setValue("description", res.description);
+          setValue("prescriptionMedication", res.prescriptionMedication);
+          setValue("dosagePrecautions", res.dosagePrecautions);
+          setValue("patientId", res.patientId);
+          setValue("userId", res.userId);
+        });
+      };
+      getAppointment();
+      setDisable(false);
+      setSaveDisable(true);
+    }
+  }, []);
 
   const handleSearchPatient = async () => {
     /* await Patient.GetID(watch("patientID")).then((search) => {
@@ -25,17 +52,20 @@ export const FormRegisterAppointment = () => {
   const submitForm = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
-    console.log(body);
+    await Appointment.Store(body);
   };
 
   const submitEdit = async (data) => {
-    true;
     const body = {
       ...data,
     };
+    await Appointment.Update(id, body);
   };
-  const submitDelete = async () => {};
+  const submitDelete = async () => {
+    await Appointment.Delete(id);
+  };
 
   return (
     <>
@@ -49,7 +79,7 @@ export const FormRegisterAppointment = () => {
             <InputComponent
               id="patientEmail"
               type="email"
-              label="Encontre o paciente pelo email"
+              placeholder="Encontre o paciente pelo email"
               register={{
                 ...register("patientEmail", {
                   /*required: "Campo obrigatório",
@@ -71,7 +101,7 @@ export const FormRegisterAppointment = () => {
             <InputComponent
               id="patientId"
               type="number"
-              label="Id do Paciente"
+              placeholder="Id do Paciente"
               register={{
                 ...register("patientId", {
                   required: "Campo obrigatório",
@@ -83,7 +113,7 @@ export const FormRegisterAppointment = () => {
             <InputComponent
               id="patientName"
               type="text"
-              label="Nome do Paciente"
+              placeholder="Nome do Paciente"
               register={{
                 ...register("patientName", {
                   required: "Campo obrigatório",
@@ -105,7 +135,7 @@ export const FormRegisterAppointment = () => {
             <InputComponent
               id="appointmentReason"
               type="text"
-              label="Motivo da consulta"
+              placeholder="Motivo da consulta"
               register={{
                 ...register("appointmentReason", {
                   required: "Campo obrigatório",
@@ -150,7 +180,7 @@ export const FormRegisterAppointment = () => {
             <InputComponent
               id="description"
               type="textarea"
-              label="Descrição do Problema"
+              placeholder="Descrição do Problema"
               register={{
                 ...register("description", {
                   required: "Campo obrigatório",
@@ -170,7 +200,7 @@ export const FormRegisterAppointment = () => {
             <InputComponent
               id="prescriptionMedication"
               type="textarea"
-              label="Medicação Receitada"
+              placeholder="Medicação Receitada"
               register={{
                 ...register("prescriptionMedication"),
               }}
@@ -180,7 +210,7 @@ export const FormRegisterAppointment = () => {
             <InputComponent
               id="dosagePrecautions"
               type="textarea"
-              label="Descrição do Problema"
+              placeholder="Descrição do Problema"
               register={{
                 ...register("dosagePrecautions", {
                   required: "Campo obrigatório",
@@ -202,14 +232,20 @@ export const FormRegisterAppointment = () => {
             <Button
               variant="outlined"
               type="button"
+              disabled={disable}
               onClick={handleSubmit(submitEdit)}
             >
               Editar
             </Button>
-            <Button variant="outlined" onClick={handleSubmit(submitDelete)}>
+            <Button
+              variant="outlined"
+              disabled={disable}
+              type="button"
+              onClick={handleSubmit(submitDelete)}
+            >
               Deletar
             </Button>
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" disabled={saveDisable} type="submit">
               Salvar
             </Button>
           </Styled.ButtonWrapper>
