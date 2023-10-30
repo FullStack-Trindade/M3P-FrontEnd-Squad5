@@ -6,7 +6,7 @@ export const Form = styled.form`
   height: 38rem;
   margin: 1rem;
   border-radius: 0.5rem;
-  border: 0.1rem solid #5281dc;
+  border: none;
   box-shadow: 0.5rem 0.5rem 0.5rem 0rem rgba(0, 0, 0, 0.37);
   overflow-y: scroll;
 `;

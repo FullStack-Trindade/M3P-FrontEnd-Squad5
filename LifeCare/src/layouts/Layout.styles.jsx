@@ -21,7 +21,7 @@ export const Content = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: yellow;
+    background-color: #fff;
     border-radius: 10px;
     padding: 0 5px;
     flex: 1;

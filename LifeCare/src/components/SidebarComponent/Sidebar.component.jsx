@@ -69,7 +69,7 @@ const menuItem = [
   },
 
   {
-    path: "/logout",
+    path: "/login",
     name: "Sair",
     icon: <FaArrowRight />,
     admin: false

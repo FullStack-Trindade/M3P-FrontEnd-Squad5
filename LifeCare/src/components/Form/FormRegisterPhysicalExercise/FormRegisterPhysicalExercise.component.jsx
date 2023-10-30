@@ -50,7 +50,7 @@ export const FormRegisterPhysicalExerciseComponent = () => {
   return (
     <>
       <Styled.Form onSubmit={handleSubmit(submitForm)}>
-        <Styled.FormTitle>Cadastrar Exercícios</Styled.FormTitle>
+        <Styled.FormTitle>Cadastrar Exercício</Styled.FormTitle>
         <Styled.FormColumn>
           <Styled.FormSubTitle>
             Procure o Paciente pelo email
