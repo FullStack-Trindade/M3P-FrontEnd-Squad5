@@ -59,7 +59,7 @@ export const FormRegisterPatientComponent = () => {
       <Styled.Form onSubmit={handleSubmit(submitForm)}>
         <Styled.FormTitle>Preencha os campos para cadastrar</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormSubTitle>Indentificação</Styled.FormSubTitle>
+          <Styled.FormSubTitle>Identificação</Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="fullName"

@@ -23,6 +23,7 @@ export const HandbookInfoWrapper = styled.div`
 
 export const Input = styled.input`
     display: flex;
+    color: #000;
     width: 100%;
     border-radius: 10px;
     border: none;

@@ -6,5 +6,5 @@ export const Login = styled.div`
     height: 100%;
     justify-content: center;
     align-items: center;
-    background-color: #03dffc;
+    background-color:#8ae9f0 ;
 `
