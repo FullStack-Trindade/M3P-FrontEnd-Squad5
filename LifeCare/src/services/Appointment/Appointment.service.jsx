@@ -2,7 +2,7 @@ import axios from "axios";
 
 let API_URL = "http://localhost:3333/api/consultas";
 
-const Get = async (id) => {
+const Get = async () => {
   const appointmentData = await axios.get(API_URL);
   return appointmentData.data.data;
 };

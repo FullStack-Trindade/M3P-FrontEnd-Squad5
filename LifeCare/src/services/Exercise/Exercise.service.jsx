@@ -2,7 +2,7 @@ import axios from "axios";
 
 let API_URL = "http://localhost:3333/api/exercicios";
 
-const Get = async (id) => {
+const Get = async () => {
   const exerciseData = await axios.get(API_URL);
   return exerciseData.data.data;
 };

@@ -2,7 +2,7 @@ import axios from "axios";
 
 let API_URL = "http://localhost:3333/api/dietas";
 
-const Get = async (id) => {
+const Get = async () => {
   const dietData = await axios.get(API_URL);
   return dietData.data.data;
 };
