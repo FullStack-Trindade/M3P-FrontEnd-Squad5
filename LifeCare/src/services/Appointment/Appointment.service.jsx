@@ -2,6 +2,11 @@ import axios from "axios";
 
 let API_URL = "http://localhost:3333/api/consultas";
 
+const Get = async (id) => {
+  const appointmentData = await axios.get(API_URL);
+  return appointmentData.data.data;
+};
+
 const GetID = async (id) => {
   const appointmentData = await axios.get(`${API_URL}/${id}`);
   return appointmentData.data.data;
@@ -60,6 +65,7 @@ const Delete = async (id) => {
 export const Appointment = {
   Store,
   GetID,
+  Get,
   Update,
   Delete,
 };
