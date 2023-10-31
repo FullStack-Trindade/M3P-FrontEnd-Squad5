@@ -6,6 +6,9 @@ import Button from "@mui/material/Button";
 import * as Styled from "../Form.styles";
 
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Exercise } from "../../../services/Exercise/Exercise.service";
 
 export const FormRegisterPhysicalExerciseComponent = () => {
   const {
@@ -15,6 +18,29 @@ export const FormRegisterPhysicalExerciseComponent = () => {
     setValue,
     formState: { errors },
   } = useForm();
+  const { id } = useParams();
+  const [disable, setDisable] = useState(true);
+  const [saveDisable, setSaveDisable] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      const getExercise = async () => {
+        await Exercise.GetID(id).then(async (res) => {
+          setValue("exerciseName", res.exerciseName);
+          setValue("date", res.date);
+          setValue("time", res.time);
+          setValue("exerciseType", res.exerciseType);
+          setValue("quantityPerWeek", res.quantityPerWeek);
+          setValue("description", res.description);
+          setValue("patientId", res.patientId);
+          setValue("userId", res.userId);
+        });
+      };
+      getExercise();
+      setDisable(false);
+      setSaveDisable(true);
+    }
+  }, []);
 
   const selectExercise = [
     { value: "", label: "Selecione" },
@@ -37,15 +63,18 @@ export const FormRegisterPhysicalExerciseComponent = () => {
     const body = {
       ...data,
     };
-    console.log(body);
+    await Exercise.Store(body);
   };
 
   const submitEdit = async (data) => {
     const body = {
       ...data,
     };
+    await Exercise.Update(id, body);
   };
-  const submitDelete = async () => {};
+  const submitDelete = async () => {
+    await Exercise.Delete(id);
+  };
 
   return (
     <>
@@ -201,18 +230,25 @@ export const FormRegisterPhysicalExerciseComponent = () => {
               helperText={errors.description?.message}
             />
           </Styled.FormRow>
+
           <Styled.ButtonWrapper>
             <Button
               variant="outlined"
               type="button"
+              disabled={disable}
               onClick={handleSubmit(submitEdit)}
             >
               Editar
             </Button>
-            <Button variant="outlined" onClick={handleSubmit(submitDelete)}>
+            <Button
+              variant="outlined"
+              disabled={disable}
+              type="button"
+              onClick={handleSubmit(submitDelete)}
+            >
               Deletar
             </Button>
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" disabled={saveDisable} type="submit">
               Salvar
             </Button>
           </Styled.ButtonWrapper>

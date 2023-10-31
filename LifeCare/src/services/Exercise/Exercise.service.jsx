@@ -1,31 +1,31 @@
 import axios from "axios";
 
-let API_URL = "http://localhost:3333/api/consultas";
+let API_URL = "http://localhost:3333/api/exercicios";
 
 const Get = async () => {
-  const appointmentData = await axios.get(API_URL);
-  return appointmentData.data.data;
+  const exerciseData = await axios.get(API_URL);
+  return exerciseData.data.data;
 };
 
 const GetID = async (id) => {
-  const appointmentData = await axios.get(`${API_URL}/${id}`);
-  return appointmentData.data.data;
+  const exerciseData = await axios.get(`${API_URL}/${id}`);
+  return exerciseData.data.data;
 };
 
 const Store = async (newData) => {
   axios
     .post(API_URL, {
-      appointmentReason: newData.appointmentReason,
-      appointmentDate: newData.appointmentDate,
-      appointmentTime: newData.appointmentTime,
+      exerciseName: newData.exerciseName,
+      date: newData.date,
+      time: newData.time,
+      exerciseType: newData.exerciseType,
+      quantityPerWeek: newData.quantityPerWeek,
       description: newData.description,
-      prescriptionMedication: newData.prescriptionMedication,
-      dosagePrecautions: newData.dosagePrecautions,
       patientId: newData.patientId,
       userId: newData.userId,
     })
     .then((res) => {
-      alert("Cadastrado com sucesso");
+      alert(res);
     })
     .catch((err) => {
       alert(`Erro ao cadastrar ${err.message}`);
@@ -34,17 +34,17 @@ const Store = async (newData) => {
 const Update = async (id, newData) => {
   axios
     .put(`${API_URL}/${id}`, {
-      appointmentReason: newData.appointmentReason,
-      appointmentDate: newData.appointmentDate,
-      appointmentTime: newData.appointmentTime,
+      exerciseName: newData.exerciseName,
+      date: newData.date,
+      time: newData.time,
+      exerciseType: newData.exerciseType,
+      quantityPerWeek: newData.quantityPerWeek,
       description: newData.description,
-      prescriptionMedication: newData.prescriptionMedication,
-      dosagePrecautions: newData.dosagePrecautions,
       patientId: newData.patientId,
       userId: newData.userId,
     })
     .then((res) => {
-      alert("Atualizado com sucesso");
+      alert(res);
     })
     .catch((err) => {
       alert(`Erro ao atualizar ${err.message}`);
@@ -55,14 +55,14 @@ const Delete = async (id) => {
   await axios
     .delete(`${API_URL}/${id}`)
     .then((res) => {
-      alert("Deletado com sucesso");
+      alert(res);
     })
     .catch((err) => {
       alert(`Erro ao deletar ${err.message}`);
     });
 };
 
-export const Appointment = {
+export const Exercise = {
   Store,
   GetID,
   Get,

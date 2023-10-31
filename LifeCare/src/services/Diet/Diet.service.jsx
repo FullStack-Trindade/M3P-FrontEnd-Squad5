@@ -2,6 +2,11 @@ import axios from "axios";
 
 let API_URL = "http://localhost:3333/api/dietas";
 
+const Get = async () => {
+  const dietData = await axios.get(API_URL);
+  return dietData.data.data;
+};
+
 const GetID = async (id) => {
   const dietData = await axios.get(`${API_URL}/${id}`);
   return dietData.data.data;
@@ -57,6 +62,7 @@ const Delete = async (id) => {
 
 export const Diet = {
   Store,
+  Get,
   GetID,
   Update,
   Delete,
