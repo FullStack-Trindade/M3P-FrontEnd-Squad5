@@ -12,10 +12,19 @@ export const DataWrapper = styled.div`
 
 export const Info = styled.div`
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 30px;
+`
+
+export const PatientInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+export const Wrapper = styled.div`
+    display: inline-block;
+    margin: 0 5px;
 `
 
 export const BoxDataWrapper = styled.div`
@@ -30,8 +39,14 @@ export const RoleTitle = styled.h3`
 
 export const Box = styled.div`
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     background-color: #65d5fb;
     border-radius: 10px;
+    margin: 5px 0;
+    button {
+        border: none;
+        border-radius: 10px;
+    }
 `
