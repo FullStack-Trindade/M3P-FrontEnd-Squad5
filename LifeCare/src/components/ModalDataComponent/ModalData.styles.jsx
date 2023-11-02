@@ -5,9 +5,10 @@ export const DataWrapper = styled.div`
     position: absolute;
     align-items: center;
     justify-content: center;
-    background-color: #83d17b;
+    background-color: #dfdfdf;
     z-index: 3;
     border-radius: 10px;
+    border: 5px solid #65d5fb;
 `
 
 export const Wrapper = styled.div`
