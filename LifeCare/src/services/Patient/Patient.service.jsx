@@ -1,6 +1,15 @@
 import axios from "axios";
+import { useAxios } from "../../hooks";
 
 let API_URL = "http://localhost:3333/api/pacientes";
+
+export const Index = async () => {
+  const [data, loading, error] = useAxios({
+    resource: "/pacientes",
+    method: "get",
+  });
+  return [data, loading, error];
+};
 
 const Get = async () => {
   const patientData = await axios.get(API_URL);
