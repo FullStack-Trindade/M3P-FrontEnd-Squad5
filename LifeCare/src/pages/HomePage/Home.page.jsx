@@ -16,16 +16,17 @@ export const HomePage = () => {
   const [filteredPatients, setFilteredPatients] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
 
-  const [patientData, patientIsLoading, patientErrors] = useAxios({
+  const [patientData, patientIsLoading] = useAxios({
     resource: "/pacientes",
     method: "get",
   });
-  const [userData, userIsLoading, userErrors] = useAxios({
+  const [userData, userIsLoading] = useAxios({
     resource: "/usuarios",
     method: "get",
   });
 
   useEffect(() => {
+    setTitle("Pagina Principal");
     setFilteredPatients(patientData);
     setFilteredUsers(userData);
   }, [patientIsLoading, userIsLoading]);

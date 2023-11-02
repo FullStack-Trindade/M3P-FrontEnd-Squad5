@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { InputComponent } from "../../Input/Input.component";
 import Button from "@mui/material/Button";
 
@@ -5,8 +7,14 @@ import { useForm } from "react-hook-form";
 import * as Styled from "../Form.styles";
 import { ViaCEP } from "../../../services/ViaCep/ViaCep.service";
 import { SelectComponent } from "../../Select/Select.component";
+import { useEffect, useState } from "react";
 
-export const FormRegisterPatientComponent = () => {
+import { GetID } from "../../../services/Patient/Patient.service";
+import { deleteLocalStorage } from "../../../services/LocalStorage.service";
+
+export const FormRegisterPatientComponent = ({ id }) => {
+  const [disabled, setDisabled] = useState(true);
+
   const {
     register,
     handleSubmit,
@@ -14,6 +22,46 @@ export const FormRegisterPatientComponent = () => {
     setValue,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    async function getPatientInfo() {
+      const data = await GetID(id);
+      setFormData(data);
+    }
+    function setFormData(data) {
+      setValue("fullName", data.fullName || "");
+      setValue("gender", data.gender || "");
+      setValue("birthday", data.birthday?.split("T")[0] || "");
+      setValue("cpf", data.cpf || "");
+      setValue("rg", data.rg || "");
+      setValue("civilStatus", data.civilStatus || "");
+      setValue("phoneNumber", data.phoneNumber || "");
+      setValue("emergencyContact", data.emergencyContact || "");
+      setValue("email", data.email || "");
+      setValue("nationality", data.nationality || "");
+      setValue("listOfAllergies", data.listOfAllergies || "");
+      setValue("specificCare", data.specificCare || "");
+      setValue("healthInsurance", data.healthInsurance || "");
+      setValue("insuranceNumber", data.insuranceNumber || "");
+      setValue(
+        "insuranceExpirationDate?",
+        data.insuranceExpirationDate?.split("T")[0] || ""
+      );
+      setValue("cep", data.Address.zipCode || "");
+      setValue("city", data.Address.city || "");
+      setValue("state", data.Address.state || "");
+      setValue("place", data.Address.street || "");
+      setValue("number", data.Address.number || "");
+      setValue("complement", data.Address.complement || "");
+      setValue("street", data.Address.neighborhood || "");
+      setValue("referencePoint", data.Address.referencePoint || "");
+      deleteLocalStorage("patient");
+      setDisabled(false);
+    }
+    if (id != 0) {
+      getPatientInfo();
+    }
+  }, [id]);
 
   const selectGender = [
     { value: "", label: "Selecione" },
@@ -63,6 +111,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="fullName"
+              name="fullName"
               type="text"
               placeholder="Digite seu nome"
               label="Nome Completo"
@@ -84,6 +133,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <SelectComponent
               id={"gender"}
+              name="gender"
               label={"Gênero"}
               error={!!errors.gender}
               helperText={errors.gender?.message}
@@ -96,6 +146,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="birthday"
+              name="birthday"
               type="date"
               register={{
                 ...register("birthday", { required: "Campo obrigatório" }),
@@ -105,6 +156,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <InputComponent
               id="cpf"
+              name="cpf"
               type="text"
               label="CPF"
               register={{
@@ -126,6 +178,7 @@ export const FormRegisterPatientComponent = () => {
 
             <InputComponent
               id="rg"
+              rg="rg"
               type="text"
               placeholder="Digite seu RG"
               label="RG"
@@ -147,6 +200,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <SelectComponent
               id={"civilStatus"}
+              name="civilStatus"
               label={"Estado Civil"}
               error={!!errors.civilStatus}
               helperText={errors.civilStatus?.message}
@@ -161,6 +215,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="phoneNumber"
+              name="phoneNumber"
               type="text"
               label="Telefone"
               register={{
@@ -182,6 +237,7 @@ export const FormRegisterPatientComponent = () => {
 
             <InputComponent
               id="emergencyContact"
+              name="emergencyContact"
               type="text"
               label="Contato de Emergência"
               register={{
@@ -203,6 +259,7 @@ export const FormRegisterPatientComponent = () => {
 
             <InputComponent
               id="email"
+              name="email"
               type="email"
               placeholder="Digite seu email"
               label="email"
@@ -220,6 +277,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <InputComponent
               id="nationality"
+              name="nationality"
               type="text"
               placeholder="Digite sua Naturalidade"
               label="Naturalidade"
@@ -243,6 +301,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="listOfAllergies"
+              name="listOfAllergies"
               type="textarea"
               placeholder="Lista de Alergias"
               register={{
@@ -262,6 +321,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <InputComponent
               id="specificCare"
+              name="specificCare"
               type="textarea"
               placeholder="Lista de Cuidados Específicos"
               register={{
@@ -285,6 +345,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="healthInsurance"
+              name="healthInsurance"
               type="text"
               placeholder="Unimed"
               label="Convênio"
@@ -294,6 +355,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <InputComponent
               id="insuranceNumber"
+              name="insuranceNumber"
               type="text"
               placeholder="6666666"
               label="Número do Convênio"
@@ -303,6 +365,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <InputComponent
               id="insuranceExpirationDate"
+              name="insuranceExpirationDate"
               type="date"
               register={{
                 ...register("insuranceExpirationDate"),
@@ -315,6 +378,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="cep"
+              name="cep"
               type="text"
               placeholder="CEP"
               label="CEP"
@@ -332,6 +396,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="city"
+              name="city"
               type="text"
               placeholder="Cidade"
               register={{
@@ -340,6 +405,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <InputComponent
               id="state"
+              name="state"
               type="text"
               placeholder="Estado"
               register={{
@@ -350,6 +416,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="place"
+              name="place"
               type="text"
               placeholder="Logradouro"
               register={{
@@ -359,6 +426,7 @@ export const FormRegisterPatientComponent = () => {
 
             <InputComponent
               id="number"
+              name="number"
               type="text"
               placeholder="Número"
               register={{
@@ -369,6 +437,7 @@ export const FormRegisterPatientComponent = () => {
           <Styled.FormRow>
             <InputComponent
               id="complement"
+              name="complement"
               type="text"
               placeholder="Complemento"
               register={{
@@ -377,6 +446,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <InputComponent
               id="street"
+              name="street"
               type="text"
               placeholder="Bairro"
               register={{
@@ -385,6 +455,7 @@ export const FormRegisterPatientComponent = () => {
             />
             <InputComponent
               id="referencePoint"
+              name="referencePoint"
               type="referencePoint"
               placeholder="Ponto de Referência"
               register={{
@@ -397,10 +468,15 @@ export const FormRegisterPatientComponent = () => {
               variant="outlined"
               type="button"
               onClick={handleSubmit(submitEdit)}
+              disabled={disabled}
             >
               Editar
             </Button>
-            <Button variant="outlined" onClick={handleSubmit(submitDelete)}>
+            <Button
+              variant="outlined"
+              onClick={handleSubmit(submitDelete)}
+              disabled={disabled}
+            >
               Deletar
             </Button>
             <Button variant="outlined" type="submit">
@@ -411,4 +487,8 @@ export const FormRegisterPatientComponent = () => {
       </Styled.Form>
     </>
   );
+};
+
+FormRegisterPatientComponent.propTypes = {
+  id: PropTypes.number,
 };

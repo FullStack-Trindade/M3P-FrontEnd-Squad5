@@ -1,15 +1,7 @@
 import axios from "axios";
-import { useAxios } from "../../hooks";
+import { axiosInstance } from "../../helper/axiosInstance";
 
 let API_URL = "http://localhost:3333/api/pacientes";
-
-export const Index = async () => {
-  const [data, loading, error] = useAxios({
-    resource: "/pacientes",
-    method: "get",
-  });
-  return [data, loading, error];
-};
 
 const Get = async () => {
   const patientData = await axios.get(API_URL);
@@ -21,9 +13,21 @@ const GetEmail = async (email) => {
   return patientData.data.data;
 };
 
-const GetID = async (id) => {
-  const patientData = await axios.get(`${API_URL}/${id}`);
-  return patientData.data.data;
+export const GetID = async (id) => {
+  try {
+    const patientData = await axiosInstance
+      .get(`/pacientes/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
+
+    return patientData;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const Store = async (newData) => {
@@ -117,7 +121,7 @@ const Delete = async (id) => {
 export const Patient = {
   Store,
   Get,
-  GetID,
+  // GetID,
   GetEmail,
   Update,
   Delete,

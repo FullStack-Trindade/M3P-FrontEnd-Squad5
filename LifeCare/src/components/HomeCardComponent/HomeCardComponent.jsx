@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
 
+import { useNavigate } from "react-router-dom";
+import { setLocalStorage } from "../../services/LocalStorage.service";
+
 import {
   CardContainer,
   CardHeader,
@@ -12,6 +15,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonIcon from "@mui/icons-material/Person";
 
 export const HomeCardComponent = ({
+  id,
   key,
   fullName,
   healthInsurance,
@@ -20,6 +24,9 @@ export const HomeCardComponent = ({
   email,
   type,
 }) => {
+  const resource =
+    type === "patient" ? "/cadastro/paciente" : "/cadastro/usuarios";
+  const navigate = useNavigate();
   const content = (c) => (!c ? "Não informado" : c);
   const getAge = (birthday) => {
     if (!birthday) {
@@ -54,6 +61,16 @@ export const HomeCardComponent = ({
       return phone;
     }
   };
+
+  const handlerNavigate = () => {
+    console.log("Fui");
+    const patient = {
+      fromHome: true,
+      id: id,
+    };
+    setLocalStorage("patient", patient);
+    navigate(resource);
+  };
   return (
     <CardContainer key={key}>
       <CardWrapper>
@@ -71,7 +88,7 @@ export const HomeCardComponent = ({
           </ul>
         </CardBody>
         <CardFooter>
-          <button size="small" onClick={() => console.log("ver mais")}>
+          <button size="small" onClick={handlerNavigate}>
             Ver mais
           </button>
         </CardFooter>
@@ -81,6 +98,7 @@ export const HomeCardComponent = ({
 };
 
 HomeCardComponent.propTypes = {
+  id: PropTypes.number,
   key: PropTypes.number,
   fullName: PropTypes.string.isRequired,
   birthday: PropTypes.string,
