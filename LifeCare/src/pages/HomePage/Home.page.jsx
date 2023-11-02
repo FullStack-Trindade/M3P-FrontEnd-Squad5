@@ -55,9 +55,11 @@ export const HomePage = () => {
     }
   };
 
+  const statistics = { numPatients: patientData?.data?.length };
+
   return (
     <ModalProvider>
-      <BoxComponent />
+      <BoxComponent {...statistics} />
       <Styles.Container>
         <Styles.Columns>
           <h3 style={{ textAlign: "center" }}>Pacientes</h3>
