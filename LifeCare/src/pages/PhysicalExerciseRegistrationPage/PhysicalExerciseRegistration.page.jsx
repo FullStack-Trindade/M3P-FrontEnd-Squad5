@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { FormRegisterPhysicalExerciseComponent } from "../../components/Form/FormRegisterPhysicalExercise/FormRegisterPhysicalExercise.component";
 import * as Styled from "./PhysicalExerciseRegistration.styles";
 import { HeaderContext } from "../../contexts/HeaderContext/Header.context";

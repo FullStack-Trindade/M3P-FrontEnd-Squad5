@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { Appointment } from "../../../services/Appointment/Appointment.service";
 import { useEffect, useState } from "react";
+import { GetEmail } from "../../../services/Patient/Patient.service";
 
 export const FormRegisterAppointment = () => {
   const {
@@ -43,10 +44,10 @@ export const FormRegisterAppointment = () => {
   }, []);
 
   const handleSearchPatient = async () => {
-    /* await Patient.GetID(watch("patientID")).then((search) => {
-      setValue("patient_id", search.id);
-      setValue("patient_name", search.name);
-    });*/
+    await GetEmail(watch("patientEmail")).then(async (search) => {
+      setValue("patientId", search.data[0].id);
+      setValue("patientName", search.data[0].fullName);
+    });
   };
 
   const submitForm = async (data) => {
@@ -82,18 +83,22 @@ export const FormRegisterAppointment = () => {
               placeholder="Encontre o paciente pelo email"
               register={{
                 ...register("patientEmail", {
-                  /*required: "Campo obrigatório",
+                  required: "Campo obrigatório",
                   validate: {
                     message: "O email esta errado ou não existe",
                     matchPath: (v) =>
                       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v),
-                  },*/
+                  },
                 }),
               }}
               error={!!errors.patientEmail}
               helperText={errors.patientEmail?.message}
             />
-            <Button variant="outlined" type="button">
+            <Button
+              variant="outlined"
+              onClick={handleSearchPatient}
+              type="button"
+            >
               <SearchIcon />
             </Button>
           </Styled.FormRow>
