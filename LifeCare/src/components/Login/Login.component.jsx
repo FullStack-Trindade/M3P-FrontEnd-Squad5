@@ -2,14 +2,17 @@ import * as Styled from "./Login.styles";
 import { InputComponent } from "../Input/Input.component";
 import { useForm } from "react-hook-form";
 import { ApiService } from "../../services/Api.service";
-import { LocalStorageService } from "../../services/LocalStorage.service";
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from "../../services/LocalStorage.service";
 import { useContext } from "react";
 import { ModalContext } from "../../contexts/ModalContext/Modal.context";
 // import { ModalComponent } from '../ModalComponent/Modal.component';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth/auth.context";
 
-import axios from "axios";
+import { axiosInstance } from "../../helper/axiosInstance";
 
 export const FormLoginComponent = () => {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -30,8 +33,8 @@ export const FormLoginComponent = () => {
     console.log("Sorry, this feature isn't done yet");
   };
 
-  if (!LocalStorageService.get("users")) {
-    LocalStorageService.set("users", []);
+  if (getLocalStorage("users")) {
+    setLocalStorage("users", []);
   }
 
   const {
@@ -50,7 +53,7 @@ export const FormLoginComponent = () => {
 
     const user = ApiService.ShowUserByEmail(email);
 
-    const token = await axios
+    const token = await axiosInstance
       .post(`${apiUrl}/usuarios/login`, data)
       .then((response) => {
         if (response.data.status == 401) {
