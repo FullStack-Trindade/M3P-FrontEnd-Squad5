@@ -10,9 +10,18 @@ export const DataWrapper = styled.div`
     border-radius: 10px;
 `
 
-export const Info = styled.div`
+export const Wrapper = styled.div`
+    display: inline-block;
+    margin: 0 5px;
+`
+
+export const PatientInfo = styled.div`
     display: flex;
     flex-direction: column;
+`
+
+export const Info = styled.div`
+    display: flex;
     align-items: center;
     justify-content: center;
     padding: 30px;
@@ -30,8 +39,18 @@ export const RoleTitle = styled.h3`
 
 export const Box = styled.div`
     display: flex;
+    flex-direction: column;
     width: 100%;
     height: 100%;
+    margin: 5px 0;
     background-color: #65d5fb;
     border-radius: 10px;
+    button {
+        border: none;
+        border-radius: 10px;
+        a {
+            text-decoration: none;
+            font-size: 18px;
+        }
+    }
 `
