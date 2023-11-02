@@ -1,26 +1,26 @@
-import { LocalStorageService } from './LocalStorage.service';
+import { getLocalStorage, setLocalStorage } from "./LocalStorage.service";
 
 const GetUsers = () => {
-    return LocalStorageService.get('users') || [];
-}
+  return getLocalStorage("users") || [];
+};
 
 const CreateUser = (data) => {
-    const users = GetUsers() || [];
+  const users = GetUsers() || [];
 
-    data = {
-        id: users?.length || 0 + 1,
-        ...data
-    }
+  data = {
+    id: users?.length || 0 + 1,
+    ...data,
+  };
 
-    LocalStorageService.set('users', [...users, data])
-}
+  setLocalStorage("users", [...users, data]);
+};
 
 const ShowUserByEmail = (email) => {
-    return GetUsers().find(user => user.email === email)
-}
+  return GetUsers().find((user) => user.email === email);
+};
 
 export const ApiService = {
-    GetUsers,
-    CreateUser,
-    ShowUserByEmail,
-}
+  GetUsers,
+  CreateUser,
+  ShowUserByEmail,
+};
