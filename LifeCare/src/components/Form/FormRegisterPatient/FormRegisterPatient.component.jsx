@@ -9,11 +9,16 @@ import { ViaCEP } from "../../../services/ViaCep/ViaCep.service";
 import { SelectComponent } from "../../Select/Select.component";
 import { useEffect, useState } from "react";
 
-import { GetID } from "../../../services/Patient/Patient.service";
+import {
+  GetID,
+  Delete,
+  Update,
+} from "../../../services/Patient/Patient.service";
 import { deleteLocalStorage } from "../../../services/LocalStorage.service";
 
 export const FormRegisterPatientComponent = ({ id }) => {
   const [disabled, setDisabled] = useState(true);
+  const [patientId, setPatientId] = useState(0);
 
   const {
     register,
@@ -25,6 +30,7 @@ export const FormRegisterPatientComponent = ({ id }) => {
 
   useEffect(() => {
     async function getPatientInfo() {
+      setPatientId(id);
       const data = await GetID(id);
       setFormData(data);
     }
@@ -95,12 +101,11 @@ export const FormRegisterPatientComponent = ({ id }) => {
     console.log(body);
   };
   const submitEdit = async (data) => {
-    true;
-    const body = {
-      ...data,
-    };
+    await Update(patientId, data);
   };
-  const submitDelete = async () => {};
+  const submitDelete = async (id) => {
+    await Delete(id);
+  };
 
   return (
     <>
@@ -186,8 +191,8 @@ export const FormRegisterPatientComponent = ({ id }) => {
                 ...register("rg", {
                   required: "Campo obrigatório",
                   minLength: {
-                    value: 14,
-                    message: "Campo precisa ter acima de 14 caracteres",
+                    value: 7,
+                    message: "Campo precisa ter acima de 7 caracteres",
                   },
                   maxLength: {
                     value: 20,
@@ -474,7 +479,7 @@ export const FormRegisterPatientComponent = ({ id }) => {
             </Button>
             <Button
               variant="outlined"
-              onClick={handleSubmit(submitDelete)}
+              onClick={() => handleSubmit(submitDelete(patientId))}
               disabled={disabled}
             >
               Deletar
