@@ -1,4 +1,3 @@
-
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 // import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
@@ -15,7 +14,7 @@ export const InputComponent = ({
   error,
   onInput,
   helperText,
-  readOnly = false
+  readOnly = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -34,9 +33,8 @@ export const InputComponent = ({
         placeholder={placeholder}
         helperText={helperText}
         {...register}
-        inputProps={
-					{ readOnly: readOnly, }
-				}
+        inputProps={{ readOnly: readOnly }}
+        InputLabelProps={{ shrink: true }}
       >
         {/* {type === "password" && (
           <Styled.Icon type="button" onClick={handleShowPassword}>
@@ -60,5 +58,5 @@ InputComponent.propTypes = {
   register: PropTypes.any,
   error: PropTypes.any,
   helperText: PropTypes.any,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
 };

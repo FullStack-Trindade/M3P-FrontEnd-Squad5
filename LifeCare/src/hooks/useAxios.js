@@ -25,11 +25,14 @@ export function useAxios(props) {
             signal: controller.signal,
           }
         );
-        setData(response.data);
+
+        setTimeout(() => {
+          setData(response.data);
+          setIsLoading(false);
+        }, Math.floor(Math.random() * 10000));
       } catch (err) {
         console.log(err.message);
         setError(err);
-      } finally {
         setIsLoading(false);
       }
     };
