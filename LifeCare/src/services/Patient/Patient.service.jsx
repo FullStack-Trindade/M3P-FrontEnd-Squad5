@@ -1,16 +1,26 @@
 import axios from "axios";
 import { axiosInstance } from "../../helper/axiosInstance";
 
-let API_URL = "http://localhost:3333/api/pacientes";
-
 const Get = async () => {
   const patientData = await axios.get(API_URL);
   return patientData.data.data;
 };
 
-const GetEmail = async (email) => {
-  const patientData = await axios.get(`${API_URL}?email=${email}`);
-  return patientData.data.data;
+export const GetEmail = async (email) => {
+  try {
+    const patientData = await axiosInstance
+      .get(`/pacientes?email=${email}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
+
+    return patientData;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const GetID = async (id) => {
