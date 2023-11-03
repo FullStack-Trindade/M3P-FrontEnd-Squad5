@@ -8,8 +8,13 @@ import * as Styled from "../Form.styles";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Exercise } from "../../../services/Exercise/Exercise.service";
-import { GetEmail } from "../../../services/Patient/Patient.service";
+import {
+  DeleteExercise,
+  GetExerciseID,
+  StoreExercise,
+  UpdateExercise,
+} from "../../../services/Exercise/Exercise.service";
+import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
 
 export const FormRegisterPhysicalExerciseComponent = () => {
   const {
@@ -26,7 +31,7 @@ export const FormRegisterPhysicalExerciseComponent = () => {
   useEffect(() => {
     if (id) {
       const getExercise = async () => {
-        await Exercise.GetID(id).then(async (res) => {
+        await GetExerciseID(id).then(async (res) => {
           setValue("exerciseName", res.exerciseName);
           setValue("date", res.date);
           setValue("time", res.time);
@@ -34,7 +39,10 @@ export const FormRegisterPhysicalExerciseComponent = () => {
           setValue("quantityPerWeek", res.quantityPerWeek);
           setValue("description", res.description);
           setValue("patientId", res.patientId);
-          setValue("userId", res.userId);
+          await GetID(res.data.patientId).then(async (patient) => {
+            setValue("patientName", patient.fullName);
+            setValue("patientEmail", patient.email);
+          });
         });
       };
       getExercise();
@@ -64,17 +72,17 @@ export const FormRegisterPhysicalExerciseComponent = () => {
     const body = {
       ...data,
     };
-    await Exercise.Store(body);
+    await StoreExercise(body);
   };
 
   const submitEdit = async (data) => {
     const body = {
       ...data,
     };
-    await Exercise.Update(id, body);
+    await UpdateExercise(id, body);
   };
   const submitDelete = async () => {
-    await Exercise.Delete(id);
+    await DeleteExercise(id);
   };
 
   return (
@@ -94,7 +102,6 @@ export const FormRegisterPhysicalExerciseComponent = () => {
                 ...register("patientEmail", {
                   required: "Campo obrigatório",
                   validate: {
-                    message: "O email esta errado ou não existe",
                     matchPath: (v) =>
                       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v),
                   },
