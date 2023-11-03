@@ -1,71 +1,94 @@
-import axios from "axios";
+import { axiosInstance } from "../../helper/axiosInstance";
 
-let API_URL = "http://localhost:3333/api/consultas";
+export const GetAppointment = async () => {
+  try {
+    const appointmentData = await axiosInstance
+      .get(`/consultas`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
 
-const Get = async () => {
-  const appointmentData = await axios.get(API_URL);
-  return appointmentData.data.data;
+    return appointmentData;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const GetID = async (id) => {
-  const appointmentData = await axios.get(`${API_URL}/${id}`);
-  return appointmentData.data.data;
+export const GetAppointmentID = async (id) => {
+  try {
+    const appointmentData = await axiosInstance
+      .get(`/consultas/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
+
+    return appointmentData;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const Store = async (newData) => {
-  axios
-    .post(API_URL, {
-      appointmentReason: newData.appointmentReason,
-      appointmentDate: newData.appointmentDate,
-      appointmentTime: newData.appointmentTime,
-      description: newData.description,
-      prescriptionMedication: newData.prescriptionMedication,
-      dosagePrecautions: newData.dosagePrecautions,
-      patientId: newData.patientId,
-      userId: newData.userId,
+export const StoreAppointment = async (newData) => {
+  const data = {
+    appointmentReason: newData.appointmentReason,
+    appointmentDate: newData.appointmentDate,
+    appointmentTime: newData.appointmentTime,
+    description: newData.description,
+    prescriptionMedication: newData.prescriptionMedication,
+    dosagePrecautions: newData.dosagePrecautions,
+    patientId: newData.patientId,
+    userId: newData.userId,
+  };
+  await axiosInstance
+    .post(`/consultas`, data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
     .then((res) => {
       alert("Cadastrado com sucesso");
     })
     .catch((err) => {
+      console.log("err: ", err);
       alert(`Erro ao cadastrar ${err.message}`);
     });
 };
-const Update = async (id, newData) => {
-  axios
-    .put(`${API_URL}/${id}`, {
-      appointmentReason: newData.appointmentReason,
-      appointmentDate: newData.appointmentDate,
-      appointmentTime: newData.appointmentTime,
-      description: newData.description,
-      prescriptionMedication: newData.prescriptionMedication,
-      dosagePrecautions: newData.dosagePrecautions,
-      patientId: newData.patientId,
-      userId: newData.userId,
+export const UpdateAppointment = async (id, newData) => {
+  const data = {
+    appointmentReason: newData.appointmentReason,
+    appointmentDate: newData.appointmentDate,
+    appointmentTime: newData.appointmentTime,
+    description: newData.description,
+    prescriptionMedication: newData.prescriptionMedication,
+    dosagePrecautions: newData.dosagePrecautions,
+    patientId: newData.patientId,
+    userId: newData.userId,
+  };
+  await axiosInstance
+    .put(`/consultas/${id}`, data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
     .then((res) => {
       alert("Atualizado com sucesso");
     })
     .catch((err) => {
+      console.log("err: ", err);
       alert(`Erro ao atualizar ${err.message}`);
     });
 };
-
-const Delete = async (id) => {
-  await axios
-    .delete(`${API_URL}/${id}`)
+export const DeleteAppointment = async (id) => {
+  await axiosInstance
+    .delete(`/consultas/${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
     .then((res) => {
       alert("Deletado com sucesso");
     })
     .catch((err) => {
       alert(`Erro ao deletar ${err.message}`);
     });
-};
-
-export const Appointment = {
-  Store,
-  GetID,
-  Get,
-  Update,
-  Delete,
 };
