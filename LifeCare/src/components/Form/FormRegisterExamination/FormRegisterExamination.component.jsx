@@ -4,8 +4,16 @@ import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import * as Styled from "../Form.styles";
-import { GetEmail } from "../../../services/Patient/Patient.service";
+import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
+import {
+  DeleteExam,
+  UpdateExam,
+  GetExamID,
+  StoreExam,
+} from "../../../services/Exam/Exam.service";
 
 export const FormRegisterComponent = () => {
   const {
@@ -15,6 +23,36 @@ export const FormRegisterComponent = () => {
     setValue,
     formState: { errors },
   } = useForm();
+  const { id } = useParams();
+  const [disable, setDisable] = useState(true);
+  const [saveDisable, setSaveDisable] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      const getExam = async () => {
+        await GetExamID(id).then(async (res) => {
+          console.log(res);
+          setValue("name", res.data.name);
+          setValue("examDate", res.data.examDate);
+          setValue("examTime", res.data.examTime);
+          setValue("examType", res.data.examType);
+          setValue("laboratory", res.data.laboratory);
+          setValue("documentURL", res.data.documentURL);
+          setValue("results", res.data.results);
+          setValue("description", res.data.description);
+          setValue("patientId", res.data.patientId);
+          await GetID(res.data.patientId).then(async (patient) => {
+            console.log(patient);
+            setValue("patientName", patient.fullName);
+            setValue("patientEmail", patient.email);
+          });
+        });
+      };
+      getExam();
+      setDisable(false);
+      setSaveDisable(true);
+    }
+  }, []);
 
   const handleSearchPatient = async () => {
     await GetEmail(watch("patientEmail")).then(async (search) => {
@@ -26,17 +64,20 @@ export const FormRegisterComponent = () => {
   const submitForm = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
-    console.log(body);
+    await StoreExam(body);
   };
 
   const submitEdit = async (data) => {
-    true;
     const body = {
       ...data,
     };
+    await UpdateExam(id, body);
   };
-  const submitDelete = async () => {};
+  const submitDelete = async () => {
+    await DeleteExam(id);
+  };
 
   return (
     <>
@@ -55,7 +96,6 @@ export const FormRegisterComponent = () => {
                 ...register("patientEmail", {
                   required: "Campo obrigatório",
                   validate: {
-                    message: "O email esta errado ou não existe",
                     matchPath: (v) =>
                       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v),
                   },
@@ -154,7 +194,7 @@ export const FormRegisterComponent = () => {
 
             <InputComponent
               id="documentURL"
-              type="text"
+              type="url"
               label="URL do documento"
               placeholder="Digite a URL do documento"
               register={{
@@ -235,14 +275,20 @@ export const FormRegisterComponent = () => {
             <Button
               variant="outlined"
               type="button"
+              disabled={disable}
               onClick={handleSubmit(submitEdit)}
             >
               Editar
             </Button>
-            <Button variant="outlined" onClick={handleSubmit(submitDelete)}>
+            <Button
+              variant="outlined"
+              disabled={disable}
+              type="button"
+              onClick={handleSubmit(submitDelete)}
+            >
               Deletar
             </Button>
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" disabled={saveDisable} type="submit">
               Salvar
             </Button>
           </Styled.ButtonWrapper>
