@@ -1,71 +1,94 @@
-import axios from "axios";
+import { axiosInstance } from "../../helper/axiosInstance";
 
-let API_URL = "http://localhost:3333/api/exercicios";
+export const GetExercise = async () => {
+  try {
+    const exerciseData = await axiosInstance
+      .get(`/exercicios`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
 
-const Get = async () => {
-  const exerciseData = await axios.get(API_URL);
-  return exerciseData.data.data;
+    return exerciseData;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const GetID = async (id) => {
-  const exerciseData = await axios.get(`${API_URL}/${id}`);
-  return exerciseData.data.data;
+export const GetExerciseID = async (id) => {
+  try {
+    const exerciseData = await axiosInstance
+      .get(`/exercicios/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
+
+    return exerciseData;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const Store = async (newData) => {
-  axios
-    .post(API_URL, {
-      exerciseName: newData.exerciseName,
-      date: newData.date,
-      time: newData.time,
-      exerciseType: newData.exerciseType,
-      quantityPerWeek: newData.quantityPerWeek,
-      description: newData.description,
-      patientId: newData.patientId,
-      userId: newData.userId,
+export const StoreExercise = async (newData) => {
+  const data = {
+    exerciseName: newData.exerciseName,
+    date: newData.date,
+    time: newData.time,
+    exerciseType: newData.exerciseType,
+    quantityPerWeek: newData.quantityPerWeek,
+    description: newData.description,
+    patientId: newData.patientId,
+    userId: newData.userId,
+  };
+  await axiosInstance
+    .post(`/exercicios`, data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
     .then((res) => {
-      alert(res);
+      alert("Cadastrado com sucesso");
     })
     .catch((err) => {
+      console.log("err: ", err);
       alert(`Erro ao cadastrar ${err.message}`);
     });
 };
-const Update = async (id, newData) => {
-  axios
-    .put(`${API_URL}/${id}`, {
-      exerciseName: newData.exerciseName,
-      date: newData.date,
-      time: newData.time,
-      exerciseType: newData.exerciseType,
-      quantityPerWeek: newData.quantityPerWeek,
-      description: newData.description,
-      patientId: newData.patientId,
-      userId: newData.userId,
+export const UpdateExercise = async (id, newData) => {
+  const data = {
+    exerciseName: newData.exerciseName,
+    date: newData.date,
+    time: newData.time,
+    exerciseType: newData.exerciseType,
+    quantityPerWeek: newData.quantityPerWeek,
+    description: newData.description,
+    patientId: newData.patientId,
+    userId: newData.userId,
+  };
+  await axiosInstance
+    .put(`/exercicios/${id}`, data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
     .then((res) => {
-      alert(res);
+      alert("Atualizado com sucesso");
     })
     .catch((err) => {
+      console.log("err: ", err);
       alert(`Erro ao atualizar ${err.message}`);
     });
 };
-
-const Delete = async (id) => {
-  await axios
-    .delete(`${API_URL}/${id}`)
+export const DeleteExercise = async (id) => {
+  await axiosInstance
+    .delete(`/exercicios/${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
     .then((res) => {
-      alert(res);
+      alert("Deletado com sucesso");
     })
     .catch((err) => {
       alert(`Erro ao deletar ${err.message}`);
     });
-};
-
-export const Exercise = {
-  Store,
-  GetID,
-  Get,
-  Update,
-  Delete,
 };
