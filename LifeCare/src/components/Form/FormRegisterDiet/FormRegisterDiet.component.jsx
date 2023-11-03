@@ -5,11 +5,16 @@ import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
 
 import * as Styled from "../Form.styles";
-import { set, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Diet } from "../../../services/Diet/Diet.service";
-import { GetEmail } from "../../../services/Patient/Patient.service";
+import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
+import {
+  DeleteDiet,
+  GetDietID,
+  StoreDiet,
+  UpdateDiet,
+} from "../../../services/Diet/Diet.service";
 
 export const FormRegisterDiet = () => {
   const {
@@ -26,14 +31,17 @@ export const FormRegisterDiet = () => {
   useEffect(() => {
     if (id) {
       const getDiet = async () => {
-        await Diet.GetID(id).then(async (res) => {
+        await GetDietID(id).then(async (res) => {
           setValue("name", res.name);
           setValue("date", res.date);
           setValue("time", res.time);
           setValue("dietType", res.dietType);
           setValue("description", res.description);
           setValue("patientId", res.patientId);
-          setValue("userId", res.userId);
+          await GetID(res.data.patientId).then(async (patient) => {
+            setValue("patientName", patient.fullName);
+            setValue("patientEmail", patient.email);
+          });
         });
       };
       getDiet();
@@ -65,17 +73,17 @@ export const FormRegisterDiet = () => {
       ...data,
       userId: 1,
     };
-    await Diet.Store(body);
+    await StoreDiet(body);
   };
 
   const submitEdit = async (data) => {
     const body = {
       ...data,
     };
-    await Diet.Update(id, body);
+    await UpdateDiet(id, body);
   };
   const submitDelete = async () => {
-    await Diet.Delete(id);
+    await DeleteDiet(id);
   };
 
   return (
@@ -95,7 +103,6 @@ export const FormRegisterDiet = () => {
                 ...register("patientEmail", {
                   required: "Campo obrigatório",
                   validate: {
-                    message: "O email esta errado ou não existe",
                     matchPath: (v) =>
                       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v),
                   },
