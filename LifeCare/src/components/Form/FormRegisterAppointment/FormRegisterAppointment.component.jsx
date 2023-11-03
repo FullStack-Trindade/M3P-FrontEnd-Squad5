@@ -6,9 +6,14 @@ import Button from "@mui/material/Button";
 import * as Styled from "../Form.styles";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { Appointment } from "../../../services/Appointment/Appointment.service";
+import {
+  DeleteAppointment,
+  GetAppointmentID,
+  StoreAppointment,
+  UpdateAppointment,
+} from "../../../services/Appointment/Appointment.service";
 import { useEffect, useState } from "react";
-import { GetEmail } from "../../../services/Patient/Patient.service";
+import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
 
 export const FormRegisterAppointment = () => {
   const {
@@ -16,7 +21,6 @@ export const FormRegisterAppointment = () => {
     handleSubmit,
     watch,
     setValue,
-    reset,
     formState: { errors },
   } = useForm();
   const { id } = useParams();
@@ -26,7 +30,7 @@ export const FormRegisterAppointment = () => {
   useEffect(() => {
     if (id) {
       const getAppointment = async () => {
-        await Appointment.GetID(id).then(async (res) => {
+        await GetAppointmentID(id).then(async (res) => {
           setValue("appointmentReason", res.appointmentReason);
           setValue("appointmentDate", res.appointmentDate);
           setValue("appointmentTime", res.appointmentTime);
@@ -34,7 +38,10 @@ export const FormRegisterAppointment = () => {
           setValue("prescriptionMedication", res.prescriptionMedication);
           setValue("dosagePrecautions", res.dosagePrecautions);
           setValue("patientId", res.patientId);
-          setValue("userId", res.userId);
+          await GetID(res.data.patientId).then(async (patient) => {
+            setValue("patientName", patient.fullName);
+            setValue("patientEmail", patient.email);
+          });
         });
       };
       getAppointment();
@@ -55,17 +62,17 @@ export const FormRegisterAppointment = () => {
       ...data,
       userId: 1,
     };
-    await Appointment.Store(body);
+    await StoreAppointment(body);
   };
 
   const submitEdit = async (data) => {
     const body = {
       ...data,
     };
-    await Appointment.Update(id, body);
+    await UpdateAppointment(id, body);
   };
   const submitDelete = async () => {
-    await Appointment.Delete(id);
+    await DeleteAppointment(id);
   };
 
   return (
@@ -85,7 +92,6 @@ export const FormRegisterAppointment = () => {
                 ...register("patientEmail", {
                   required: "Campo obrigatório",
                   validate: {
-                    message: "O email esta errado ou não existe",
                     matchPath: (v) =>
                       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v),
                   },
