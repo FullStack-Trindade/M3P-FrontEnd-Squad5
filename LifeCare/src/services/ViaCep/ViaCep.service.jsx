@@ -3,9 +3,9 @@ const API_VIACEP = `http://viacep.com.br/ws/CEP/json/`;
 
 export const ViaCEP = async (cep) => {
   let data;
-  axios.get(API_VIACEP.replace("CEP", cep)).then((res) => {
+  await axios.get(API_VIACEP.replace("CEP", cep)).then((res) => {
     data = res.data;
   });
-
+  console.log(data);
   return data;
 };

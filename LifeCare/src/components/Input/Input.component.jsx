@@ -14,6 +14,7 @@ export const InputComponent = ({
   error,
   onInput,
   helperText,
+  step,
   readOnly = false,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +28,7 @@ export const InputComponent = ({
       <TextField
         id={id}
         onInput={onInput}
+        step={step}
         label={label}
         error={error}
         type={showPassword ? "text" : type}

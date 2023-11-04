@@ -72,6 +72,7 @@ export const FormRegisterComponent = () => {
   const submitEdit = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
     await UpdateExam(id, body);
   };
