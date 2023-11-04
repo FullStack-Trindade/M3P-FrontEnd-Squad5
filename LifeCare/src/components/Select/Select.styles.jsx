@@ -13,11 +13,11 @@ export const SelectLabel = styled.label`
   left: 0.5rem;
   top: -0.8rem;
   align-items: flex-start;
-  background-color: #ebf3f3;
+  background-color: ${({ $color }) => $color.cores.secondary};
   z-index: 5;
   align-self: stretch;
   color: ${({ $color }) => {
-    return $color === "danger" ? "#BE2E2E" : "#5281DC";
+    return $color === "danger" ? "#BE2E2E" : $color.texto.primary;
   }};
   font-size: 1.5;
   font-style: normal;
@@ -38,7 +38,7 @@ export const FormSelect = styled.select`
     }};
   border-radius: 0.5rem;
   color: ${({ $color }) => {
-    return $color === "danger" ? "#BE2E2E" : "#5281DC";
+    return $color === "danger" ? "#BE2E2E" : $color.texto.primary;
   }};
   background-color: transparent;
   appearance: none;

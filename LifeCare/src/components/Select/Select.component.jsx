@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import * as Styled from "./Select.styles";
+import { useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext/Theme.context";
 
 export const SelectComponent = ({
   register,
@@ -9,12 +11,17 @@ export const SelectComponent = ({
   option,
   id,
 }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
   return (
     <Styled.SelectGroup>
-      <Styled.SelectLabel $color={error && "danger"} htmlFor={id}>
+      <Styled.SelectLabel $color={theme || (error && "danger")} htmlFor={id}>
         {label}
       </Styled.SelectLabel>
-      <Styled.FormSelect id={id} $color={error && "danger"} {...register}>
+      <Styled.FormSelect
+        id={id}
+        $color={theme || (error && "danger")}
+        {...register}
+      >
         {option &&
           option.map((item, index) => {
             return (
