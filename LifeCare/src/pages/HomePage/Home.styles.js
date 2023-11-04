@@ -19,6 +19,7 @@ export const Columns = styled.div`
 
 export const InputContainer = styled.div`
   display: flex;
+
   flex-direction: row;
   width: 100%;
   margin-bottom: 10px;
