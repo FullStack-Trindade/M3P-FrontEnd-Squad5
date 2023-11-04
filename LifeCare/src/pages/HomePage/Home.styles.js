@@ -18,6 +18,9 @@ export const Columns = styled.div`
 `;
 
 export const InputContainer = styled.div`
+  display: flex;
+
+  flex-direction: row;
   width: 100%;
   margin-bottom: 10px;
   input {
@@ -31,6 +34,7 @@ export const InputContainer = styled.div`
 
 export const CardContainer = styled.div`
   display: flex;
+
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
