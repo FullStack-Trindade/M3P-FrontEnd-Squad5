@@ -1,73 +1,96 @@
-import axios from "axios";
+import { axiosInstance } from "../../helper/axiosInstance";
 
-let API_URL = "http://localhost:3333/api/medicamentos";
+export const GetMedicines = async () => {
+  try {
+    const medicineData = await axiosInstance
+      .get(`/medicamentos`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
 
-const Get = async () => {
-  const medicineData = await axios.get(API_URL);
-  return medicineData.data.data;
+    return medicineData;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const GetID = async (id) => {
-  const medicineData = await axios.get(`${API_URL}/${id}`);
-  return medicineData.data.data;
+export const GetMedicineID = async (id) => {
+  try {
+    const medicineData = await axiosInstance
+      .get(`/medicamentos/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
+
+    return medicineData;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-const Store = async (newData) => {
-  axios
-    .post(API_URL, {
-      name: newData.name,
-      date: newData.date,
-      time: newData.time,
-      medicineType: newData.medicineType,
-      amount: newData.amount,
-      unit: newData.unit,
-      comments: newData.comments,
-      patientId: newData.patientId,
-      userId: newData.userId,
+export const StoreMedicine = async (newData) => {
+  const data = {
+    name: newData.name,
+    date: newData.date,
+    time: newData.time,
+    medicineType: newData.medicineType,
+    amount: newData.amount,
+    unit: newData.unit,
+    comments: newData.comments,
+    patientId: newData.patientId,
+    userId: newData.userId,
+  };
+  await axiosInstance
+    .post(`/medicamentos`, data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
     .then((res) => {
-      alert(res);
+      alert("Cadastrado com sucesso");
     })
     .catch((err) => {
+      console.log("err: ", err);
       alert(`Erro ao cadastrar ${err.message}`);
     });
 };
-const Update = async (id, newData) => {
-  axios
-    .put(`${API_URL}/${id}`, {
-      name: newData.name,
-      date: newData.date,
-      time: newData.time,
-      medicineType: newData.medicineType,
-      amount: newData.amount,
-      unit: newData.unit,
-      comments: newData.comments, 
-      patientId: newData.patientId,
-      userId: newData.userId,
+export const UpdateMedicine = async (id, newData) => {
+  const data = {
+    name: newData.name,
+    date: newData.date,
+    time: newData.time,
+    medicineType: newData.medicineType,
+    amount: newData.amount,
+    unit: newData.unit,
+    comments: newData.comments,
+    patientId: newData.patientId,
+    userId: newData.userId,
+  };
+  await axiosInstance
+    .put(`/medicamentos/${id}`, data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
     .then((res) => {
-      alert(res);
+      alert("Atualizado com sucesso");
     })
     .catch((err) => {
+      console.log("err: ", err);
       alert(`Erro ao atualizar ${err.message}`);
     });
 };
-
-const Delete = async (id) => {
-  await axios
-    .delete(`${API_URL}/${id}`)
+export const DeleteMedicine = async (id) => {
+  await axiosInstance
+    .delete(`/medicamentos/${id}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
     .then((res) => {
-      alert(res);
+      alert("Deletado com sucesso");
     })
     .catch((err) => {
       alert(`Erro ao deletar ${err.message}`);
     });
-};
-
-export const Medicine = {
-  Store,
-  GetID,
-  Get,
-  Update,
-  Delete,
 };

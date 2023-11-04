@@ -6,7 +6,15 @@ import Button from "@mui/material/Button";
 
 import * as Styled from "../Form.styles";
 import { useForm } from "react-hook-form";
-import { GetEmail } from "../../../services/Patient/Patient.service";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
+import {
+  DeleteMedicine,
+  GetMedicineID,
+  StoreMedicine,
+  UpdateMedicine,
+} from "../../../services/Medicine/Medicine.service";
 
 export const FormRegisterMedicineComponent = () => {
   const {
@@ -16,7 +24,32 @@ export const FormRegisterMedicineComponent = () => {
     setValue,
     formState: { errors },
   } = useForm();
-
+  const { id } = useParams();
+  const [disable, setDisable] = useState(true);
+  const [saveDisable, setSaveDisable] = useState(false);
+  useEffect(() => {
+    if (id) {
+      const getMedicine = async () => {
+        await GetMedicineID(id).then(async (res) => {
+          setValue("name", res.data.name);
+          setValue("date", res.data.date);
+          setValue("time", res.data.time);
+          setValue("medicineType", res.data.medicineType);
+          setValue("amount", res.data.amount);
+          setValue("unit", res.data.unit);
+          setValue("comments", res.data.comments);
+          setValue("patientId", res.data.patientId);
+          await GetID(res.data.patientId).then(async (patient) => {
+            setValue("patientName", patient.fullName);
+            setValue("patientEmail", patient.email);
+          });
+        });
+      };
+      getMedicine();
+      setDisable(false);
+      setSaveDisable(true);
+    }
+  }, []);
   const selectMedicineType = [
     { value: "", label: "Selecione" },
     { value: "capsule", label: "Cápsula" },
@@ -48,16 +81,21 @@ export const FormRegisterMedicineComponent = () => {
   const submitForm = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
-    console.log(body);
+    await StoreMedicine(body);
   };
 
   const submitEdit = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
+    await UpdateMedicine(id, body);
   };
-  const submitDelete = async () => {};
+  const submitDelete = async () => {
+    await DeleteMedicine(id);
+  };
 
   return (
     <>
@@ -76,7 +114,6 @@ export const FormRegisterMedicineComponent = () => {
                 ...register("patientEmail", {
                   required: "Campo obrigatório",
                   validate: {
-                    message: "O email esta errado ou não existe",
                     matchPath: (v) =>
                       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v),
                   },
@@ -237,14 +274,20 @@ export const FormRegisterMedicineComponent = () => {
             <Button
               variant="outlined"
               type="button"
+              disabled={disable}
               onClick={handleSubmit(submitEdit)}
             >
               Editar
             </Button>
-            <Button variant="outlined" onClick={handleSubmit(submitDelete)}>
+            <Button
+              variant="outlined"
+              disabled={disable}
+              type="button"
+              onClick={handleSubmit(submitDelete)}
+            >
               Deletar
             </Button>
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" disabled={saveDisable} type="submit">
               Salvar
             </Button>
           </Styled.ButtonWrapper>
