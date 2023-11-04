@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import  { useContext, useState } from "react";
+import { useState } from "react";
 import {
   FaBars,
   FaArrowRight,
@@ -16,94 +16,97 @@ import { MdHome } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
 import { LuSettings } from "react-icons/lu";
 import * as Styled from "./Sidebar.styles";
-import { AuthContext } from "../../contexts/auth/auth.context";
+
+import { useAuth } from "../../hooks";
 
 const menuItem = [
   {
     path: "/",
     name: "Home",
     icon: <MdHome />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/paciente",
     name: "Cadastro de Paciente",
     icon: <HiMiniUsers />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/consulta",
     name: "Cadastro de Consulta",
     icon: <FaBriefcaseMedical />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/exame",
     name: "Cadastro de Exame",
     icon: <LiaFileMedicalAltSolid />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/medicamento",
     name: "Cadastro de Medicamento",
     icon: <RiMedicineBottleFill />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/dieta",
     name: "Cadastro de Dieta",
     icon: <IoFastFood />,
-    admin: false
+    admin: false,
   },
 
   {
     path: "/cadastro/exercicio",
     name: "Cadastro de Exercício",
     icon: <FaRunning />,
-    admin: false
+    admin: false,
   },
 
   {
     path: "/prontuario",
     name: "Prontuários",
     icon: <FaListUl />,
-    admin: false
+    admin: false,
   },
+];
 
-  
-
+const adminMenuItens = [
   {
     path: "/cadastro/usuarios",
     name: "Cadastro de Usuários",
     icon: <FiUserPlus />,
-    admin: true
+    admin: true,
   },
 
   {
     path: "/logs",
     name: "Logs",
     icon: <FaCashRegister />,
-    admin: true
+    admin: true,
   },
   {
     path: "/configuracoes",
     name: "Configuracões",
     icon: <LuSettings />,
-    admin: true
+    admin: true,
   },
 ];
 
 export const SidebarComponent = ({ children }) => {
+  const {
+    user: { role },
+    logout,
+  } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
-
-  const { logout } = useContext(AuthContext)
 
   return (
     <Styled.Container>
       <Styled.SideBarContainer $isOpen={isOpen}>
         <Styled.TopSection>
-          <Styled.Logo $isOpen={isOpen}/>
+          <Styled.Logo $isOpen={isOpen} />
           <Styled.Bars $isOpen={isOpen}>
             <FaBars onClick={toggle} />
           </Styled.Bars>
@@ -114,10 +117,19 @@ export const SidebarComponent = ({ children }) => {
             <Styled.LinkText $isOpen={isOpen}>{item.name}</Styled.LinkText>
           </Styled.StyledLink>
         ))}
+        {role === "admin" &&
+          adminMenuItens.map((item, index) => (
+            <Styled.StyledLink to={item.path} key={index} $admin={item.admin}>
+              <Styled.Icon>{item.icon}</Styled.Icon>
+              <Styled.LinkText $isOpen={isOpen}>{item.name}</Styled.LinkText>
+            </Styled.StyledLink>
+          ))}
         <Styled.StyledLink to={"/login"} $admin={false} onClick={logout}>
-            <Styled.Icon><FaArrowRight /></Styled.Icon>
-            <Styled.LinkText $isOpen={isOpen}>{"Sair"}</Styled.LinkText>
-          </Styled.StyledLink>
+          <Styled.Icon>
+            <FaArrowRight />
+          </Styled.Icon>
+          <Styled.LinkText $isOpen={isOpen}>{"Sair"}</Styled.LinkText>
+        </Styled.StyledLink>
       </Styled.SideBarContainer>
 
       <Styled.Main>{children}</Styled.Main>
@@ -125,7 +137,6 @@ export const SidebarComponent = ({ children }) => {
   );
 };
 
-
-SidebarComponent.propTypes ={
+SidebarComponent.propTypes = {
   children: PropTypes.node,
-}
+};
