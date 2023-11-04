@@ -16,6 +16,7 @@ export const HomePage = () => {
   const [filteredPatients, setFilteredPatients] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchUserBy, setSearchUserBy] = useState("email");
+  const [searchPatientBy, setSearchPatientBy] = useState("email");
 
   const [patientData, patientIsLoading] = useAxios({
     resource: "/pacientes",
@@ -33,13 +34,13 @@ export const HomePage = () => {
   }, [patientIsLoading, userIsLoading]);
 
   const handlerSearchPatient = (e) => {
-    const input = e.target.value;
+    const input = e.target.value.toLowerCase();
 
     if (!input) {
       setFilteredPatients(patientData);
     } else {
       const filtered = patientData.data.filter((patient) =>
-        patient.email.includes(input)
+        patient[searchPatientBy].toLowerCase().includes(input)
       );
       setFilteredPatients({ data: filtered });
     }
@@ -61,6 +62,10 @@ export const HomePage = () => {
     const value = e.target.value;
     setSearchUserBy(value);
   };
+  const handlerSearchPatientBy = (e) => {
+    const value = e.target.value;
+    setSearchPatientBy(value);
+  };
 
   const translate = {
     email: "e-mail",
@@ -78,9 +83,15 @@ export const HomePage = () => {
         <Styles.Columns>
           <h3 style={{ textAlign: "center" }}>Pacientes</h3>
           <Styles.InputContainer>
+            <select name="select" id="select" onChange={handlerSearchPatientBy}>
+              <option value="email">E-mail</option>
+              <option value="fullName">nome</option>
+              <option value="cpf">cpf</option>
+              <option value="phoneNumber">Telefone</option>
+            </select>
             <input
               type="text"
-              placeholder="Informe o e-mail do paciente"
+              placeholder={`Informe o ${translate[searchPatientBy]} do paciente.`}
               onChange={handlerSearchPatient}
             />
           </Styles.InputContainer>
