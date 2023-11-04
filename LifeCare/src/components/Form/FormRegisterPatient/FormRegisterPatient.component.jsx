@@ -13,12 +13,15 @@ import {
   GetID,
   Delete,
   Update,
+  StorePatient,
 } from "../../../services/Patient/Patient.service";
 import { deleteLocalStorage } from "../../../services/LocalStorage.service";
+import { useParams } from "react-router-dom";
 
-export const FormRegisterPatientComponent = ({ id }) => {
+export const FormRegisterPatientComponent = () => {
+  const { id } = useParams();
   const [disabled, setDisabled] = useState(true);
-  const [patientId, setPatientId] = useState(0);
+  const [saveDisable, setSaveDisable] = useState(false);
 
   const {
     register,
@@ -29,45 +32,43 @@ export const FormRegisterPatientComponent = ({ id }) => {
   } = useForm();
 
   useEffect(() => {
-    async function getPatientInfo() {
-      setPatientId(id);
-      const data = await GetID(id);
-      setFormData(data);
-    }
-    function setFormData(data) {
-      setValue("fullName", data.fullName || "");
-      setValue("gender", data.gender || "");
-      setValue("birthday", data.birthday?.split("T")[0] || "");
-      setValue("cpf", data.cpf || "");
-      setValue("rg", data.rg || "");
-      setValue("civilStatus", data.civilStatus || "");
-      setValue("phoneNumber", data.phoneNumber || "");
-      setValue("emergencyContact", data.emergencyContact || "");
-      setValue("email", data.email || "");
-      setValue("nationality", data.nationality || "");
-      setValue("listOfAllergies", data.listOfAllergies || "");
-      setValue("specificCare", data.specificCare || "");
-      setValue("healthInsurance", data.healthInsurance || "");
-      setValue("insuranceNumber", data.insuranceNumber || "");
-      setValue(
-        "insuranceExpirationDate?",
-        data.insuranceExpirationDate?.split("T")[0] || ""
-      );
-      setValue("cep", data.Address.zipCode || "");
-      setValue("city", data.Address.city || "");
-      setValue("state", data.Address.state || "");
-      setValue("place", data.Address.street || "");
-      setValue("number", data.Address.number || "");
-      setValue("complement", data.Address.complement || "");
-      setValue("street", data.Address.neighborhood || "");
-      setValue("referencePoint", data.Address.referencePoint || "");
-      deleteLocalStorage("patient");
+    if (id) {
+      const getPatient = async () => {
+        await GetID(id).then(async (data) => {
+          setValue("fullName", data.fullName || "");
+          setValue("gender", data.gender || "");
+          setValue("birthday", data.birthday?.split("T")[0] || "");
+          setValue("cpf", data.cpf || "");
+          setValue("rg", data.rg || "");
+          setValue("civilStatus", data.civilStatus || "");
+          setValue("phoneNumber", data.phoneNumber || "");
+          setValue("emergencyContact", data.emergencyContact || "");
+          setValue("email", data.email || "");
+          setValue("nationality", data.nationality || "");
+          setValue("listOfAllergies", data.listOfAllergies || "");
+          setValue("specificCare", data.specificCare || "");
+          setValue("healthInsurance", data.healthInsurance || "");
+          setValue("insuranceNumber", data.insuranceNumber || "");
+          setValue(
+            "insuranceExpirationDate",
+            data.insuranceExpirationDate?.split("T")[0] || ""
+          );
+          setValue("cep", data.address.zipCode || "");
+          setValue("city", data.address.city || "");
+          setValue("state", data.address.state || "");
+          setValue("place", data.address.street || "");
+          setValue("number", data.address.number || "");
+          setValue("complement", data.address.complement || "");
+          setValue("street", data.address.neighborhood || "");
+          setValue("referencePoint", data.address.referencePoint || "");
+        });
+      };
+      getPatient();
       setDisabled(false);
+      setSaveDisable(true);
+      deleteLocalStorage("patient");
     }
-    if (id != 0) {
-      getPatientInfo();
-    }
-  }, [id]);
+  }, []);
 
   const selectGender = [
     { value: "", label: "Selecione" },
@@ -86,6 +87,7 @@ export const FormRegisterPatientComponent = ({ id }) => {
   ];
   const handleCep = async () => {
     await ViaCEP(watch("cep")).then((res) => {
+      console.log(res);
       setValue("city", res.localidade);
       setValue("state", res.uf);
       setValue("place", res.logradouro);
@@ -97,11 +99,16 @@ export const FormRegisterPatientComponent = ({ id }) => {
   const submitForm = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
-    console.log(body);
+    await StorePatient(body);
   };
   const submitEdit = async (data) => {
-    await Update(patientId, data);
+    const body = {
+      ...data,
+      userId: 1,
+    };
+    await Update(id, body);
   };
   const submitDelete = async (id) => {
     await Delete(id);
@@ -388,8 +395,12 @@ export const FormRegisterPatientComponent = ({ id }) => {
               placeholder="CEP"
               label="CEP"
               register={{
-                ...register("cep"),
+                ...register("cep", {
+                  required: "Campo obrigatório",
+                }),
               }}
+              error={!!errors.cep}
+              helperText={errors.cep?.message}
             />
             <Button
               className="cepButton"
@@ -405,8 +416,12 @@ export const FormRegisterPatientComponent = ({ id }) => {
               type="text"
               placeholder="Cidade"
               register={{
-                ...register("city"),
+                ...register("city", {
+                  required: "Campo obrigatório",
+                }),
               }}
+              error={!!errors.city}
+              helperText={errors.city?.message}
             />
             <InputComponent
               id="state"
@@ -414,8 +429,12 @@ export const FormRegisterPatientComponent = ({ id }) => {
               type="text"
               placeholder="Estado"
               register={{
-                ...register("state"),
+                ...register("state", {
+                  required: "Campo obrigatório",
+                }),
               }}
+              error={!!errors.state}
+              helperText={errors.state?.message}
             />
           </Styled.FormRow>
           <Styled.FormRow>
@@ -425,8 +444,12 @@ export const FormRegisterPatientComponent = ({ id }) => {
               type="text"
               placeholder="Logradouro"
               register={{
-                ...register("place"),
+                ...register("place", {
+                  required: "Campo obrigatório",
+                }),
               }}
+              error={!!errors.place}
+              helperText={errors.place?.message}
             />
 
             <InputComponent
@@ -435,8 +458,12 @@ export const FormRegisterPatientComponent = ({ id }) => {
               type="text"
               placeholder="Número"
               register={{
-                ...register("number"),
+                ...register("number", {
+                  required: "Campo obrigatório",
+                }),
               }}
+              error={!!errors.number}
+              helperText={errors.number?.message}
             />
           </Styled.FormRow>
           <Styled.FormRow>
@@ -455,8 +482,12 @@ export const FormRegisterPatientComponent = ({ id }) => {
               type="text"
               placeholder="Bairro"
               register={{
-                ...register("street"),
+                ...register("street", {
+                  required: "Campo obrigatório",
+                }),
               }}
+              error={!!errors.street}
+              helperText={errors.street?.message}
             />
             <InputComponent
               id="referencePoint"
@@ -479,12 +510,12 @@ export const FormRegisterPatientComponent = ({ id }) => {
             </Button>
             <Button
               variant="outlined"
-              onClick={() => handleSubmit(submitDelete(patientId))}
+              onClick={() => handleSubmit(submitDelete(id))}
               disabled={disabled}
             >
               Deletar
             </Button>
-            <Button variant="outlined" type="submit">
+            <Button variant="outlined" disabled={saveDisable} type="submit">
               Salvar
             </Button>
           </Styled.ButtonWrapper>
