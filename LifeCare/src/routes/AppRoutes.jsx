@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  redirect,
+} from "react-router-dom";
 import { PatientRegistrationPage } from "../pages/PatientRegistrationPage/PatientRegistration.page";
 import { LoginPage } from "../pages/LoginPage/Login.page.jsx";
 import { Layout } from "../layouts/Layout";
@@ -11,11 +16,16 @@ import { HandbookPage } from "../pages/HandbookPage/Handbook.page";
 import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPage/AppointmentRegistration.page";
 import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
 
+import { useAuth } from "../hooks/useAuth.js";
+
 export const AppRoutes = () => {
+  const { isLogged } = useAuth();
+
   return (
     <Router>
       <Routes>
         <Route path="login" element={<LoginPage />} />
+
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route

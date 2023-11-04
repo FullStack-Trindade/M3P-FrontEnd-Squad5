@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import  { useContext, useState } from "react";
 import {
   FaBars,
   FaArrowRight,
@@ -15,6 +16,7 @@ import { MdHome } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
 import { LuSettings } from "react-icons/lu";
 import * as Styled from "./Sidebar.styles";
+import { AuthContext } from "../../contexts/auth/auth.context";
 
 const menuItem = [
   {
@@ -68,12 +70,7 @@ const menuItem = [
     admin: false
   },
 
-  {
-    path: "/login",
-    name: "Sair",
-    icon: <FaArrowRight />,
-    admin: false
-  },
+  
 
   {
     path: "/cadastro/usuarios",
@@ -100,6 +97,8 @@ export const SidebarComponent = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
+  const { logout } = useContext(AuthContext)
+
   return (
     <Styled.Container>
       <Styled.SideBarContainer $isOpen={isOpen}>
@@ -115,9 +114,18 @@ export const SidebarComponent = ({ children }) => {
             <Styled.LinkText $isOpen={isOpen}>{item.name}</Styled.LinkText>
           </Styled.StyledLink>
         ))}
+        <Styled.StyledLink to={"/login"} $admin={false} onClick={logout}>
+            <Styled.Icon><FaArrowRight /></Styled.Icon>
+            <Styled.LinkText $isOpen={isOpen}>{"Sair"}</Styled.LinkText>
+          </Styled.StyledLink>
       </Styled.SideBarContainer>
 
       <Styled.Main>{children}</Styled.Main>
     </Styled.Container>
   );
 };
+
+
+SidebarComponent.propTypes ={
+  children: PropTypes.node,
+}
