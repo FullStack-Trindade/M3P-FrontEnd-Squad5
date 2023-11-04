@@ -32,13 +32,14 @@ export const FormRegisterPhysicalExerciseComponent = () => {
     if (id) {
       const getExercise = async () => {
         await GetExerciseID(id).then(async (res) => {
-          setValue("exerciseName", res.exerciseName);
-          setValue("date", res.date);
-          setValue("time", res.time);
-          setValue("exerciseType", res.exerciseType);
-          setValue("quantityPerWeek", res.quantityPerWeek);
-          setValue("description", res.description);
-          setValue("patientId", res.patientId);
+          console.log(res);
+          setValue("exerciseName", res.data.exerciseName);
+          setValue("date", res.data.date);
+          setValue("time", res.data.time);
+          setValue("exerciseType", res.data.exerciseType);
+          setValue("quantityPerWeek", res.data.quantityPerWeek);
+          setValue("description", res.data.description);
+          setValue("patientId", res.data.patientId);
           await GetID(res.data.patientId).then(async (patient) => {
             setValue("patientName", patient.fullName);
             setValue("patientEmail", patient.email);
@@ -71,6 +72,7 @@ export const FormRegisterPhysicalExerciseComponent = () => {
   const submitForm = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
     await StoreExercise(body);
   };
@@ -78,6 +80,7 @@ export const FormRegisterPhysicalExerciseComponent = () => {
   const submitEdit = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
     await UpdateExercise(id, body);
   };
@@ -97,7 +100,7 @@ export const FormRegisterPhysicalExerciseComponent = () => {
             <InputComponent
               id="patientEmail"
               type="email"
-              label="Encontre o paciente pelo email"
+              placeholder="Encontre o paciente pelo email"
               register={{
                 ...register("patientEmail", {
                   required: "Campo obrigatório",
@@ -122,7 +125,7 @@ export const FormRegisterPhysicalExerciseComponent = () => {
             <InputComponent
               id="patientId"
               type="number"
-              label="Id do Paciente"
+              placeholder="Id do Paciente"
               register={{
                 ...register("patientId", {
                   required: "Campo obrigatório",
@@ -134,7 +137,7 @@ export const FormRegisterPhysicalExerciseComponent = () => {
             <InputComponent
               id="patientName"
               type="text"
-              label="Nome do Paciente"
+              placeholder="Nome do Paciente"
               register={{
                 ...register("patientName", {
                   required: "Campo obrigatório",
@@ -155,7 +158,6 @@ export const FormRegisterPhysicalExerciseComponent = () => {
               id="exerciseName"
               type="text"
               placeholder="Digite o nome do exame"
-              label="Nome do Exercícios"
               register={{
                 ...register("exerciseName", {
                   required: "Campo obrigatório",
@@ -211,7 +213,8 @@ export const FormRegisterPhysicalExerciseComponent = () => {
             <InputComponent
               id="quantityPerWeek"
               type="number"
-              label="Quantidade por Semana"
+              placeholder="Quantidade por Semana"
+              step="0.01"
               register={{
                 ...register("quantityPerWeek", {
                   required: "Campo obrigatório",
@@ -223,7 +226,6 @@ export const FormRegisterPhysicalExerciseComponent = () => {
             <InputComponent
               id="description"
               type="text"
-              label="Descrição"
               placeholder="Descrição do exercicio"
               register={{
                 ...register("description", {

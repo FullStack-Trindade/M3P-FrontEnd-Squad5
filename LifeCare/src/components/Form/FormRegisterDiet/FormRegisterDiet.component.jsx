@@ -32,12 +32,13 @@ export const FormRegisterDiet = () => {
     if (id) {
       const getDiet = async () => {
         await GetDietID(id).then(async (res) => {
-          setValue("name", res.name);
-          setValue("date", res.date);
-          setValue("time", res.time);
-          setValue("dietType", res.dietType);
-          setValue("description", res.description);
-          setValue("patientId", res.patientId);
+          console.log(res);
+          setValue("name", res.data.name);
+          setValue("date", res.data.date);
+          setValue("time", res.data.time);
+          setValue("dietType", res.data.dietType);
+          setValue("description", res.data.description);
+          setValue("patientId", res.data.patientId);
           await GetID(res.data.patientId).then(async (patient) => {
             setValue("patientName", patient.fullName);
             setValue("patientEmail", patient.email);
@@ -79,6 +80,7 @@ export const FormRegisterDiet = () => {
   const submitEdit = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
     await UpdateDiet(id, body);
   };
@@ -159,7 +161,7 @@ export const FormRegisterDiet = () => {
                 id="dietDate"
                 type="date"
                 register={{
-                  ...register("dietDate", { required: "Campo obrigatório" }),
+                  ...register("date", { required: "Campo obrigatório" }),
                 }}
                 error={!!errors.dietDate}
                 helperText={errors.dietDate?.message}
@@ -169,7 +171,7 @@ export const FormRegisterDiet = () => {
                 type="text"
                 label="Nome da Dieta"
                 register={{
-                  ...register("dietName", {
+                  ...register("name", {
                     required: "Campo obrigatório",
                     minLength: {
                       value: 5,
@@ -186,16 +188,6 @@ export const FormRegisterDiet = () => {
               />
             </Styled.FormColumn>
             <Styled.FormColumn>
-              <InputComponent
-                id="dietTime"
-                type="time"
-                register={{
-                  ...register("dietTime", { required: "Campo obrigatório" }),
-                }}
-                error={!!errors.dietTime}
-                helperText={errors.dietTime?.message}
-              />
-
               <SelectComponent
                 id={"dietType"}
                 label={"Tipos de Dieta"}
@@ -203,12 +195,43 @@ export const FormRegisterDiet = () => {
                 helperText={errors.gender?.message}
                 option={selectDiet}
                 register={{
-                  ...register("gender", {
+                  ...register("dietType", {
                     required: "Selecione uma das opções",
                   }),
                 }}
               />
+              <InputComponent
+                id="dietTime"
+                type="time"
+                register={{
+                  ...register("time", { required: "Campo obrigatório" }),
+                }}
+                error={!!errors.dietTime}
+                helperText={errors.dietTime?.message}
+              />
             </Styled.FormColumn>
+          </Styled.FormRow>
+          <Styled.FormRow>
+            <InputComponent
+              id="description"
+              type="text"
+              placeholder="Descrição do exercicio"
+              register={{
+                ...register("description", {
+                  required: "Campo obrigatório",
+                  minLength: {
+                    value: 16,
+                    message: "Campo deve ter pelo menos 16 caracteres",
+                  },
+                  maxLength: {
+                    value: 1024,
+                    message: "Campo deve ter no máximo 1024 caracteres",
+                  },
+                }),
+              }}
+              error={!!errors.description}
+              helperText={errors.description?.message}
+            />
           </Styled.FormRow>
 
           <Styled.ButtonWrapper>

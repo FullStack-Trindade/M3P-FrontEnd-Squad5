@@ -31,13 +31,13 @@ export const FormRegisterAppointment = () => {
     if (id) {
       const getAppointment = async () => {
         await GetAppointmentID(id).then(async (res) => {
-          setValue("appointmentReason", res.appointmentReason);
-          setValue("appointmentDate", res.appointmentDate);
-          setValue("appointmentTime", res.appointmentTime);
-          setValue("description", res.description);
-          setValue("prescriptionMedication", res.prescriptionMedication);
-          setValue("dosagePrecautions", res.dosagePrecautions);
-          setValue("patientId", res.patientId);
+          setValue("appointmentReason", res.data.appointmentReason);
+          setValue("appointmentDate", res.data.appointmentDate);
+          setValue("appointmentTime", res.data.appointmentTime);
+          setValue("description", res.data.description);
+          setValue("prescriptionMedication", res.data.prescriptionMedication);
+          setValue("dosagePrecautions", res.data.dosagePrecautions);
+          setValue("patientId", res.data.patientId);
           await GetID(res.data.patientId).then(async (patient) => {
             setValue("patientName", patient.fullName);
             setValue("patientEmail", patient.email);
@@ -68,6 +68,7 @@ export const FormRegisterAppointment = () => {
   const submitEdit = async (data) => {
     const body = {
       ...data,
+      userId: 1,
     };
     await UpdateAppointment(id, body);
   };
