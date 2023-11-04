@@ -4,6 +4,16 @@ import * as Styled from "../Form.styles";
 
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+import {
+  GetUser,
+  GetUserID,
+  StoreUser,
+  UpdateUser,
+  DeleteUser,
+} from "../../../services/User/User.service";
 
 export const FormRegisterUser = () => {
   const {
@@ -13,6 +23,36 @@ export const FormRegisterUser = () => {
     setValue,
     formState: { errors },
   } = useForm();
+
+  const { id } = useParams();
+  const [disable, setDisable] = useState(true);
+  const [saveDisable, setSaveDisable] = useState(false);
+
+  useEffect(() => {
+    if (id) {
+      const getUser = async () => {
+        await GetUserID(id).then(async (res) => {
+          setValue("id", res.id);
+          setValue("fullName", res.fullName);
+          setValue("gender", res.gender);
+          setValue("email", res.email);
+          setValue("cpf", res.cpf);
+          setValue("phoneNumber", res.phoneNumber);
+          setValue("type", res.type);
+        });
+      };
+      getUser();
+      setDisable(false);
+      setSaveDisable(true);
+    } else {
+      const getUsers = async () => {
+        GetUser();
+      };
+      getUsers();
+      setDisable(false);
+      setSaveDisable(true);
+    }
+  }, []);
 
   const selectGender = [
     { value: "", label: "Selecione" },
@@ -28,26 +68,22 @@ export const FormRegisterUser = () => {
   ];
   const submitForm = async (data) => {
     const body = {
-      fullName,
-      gender,
-      type,
-      cpf,
-      email,
-      password,
+      ...data,
     };
     console.log(body);
+    await StoreUser(body);
   };
   const submitEdit = async (data) => {
     const body = {
-      fullName,
-      gender,
-      type,
-      cpf,
-      email,
-      password,
+      ...data,
     };
+    console.log(id, body);
+    await UpdateUser(id, body);
   };
-  const submitDelete = async () => {};
+  const submitDelete = async () => {
+    console.log(id);
+    await DeleteUser(id);
+  };
 
   return (
     <>
