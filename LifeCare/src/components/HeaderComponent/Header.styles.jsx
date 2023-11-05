@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   width: 100%;
   height: 7%;
-  background-color: ${({ $colors }) => $colors.secondary};
+  background-color: #8ae9f0;
   display: flex;
 `;
 
@@ -32,10 +32,16 @@ export const Icon = styled.li`
   text-decoration: none;
   font-size: 40px;
   align-items: center;
-`;
 
-export const AppLogo = styled.img`
-  height: 4rem;
-  padding-top: 0.5rem;
-  padding-left: 1rem;
-`;
+    
+
+`
+
+ export const AppLogo = styled.img`
+   height: 4rem;
+   padding-top: 0.5rem;
+   padding-left:1rem;
+    
+   
+
+ `;
