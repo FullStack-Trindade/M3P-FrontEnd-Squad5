@@ -12,7 +12,7 @@ export const ThemeContext = createContext({
     },
     nomeEmpresa: "Minha Empresa",
     slogan: "Alterar para o slogan da sua empresa",
-    urlImage: null,
+    urlImage: "https://a.imagem.app/oxvyMN.png",
   },
   setTheme: () => {},
 });
@@ -29,7 +29,7 @@ export const ThemeProvider = ({ children }) => {
     },
     nomeEmpresa: "Garcia Care",
     slogan: "Antendimento Gracioso",
-    logo: null,
+    logo: "https://a.imagem.app/oxvyMN.png",
   });
 
   return (
