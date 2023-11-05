@@ -10,6 +10,8 @@ import { HomeCardComponent } from "../../components/HomeCardComponent/HomeCardCo
 
 import CircularProgress from "@mui/material/CircularProgress";
 
+import { useAuth } from "../../hooks";
+
 export const HomePage = () => {
   const { user } = useAuth();
   const role = user?.role || "admin";

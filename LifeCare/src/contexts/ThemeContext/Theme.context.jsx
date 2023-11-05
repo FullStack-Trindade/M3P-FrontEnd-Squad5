@@ -3,15 +3,15 @@ import { createContext, useState } from "react";
 export const ThemeContext = createContext({
   theme: {
     cores: {
-      primary: "#847979",
-      secondary: "#BBC2E2",
+      primary: "#66CDAA",
+      secondary: "#AFEEEE",
     },
     texto: {
-      primary: "#847979",
-      secondary: "#BBC2E2",
+      primary: "#4169E1",
+      secondary: "#00BFFF",
     },
-    nomeEmpresa: "Minha Empresa",
-    slogan: "Alterar para o slogan da sua empresa",
+    nomeEmpresa: "Life Care",
+    slogan: "Cuidando da sua saude",
     urlImage: "https://a.imagem.app/oxvyMN.png",
   },
   setTheme: () => {},
@@ -20,16 +20,16 @@ export const ThemeContext = createContext({
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState({
     cores: {
-      primary: "#847979",
-      secondary: "#BBC2E2",
+      primary: "#66CDAA",
+      secondary: "#AFEEEE",
     },
     texto: {
-      primary: "#ffff",
-      secondary: "#000",
+      primary: "#00BFFF",
+      secondary: "#4169E1",
     },
-    nomeEmpresa: "Garcia Care",
-    slogan: "Antendimento Gracioso",
-    logo: "https://a.imagem.app/oxvyMN.png",
+    nomeEmpresa: "Life Care",
+    slogan: "Cuidando da sua saude",
+    urlImage: "https://a.imagem.app/oxvyMN.png",
   });
 
   return (

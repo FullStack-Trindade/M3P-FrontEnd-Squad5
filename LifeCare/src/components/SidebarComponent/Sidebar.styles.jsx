@@ -40,12 +40,13 @@ export const Logo = styled.h1`
 
 export const StyledLink = styled(NavLink)`
   display: flex;
-  color: ${({ $colors }) => $colors.primary};
+  color: ${({ $colors }) => $colors.texto.primary};
   padding: 10px 15px;
   gap: 15px;
   transition: all 0.5s;
   text-decoration: none;
-  background-color: ${(props) => (props.$admin ? "black" : "")};
+  background-color: ${({ $admin, $colors }) =>
+    $admin ? $colors.cores.secondary : ""};
   &:hover {
     background: rgb(81, 209, 226);
   }

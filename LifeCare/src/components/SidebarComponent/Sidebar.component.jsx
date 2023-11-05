@@ -17,6 +17,8 @@ import { LuSettings } from "react-icons/lu";
 import * as Styled from "./Sidebar.styles";
 import { ThemeContext } from "../../contexts/ThemeContext/Theme.context";
 
+import { useAuth } from "../../hooks";
+
 const menuItem = [
   {
     path: "/",
@@ -115,7 +117,7 @@ export const SidebarComponent = ({ children }) => {
         </Styled.TopSection>
         {menuItem.map((item, index) => (
           <Styled.StyledLink
-            $colors={theme.texto}
+            $colors={theme}
             to={item.path}
             key={index}
             $admin={item.admin}

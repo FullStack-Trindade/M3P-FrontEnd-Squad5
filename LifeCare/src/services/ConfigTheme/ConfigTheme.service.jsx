@@ -42,7 +42,7 @@ export const StoreTheme = async (newData) => {
     secondaryTextColor: newData.secondaryColor,
     companyName: newData.companyName,
     slogan: newData.slogan,
-    logo: newData.logo,
+    logo: newData.logoURL,
     userId: newData.userId,
   };
   await axiosInstance
@@ -65,7 +65,7 @@ export const UpdateTheme = async (id, newData) => {
     secondaryTextColor: newData.secondaryColor,
     companyName: newData.companyName,
     slogan: newData.slogan,
-    logo: newData.logo,
+    logo: newData.logoURL,
     userId: newData.userId,
   };
   await axiosInstance

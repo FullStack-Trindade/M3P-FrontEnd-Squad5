@@ -102,7 +102,7 @@ export const BoxComponent = () => {
   return (
     <Styled.BoxWrapper>
       {role === "admin" && (
-        <Styled.Box>
+        <Styled.Box $colors={theme.cores}>
           <Styled.Header>
             <Styled.ServiceName>{"Usuários"}</Styled.ServiceName>
             <Styled.Tag>{<MdPeople />}</Styled.Tag>

@@ -4,8 +4,12 @@ import Button from "@mui/material/Button";
 import * as Styled from "../Form.styles";
 
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
+import {
+  GetThemeID,
+  UpdateTheme,
+} from "../../../services/ConfigTheme/ConfigTheme.service";
 
 export const FormThemeConfiguration = () => {
   const {
@@ -16,6 +20,21 @@ export const FormThemeConfiguration = () => {
     formState: { errors },
   } = useForm();
   const { theme, setTheme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    const getTema = async () => {
+      await GetThemeID(1).then((res) => {
+        setValue("primaryColor", res.data.primaryColor);
+        setValue("secondaryColor", res.data.secondaryColor);
+        setValue("primaryTextColor", res.data.primaryTextColor);
+        setValue("secondaryTextColor", res.data.secondaryTextColor);
+        setValue("companyName", res.data.companyName);
+        setValue("slogan", res.data.slogan);
+        setValue("logoURL", res.data.logo);
+      });
+    };
+    getTema();
+  }, []);
 
   const submitEdit = async (data) => {
     const body = {
@@ -32,6 +51,8 @@ export const FormThemeConfiguration = () => {
       logo: data.logoURL,
     };
     setTheme(body);
+    const update = { ...data, userId: 1 };
+    await UpdateTheme(1, update);
   };
   return (
     <>
