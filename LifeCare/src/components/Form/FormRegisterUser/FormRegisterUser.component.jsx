@@ -4,8 +4,6 @@ import * as Styled from "../Form.styles";
 
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
-import { useContext } from "react";
-import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
 
 export const FormRegisterUser = () => {
   const {
@@ -15,8 +13,6 @@ export const FormRegisterUser = () => {
     setValue,
     formState: { errors },
   } = useForm();
-
-  const { theme, setTheme } = useContext(ThemeContext);
 
   const selectGender = [
     { value: "", label: "Selecione" },
@@ -55,14 +51,10 @@ export const FormRegisterUser = () => {
 
   return (
     <>
-      <Styled.Form $colors={theme.cores} onSubmit={handleSubmit(submitForm)}>
-        <Styled.FormTitle $colors={theme.texto}>
-          Preencha os campos para cadastrar
-        </Styled.FormTitle>
+      <Styled.Form onSubmit={handleSubmit(submitForm)}>
+        <Styled.FormTitle>Preencha os campos para cadastrar</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormSubTitle $colors={theme.texto}>
-            Cadastre um Usuario
-          </Styled.FormSubTitle>
+          <Styled.FormSubTitle>Cadastre um Usuario</Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="fullName"

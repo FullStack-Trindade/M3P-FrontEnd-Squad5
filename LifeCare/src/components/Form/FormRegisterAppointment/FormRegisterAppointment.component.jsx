@@ -12,9 +12,8 @@ import {
   StoreAppointment,
   UpdateAppointment,
 } from "../../../services/Appointment/Appointment.service";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
-import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
 
 export const FormRegisterAppointment = () => {
   const {
@@ -27,7 +26,6 @@ export const FormRegisterAppointment = () => {
   const { id } = useParams();
   const [disable, setDisable] = useState(true);
   const [saveDisable, setSaveDisable] = useState(false);
-  const { theme, setTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (id) {
@@ -80,12 +78,10 @@ export const FormRegisterAppointment = () => {
 
   return (
     <>
-      <Styled.Form $colors={theme.cores} onSubmit={handleSubmit(submitForm)}>
-        <Styled.FormTitle $colors={theme.texto}>
-          Cadastrar Consulta
-        </Styled.FormTitle>
+      <Styled.Form onSubmit={handleSubmit(submitForm)}>
+        <Styled.FormTitle>Cadastrar Consulta</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormSubTitle $colors={theme.texto}>
+          <Styled.FormSubTitle>
             Procure o Paciente pelo email
           </Styled.FormSubTitle>
           <Styled.FormRow>

@@ -24,7 +24,7 @@ export const ItemList = styled.li`
   text-decoration: none;
   padding: 20px;
   font-weight: bold;
-  color: ${({ $colors }) => $colors.primary};
+  color: #0a43ac;
 `;
 
 export const Icon = styled.li`

@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import * as Styled from "../Form.styles";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
 import {
   DeleteMedicine,
@@ -15,7 +15,6 @@ import {
   StoreMedicine,
   UpdateMedicine,
 } from "../../../services/Medicine/Medicine.service";
-import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
 
 export const FormRegisterMedicineComponent = () => {
   const {
@@ -28,7 +27,6 @@ export const FormRegisterMedicineComponent = () => {
   const { id } = useParams();
   const [disable, setDisable] = useState(true);
   const [saveDisable, setSaveDisable] = useState(false);
-  const { theme, setTheme } = useContext(ThemeContext);
   useEffect(() => {
     if (id) {
       const getMedicine = async () => {
@@ -101,12 +99,10 @@ export const FormRegisterMedicineComponent = () => {
 
   return (
     <>
-      <Styled.Form $colors={theme.cores} onSubmit={handleSubmit(submitForm)}>
-        <Styled.FormTitle $colors={theme.texto}>
-          Cadastrar Medicamento
-        </Styled.FormTitle>
+      <Styled.Form onSubmit={handleSubmit(submitForm)}>
+        <Styled.FormTitle>Cadastrar Medicamento</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormSubTitle $colors={theme.texto}>
+          <Styled.FormSubTitle>
             Procure o Paciente pelo email
           </Styled.FormSubTitle>
           <Styled.FormRow>

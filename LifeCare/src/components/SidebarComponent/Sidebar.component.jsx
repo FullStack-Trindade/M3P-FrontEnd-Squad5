@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import {
   FaBars,
   FaArrowRight,
@@ -15,7 +15,6 @@ import { MdHome } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
 import { LuSettings } from "react-icons/lu";
 import * as Styled from "./Sidebar.styles";
-import { ThemeContext } from "../../contexts/ThemeContext/Theme.context";
 
 const menuItem = [
   {
@@ -98,7 +97,6 @@ const menuItem = [
 ];
 
 export const SidebarComponent = ({ children }) => {
-  const { theme, setTheme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 

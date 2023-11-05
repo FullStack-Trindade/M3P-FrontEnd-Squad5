@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import * as Styled from "../Form.styles";
 import { ViaCEP } from "../../../services/ViaCep/ViaCep.service";
 import { SelectComponent } from "../../Select/Select.component";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   GetID,
@@ -17,14 +17,11 @@ import {
 } from "../../../services/Patient/Patient.service";
 import { deleteLocalStorage } from "../../../services/LocalStorage.service";
 import { useParams } from "react-router-dom";
-import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
 
 export const FormRegisterPatientComponent = () => {
   const { id } = useParams();
   const [disabled, setDisabled] = useState(true);
   const [saveDisable, setSaveDisable] = useState(false);
-
-  const { theme, setTheme } = useContext(ThemeContext);
 
   const {
     register,
@@ -119,14 +116,10 @@ export const FormRegisterPatientComponent = () => {
 
   return (
     <>
-      <Styled.Form $colors={theme.cores} onSubmit={handleSubmit(submitForm)}>
-        <Styled.FormTitle $colors={theme.texto}>
-          Preencha os campos para cadastrar
-        </Styled.FormTitle>
+      <Styled.Form onSubmit={handleSubmit(submitForm)}>
+        <Styled.FormTitle>Preencha os campos para cadastrar</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormSubTitle $colors={theme.texto}>
-            Identificação
-          </Styled.FormSubTitle>
+          <Styled.FormSubTitle>Identificação</Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="fullName"
@@ -359,9 +352,7 @@ export const FormRegisterPatientComponent = () => {
           </Styled.FormRow>
         </Styled.FormColumn>
         <Styled.FormColumn>
-          <Styled.FormSubTitle $colors={theme.texto}>
-            Convênio
-          </Styled.FormSubTitle>
+          <Styled.FormSubTitle>Convênio</Styled.FormSubTitle>
 
           <Styled.FormRow>
             <InputComponent
@@ -395,9 +386,7 @@ export const FormRegisterPatientComponent = () => {
           </Styled.FormRow>
         </Styled.FormColumn>
         <Styled.FormColumn>
-          <Styled.FormSubTitle $colors={theme.texto}>
-            Dados de Endereço
-          </Styled.FormSubTitle>
+          <Styled.FormSubTitle>Dados de Endereço</Styled.FormSubTitle>
           <Styled.FormRow>
             <InputComponent
               id="cep"

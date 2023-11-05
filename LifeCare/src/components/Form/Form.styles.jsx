@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Form = styled.form`
-  background-color: ${({ $colors }) => $colors.secondary};
+  background-color: #ebf3f3;
   width: 65rem;
   height: 38rem;
   margin: 1rem;
@@ -29,7 +29,7 @@ export const FormRow = styled.div`
 `;
 
 export const FormTitle = styled.legend`
-  color: ${({ $colors }) => $colors.primary};
+  color: #12619d;
   font-size: 2rem;
   font-style: normal;
   font-weight: 700;
@@ -37,7 +37,7 @@ export const FormTitle = styled.legend`
   margin: 1rem;
 `;
 export const FormSubTitle = styled.legend`
-  color: ${({ $colors }) => $colors.secondary};
+  color: #12619d;
   font-size: 1rem;
   font-style: normal;
   font-weight: 700;

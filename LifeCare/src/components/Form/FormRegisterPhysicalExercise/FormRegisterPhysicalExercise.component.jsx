@@ -7,7 +7,7 @@ import * as Styled from "../Form.styles";
 
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   DeleteExercise,
   GetExerciseID,
@@ -15,7 +15,6 @@ import {
   UpdateExercise,
 } from "../../../services/Exercise/Exercise.service";
 import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
-import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
 
 export const FormRegisterPhysicalExerciseComponent = () => {
   const {
@@ -28,7 +27,6 @@ export const FormRegisterPhysicalExerciseComponent = () => {
   const { id } = useParams();
   const [disable, setDisable] = useState(true);
   const [saveDisable, setSaveDisable] = useState(false);
-  const { theme, setTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (id) {
@@ -92,12 +90,10 @@ export const FormRegisterPhysicalExerciseComponent = () => {
 
   return (
     <>
-      <Styled.Form $colors={theme.cores} onSubmit={handleSubmit(submitForm)}>
-        <Styled.FormTitle $colors={theme.texto}>
-          Cadastrar Exercício
-        </Styled.FormTitle>
+      <Styled.Form onSubmit={handleSubmit(submitForm)}>
+        <Styled.FormTitle>Cadastrar Exercício</Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormSubTitle $colors={theme.texto}>
+          <Styled.FormSubTitle>
             Procure o Paciente pelo email
           </Styled.FormSubTitle>
           <Styled.FormRow>
