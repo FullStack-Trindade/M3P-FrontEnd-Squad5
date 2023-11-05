@@ -21,7 +21,7 @@ export const Box = styled.div`
   min-width: 230px;
   /* height: 200px; */
   font-size: 15px;
-  background-color: #25869e;
+  background-color: ${({ $colors }) => $colors.secondary};
   color: #fff;
   border-radius: 10px 0 10px 10px;
 `;

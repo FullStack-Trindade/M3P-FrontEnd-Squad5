@@ -4,6 +4,7 @@ import * as Styled from "./Layout.styles";
 import { SidebarComponent } from "../components/SidebarComponent/Sidebar.component";
 import { useContext, useEffect, useState } from "react";
 import { HeaderContext } from "../contexts/HeaderContext/Header.context";
+import { ThemeContext } from "../contexts/ThemeContext/Theme.context";
 
 export const Layout = () => {
   const { title } = useContext(HeaderContext);
@@ -16,10 +17,16 @@ export const Layout = () => {
     }, 3000)
   })
 
+  const { theme, setTheme } = useContext(ThemeContext);
   return (
     <Styled.App>
       <Styled.Main>
-        <HeaderComponent name="TESTE" title={title} userType="TIPO" />
+        <HeaderComponent
+          theme={theme}
+          name="TESTE"
+          title={title}
+          userType="TIPO"
+        />
         <SidebarComponent
           children={
             <Styled.Content>

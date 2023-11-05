@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { HeaderContext } from "../../contexts/HeaderContext/Header.context";
 import { ModalProvider } from "../../contexts/ModalContext/Modal.context";
-import { useAuth, useAxios } from "../../hooks/";
+import { useAxios } from "../../hooks/";
 
 import * as Styles from "./Home.styles";
 
@@ -9,6 +9,8 @@ import { BoxComponent } from "../../components/Box/Box.component";
 import { HomeCardComponent } from "../../components/HomeCardComponent/HomeCardComponent";
 
 import CircularProgress from "@mui/material/CircularProgress";
+
+import { useAuth } from "../../hooks";
 
 export const HomePage = () => {
   const { user } = useAuth();
@@ -26,7 +28,6 @@ export const HomePage = () => {
     resource: "/pacientes",
     method: "get",
   });
-
   const [userData, userIsLoading] = useAxios({
     resource: "/usuarios",
     method: "get",
@@ -116,39 +117,37 @@ export const HomePage = () => {
             )}
           </Styles.CardContainer>
         </Styles.Columns>
-        {role === "admin" && (
-          <Styles.Columns>
-            <h3 style={{ textAlign: "center" }}>Usuários</h3>
-            <Styles.InputContainer>
-              <select name="select" id="select" onChange={handlerSearchUserBy}>
-                <option value="email">E-mail</option>
-                <option value="fullName">nome</option>
-                <option value="cpf">cpf</option>
-                <option value="phoneNumber">Telefone</option>
-              </select>
-              <input
-                type="text"
-                placeholder={`Informe o ${translate[searchUserBy]} do usuário`}
-                onChange={handlerSearchUser}
-              />
-            </Styles.InputContainer>
-            <Styles.CardContainer>
-              {userIsLoading ? (
-                <CircularProgress color="success" />
-              ) : (
-                filteredUsers?.data?.map((p, i) => {
-                  return (
-                    <HomeCardComponent
-                      {...p}
-                      key={`${i * p.id}${p.cpf}`}
-                      type="user"
-                    />
-                  );
-                })
-              )}
-            </Styles.CardContainer>
-          </Styles.Columns>
-        )}
+        <Styles.Columns>
+          <h3 style={{ textAlign: "center" }}>Usuários</h3>
+          <Styles.InputContainer>
+            <select name="select" id="select" onChange={handlerSearchUserBy}>
+              <option value="email">E-mail</option>
+              <option value="fullName">nome</option>
+              <option value="cpf">cpf</option>
+              <option value="phoneNumber">Telefone</option>
+            </select>
+            <input
+              type="text"
+              placeholder={`Informe o ${translate[searchUserBy]} do usuário`}
+              onChange={handlerSearchUser}
+            />
+          </Styles.InputContainer>
+          <Styles.CardContainer>
+            {userIsLoading ? (
+              <CircularProgress color="success" />
+            ) : (
+              filteredUsers?.data?.map((p, i) => {
+                return (
+                  <HomeCardComponent
+                    {...p}
+                    key={`${i * p.id}${p.cpf}`}
+                    type="user"
+                  />
+                );
+              })
+            )}
+          </Styles.CardContainer>
+        </Styles.Columns>
       </Styles.Container>
     </ModalProvider>
   );

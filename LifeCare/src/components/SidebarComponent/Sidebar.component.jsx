@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaBars,
   FaArrowRight,
@@ -16,6 +15,7 @@ import { MdHome } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
 import { LuSettings } from "react-icons/lu";
 import * as Styled from "./Sidebar.styles";
+import { ThemeContext } from "../../contexts/ThemeContext/Theme.context";
 
 import { useAuth } from "../../hooks";
 
@@ -70,9 +70,14 @@ const menuItem = [
     icon: <FaListUl />,
     admin: false,
   },
-];
 
-const adminMenuItens = [
+  {
+    path: "/login",
+    name: "Sair",
+    icon: <FaArrowRight />,
+    admin: false,
+  },
+
   {
     path: "/cadastro/usuarios",
     name: "Cadastro de Usuários",
@@ -95,6 +100,7 @@ const adminMenuItens = [
 ];
 
 export const SidebarComponent = ({ children }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
   const { user, logout } = useAuth();
   const role = user?.role || "admin";
   const [isOpen, setIsOpen] = useState(false);
@@ -102,7 +108,7 @@ export const SidebarComponent = ({ children }) => {
 
   return (
     <Styled.Container>
-      <Styled.SideBarContainer $isOpen={isOpen}>
+      <Styled.SideBarContainer $colors={theme} $isOpen={isOpen}>
         <Styled.TopSection>
           <Styled.Logo $isOpen={isOpen} />
           <Styled.Bars $isOpen={isOpen}>
@@ -110,31 +116,19 @@ export const SidebarComponent = ({ children }) => {
           </Styled.Bars>
         </Styled.TopSection>
         {menuItem.map((item, index) => (
-          <Styled.StyledLink to={item.path} key={index} $admin={item.admin}>
+          <Styled.StyledLink
+            $colors={theme}
+            to={item.path}
+            key={index}
+            $admin={item.admin}
+          >
             <Styled.Icon>{item.icon}</Styled.Icon>
             <Styled.LinkText $isOpen={isOpen}>{item.name}</Styled.LinkText>
           </Styled.StyledLink>
         ))}
-        {role === "admin" &&
-          adminMenuItens.map((item, index) => (
-            <Styled.StyledLink to={item.path} key={index} $admin={item.admin}>
-              <Styled.Icon>{item.icon}</Styled.Icon>
-              <Styled.LinkText $isOpen={isOpen}>{item.name}</Styled.LinkText>
-            </Styled.StyledLink>
-          ))}
-        <Styled.StyledLink to={"/login"} $admin={false} onClick={logout}>
-          <Styled.Icon>
-            <FaArrowRight />
-          </Styled.Icon>
-          <Styled.LinkText $isOpen={isOpen}>{"Sair"}</Styled.LinkText>
-        </Styled.StyledLink>
       </Styled.SideBarContainer>
 
       <Styled.Main>{children}</Styled.Main>
     </Styled.Container>
   );
-};
-
-SidebarComponent.propTypes = {
-  children: PropTypes.node,
 };

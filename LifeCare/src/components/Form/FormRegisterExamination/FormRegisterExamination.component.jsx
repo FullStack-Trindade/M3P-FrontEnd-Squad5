@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as Styled from "../Form.styles";
 import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
 import {
@@ -14,6 +14,7 @@ import {
   GetExamID,
   StoreExam,
 } from "../../../services/Exam/Exam.service";
+import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
 
 export const FormRegisterComponent = () => {
   const {
@@ -26,6 +27,7 @@ export const FormRegisterComponent = () => {
   const { id } = useParams();
   const [disable, setDisable] = useState(true);
   const [saveDisable, setSaveDisable] = useState(false);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (id) {
@@ -82,10 +84,12 @@ export const FormRegisterComponent = () => {
 
   return (
     <>
-      <Styled.Form onSubmit={handleSubmit(submitForm)}>
-        <Styled.FormTitle>Cadastrar Exame</Styled.FormTitle>
+      <Styled.Form $colors={theme.cores} onSubmit={handleSubmit(submitForm)}>
+        <Styled.FormTitle $colors={theme.texto}>
+          Cadastrar Exame
+        </Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormSubTitle>
+          <Styled.FormSubTitle $colors={theme.texto}>
             Procure o Paciente pelo email
           </Styled.FormSubTitle>
           <Styled.FormRow>
@@ -147,7 +151,7 @@ export const FormRegisterComponent = () => {
               helperText={errors.patientName?.message}
             />
           </Styled.FormRow>
-          <Styled.FormSubTitle>
+          <Styled.FormSubTitle $colors={theme.texto}>
             Preencha os campos para cadastrar
           </Styled.FormSubTitle>
           <Styled.FormRow>

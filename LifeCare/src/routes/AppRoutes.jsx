@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { PatientRegistrationPage } from "../pages/PatientRegistrationPage/PatientRegistration.page";
 import { LoginPage } from "../pages/LoginPage/Login.page.jsx";
 import { Layout } from "../layouts/Layout";
@@ -15,18 +10,15 @@ import { PhysicalExerciseRegistrationPage } from "../pages/PhysicalExerciseRegis
 import { HandbookPage } from "../pages/HandbookPage/Handbook.page";
 import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPage/AppointmentRegistration.page";
 import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
-
-import { useAuth } from "../hooks/useAuth.js";
+import { ThemeConfigPage } from "../pages/ThemeConfigPage/ThemeConfig.page.jsx";
 import { LogPage } from "../pages/LogPage/LogPage.jsx";
+import { PatientHandbookPage } from "../pages/PatientHandbookPage/PatientHandbook.page.jsx";
 
 export const AppRoutes = () => {
-  const { isLogged } = useAuth();
-
   return (
     <Router>
       <Routes>
         <Route path="login" element={<LoginPage />} />
-
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route
@@ -75,7 +67,7 @@ export const AppRoutes = () => {
             element={<AppointmentRegistrationPage />}
           />
           <Route path="/prontuario" element={<HandbookPage />} />
-          <Route path="/prontuario/:id" element={<HandbookPage />} />
+          <Route path="/prontuario/:id" element={<PatientHandbookPage />} />
           <Route
             path="/cadastro/medicamento"
             element={<MedicineRegistrationPage />}
@@ -84,6 +76,7 @@ export const AppRoutes = () => {
             path="/cadastro/medicamento/:id"
             element={<MedicineRegistrationPage />}
           />
+          <Route path="/configuracoes" element={<ThemeConfigPage />} />
           <Route path="/admin/logs" element={<LogPage />} />
         </Route>
       </Routes>
