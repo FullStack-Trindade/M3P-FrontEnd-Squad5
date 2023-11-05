@@ -11,6 +11,7 @@ import { HandbookPage } from "../pages/HandbookPage/Handbook.page";
 import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPage/AppointmentRegistration.page";
 import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
 import { ThemeConfigPage } from "../pages/ThemeConfigPage/ThemeConfig.page.jsx";
+import { LogPage } from "../pages/LogPage/LogPage.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -74,7 +75,8 @@ export const AppRoutes = () => {
             path="/cadastro/medicamento/:id"
             element={<MedicineRegistrationPage />}
           />
-          <Route path="/configuracao" element={<ThemeConfigPage />} />
+          <Route path="/admin/configuracao" element={<ThemeConfigPage />} />
+          <Route path="/admin/logs" element={<LogPage />} />
         </Route>
       </Routes>
     </Router>

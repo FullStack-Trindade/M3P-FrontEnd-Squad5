@@ -84,7 +84,7 @@ const menuItem = [
   },
 
   {
-    path: "/logs",
+    path: "/admin/logs",
     name: "Logs",
     icon: <FaCashRegister />,
     admin: true,
@@ -99,6 +99,8 @@ const menuItem = [
 
 export const SidebarComponent = ({ children }) => {
   const { theme, setTheme } = useContext(ThemeContext);
+  const { user, logout } = useAuth();
+  const role = user?.role || "admin";
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 

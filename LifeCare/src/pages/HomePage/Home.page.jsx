@@ -11,6 +11,10 @@ import { HomeCardComponent } from "../../components/HomeCardComponent/HomeCardCo
 import CircularProgress from "@mui/material/CircularProgress";
 
 export const HomePage = () => {
+  const { user } = useAuth();
+  const role = user?.role || "admin";
+  console.log("role", role);
+
   const { setTitle } = useContext(HeaderContext);
 
   const [filteredPatients, setFilteredPatients] = useState([]);

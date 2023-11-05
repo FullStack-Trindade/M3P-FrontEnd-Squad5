@@ -2,18 +2,24 @@ import styled from "styled-components";
 
 export const BoxWrapper = styled.div`
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
 `;
 
+export const Header = styled.div`
+  padding-left: 5px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 export const Box = styled.div`
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  height: 200px;
-  margin: 5px;
+  justify-content: center;
+  min-width: 230px;
+  /* height: 200px; */
   font-size: 15px;
   background-color: ${({ $colors }) => $colors.secondary};
   color: #fff;
@@ -21,9 +27,6 @@ export const Box = styled.div`
 `;
 
 export const Tag = styled.span`
-  position: absolute;
-  top: 0;
-  right: 0;
   font-size: 20px;
   background-color: #273746;
   padding: 10px;
