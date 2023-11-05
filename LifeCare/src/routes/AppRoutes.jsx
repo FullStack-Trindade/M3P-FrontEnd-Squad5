@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { PatientRegistrationPage } from "../pages/PatientRegistrationPage/PatientRegistration.page";
 import { LoginPage } from "../pages/LoginPage/Login.page.jsx";
 import { Layout } from "../layouts/Layout";
@@ -17,6 +12,7 @@ import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPag
 import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
 
 // import { useAuth } from "../hooks/useAuth.js";
+import { ThemeConfigPage } from "../pages/ThemeConfigPage/ThemeConfig.page.jsx";
 import { LogPage } from "../pages/LogPage/LogPage.jsx";
 
 import { PrivateRoutes } from "./PrivateRoutes.jsx";
@@ -181,6 +177,8 @@ export const AppRoutes = () => {
               </PrivateRoutes>
             }
           />
+          <Route path="/configuracoes" element={<ThemeConfigPage />} />
+          <Route path="/admin/logs" element={<LogPage />} />
         </Route>
       </Routes>
     </Router>

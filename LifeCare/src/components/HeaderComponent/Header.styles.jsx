@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   width: 100%;
   height: 7%;
-  background-color: #8ae9f0;
+  background-color: ${({ $colors }) => $colors.primary};
   display: flex;
 `;
 
@@ -24,7 +24,7 @@ export const ItemList = styled.li`
   text-decoration: none;
   padding: 20px;
   font-weight: bold;
-  color: #0a43ac;
+  color: ${({ $colors }) => $colors.primary};
 `;
 
 export const Icon = styled.li`
@@ -32,16 +32,10 @@ export const Icon = styled.li`
   text-decoration: none;
   font-size: 40px;
   align-items: center;
+`;
 
-    
-
-`
-
- export const AppLogo = styled.img`
-   height: 4rem;
-   padding-top: 0.5rem;
-   padding-left:1rem;
-    
-   
-
- `;
+export const AppLogo = styled.img`
+  height: 4rem;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+`;

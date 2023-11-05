@@ -10,6 +10,8 @@ import {
   MdNoMeals,
   MdSportsGymnastics,
 } from "react-icons/md";
+import { useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext/Theme.context";
 import { useEffect, useState } from "react";
 import { GetPatient } from "../../services/Patient/Patient.service";
 import { GetAppointment } from "../../services/Appointment/Appointment.service";
@@ -57,6 +59,7 @@ export const BoxComponent = () => {
     })();
   }, []);
 
+  const { theme, setTheme } = useContext(ThemeContext);
   const datas = [
     {
       id: 1,
@@ -99,7 +102,7 @@ export const BoxComponent = () => {
   return (
     <Styled.BoxWrapper>
       {role === "admin" && (
-        <Styled.Box>
+        <Styled.Box $colors={theme.cores}>
           <Styled.Header>
             <Styled.ServiceName>{"Usuários"}</Styled.ServiceName>
             <Styled.Tag>{<MdPeople />}</Styled.Tag>
@@ -110,7 +113,7 @@ export const BoxComponent = () => {
       )}
       {datas.map((data, index) => {
         return (
-          <Styled.Box key={index}>
+          <Styled.Box $colors={theme.cores} key={index}>
             <Styled.Header>
               <Styled.ServiceName>{data.name}</Styled.ServiceName>
               <Styled.Tag>{data.img}</Styled.Tag>
