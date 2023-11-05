@@ -10,6 +10,7 @@ import { PhysicalExerciseRegistrationPage } from "../pages/PhysicalExerciseRegis
 import { HandbookPage } from "../pages/HandbookPage/Handbook.page";
 import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPage/AppointmentRegistration.page";
 import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
+import { ThemeConfigPage } from "../pages/ThemeConfigPage/ThemeConfig.page.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -73,6 +74,7 @@ export const AppRoutes = () => {
             path="/cadastro/medicamento/:id"
             element={<MedicineRegistrationPage />}
           />
+          <Route path="/configuracao" element={<ThemeConfigPage />} />
         </Route>
       </Routes>
     </Router>
