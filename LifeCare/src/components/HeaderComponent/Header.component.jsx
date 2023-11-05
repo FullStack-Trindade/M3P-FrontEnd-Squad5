@@ -10,7 +10,7 @@ export const HeaderComponent = (props) => {
         <Styled.Nav>
           <Styled.List>
             <Styled.ItemList $colors={props.theme.texto}>
-              <Styled.AppLogo src={Logo}></Styled.AppLogo>
+              <Styled.AppLogo src={props.theme.logo}></Styled.AppLogo>
             </Styled.ItemList>
             <Styled.ItemList $colors={props.theme.texto}>
               {props.theme.nomeEmpresa}
