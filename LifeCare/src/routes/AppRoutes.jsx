@@ -75,7 +75,7 @@ export const AppRoutes = () => {
             path="/cadastro/medicamento/:id"
             element={<MedicineRegistrationPage />}
           />
-          <Route path="/admin/configuracao" element={<ThemeConfigPage />} />
+          <Route path="/configuracoes" element={<ThemeConfigPage />} />
           <Route path="/admin/logs" element={<LogPage />} />
         </Route>
       </Routes>
