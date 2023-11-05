@@ -6,14 +6,14 @@ export const Container = styled.div`
 `;
 
 export const SideBarContainer = styled.div`
-  background: ${({ $colors }) => $colors.secondary};
-  color: #0a43ac;
+  background: ${({ $colors }) => $colors.cores.primary};
+  color: ${({ $colors }) => $colors.texto.primary};
   height: 100vh;
   width: 200px;
   transition: all 0.5s;
   width: ${(props) => (props.$isOpen ? "200px" : "50px")};
-  border-left: 4px solid #8ae9f0;
-  border-right: 4px solid #8ae9f0;
+  border-left: 4px solid ${({ $colors }) => $colors.cores.primary};
+  border-right: 4px solid ${({ $colors }) => $colors.cores.primary};
 `;
 
 export const TopSection = styled.div`
@@ -40,12 +40,12 @@ export const Logo = styled.h1`
 
 export const StyledLink = styled(NavLink)`
   display: flex;
-  color: #0a43ac;
+  color: ${({ $colors }) => $colors.primary};
   padding: 10px 15px;
   gap: 15px;
   transition: all 0.5s;
   text-decoration: none;
-  background-color: ${(props) => (props.$admin ? "white" : "")};
+  background-color: ${(props) => (props.$admin ? "black" : "")};
   &:hover {
     background: rgb(81, 209, 226);
   }
