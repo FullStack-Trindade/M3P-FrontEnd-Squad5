@@ -17,6 +17,7 @@ import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPag
 import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
 
 import { useAuth } from "../hooks/useAuth.js";
+import { LogPage } from "../pages/LogPage/LogPage.jsx";
 
 export const AppRoutes = () => {
   const { isLogged } = useAuth();
@@ -83,6 +84,7 @@ export const AppRoutes = () => {
             path="/cadastro/medicamento/:id"
             element={<MedicineRegistrationPage />}
           />
+          <Route path="/admin/logs" element={<LogPage />} />
         </Route>
       </Routes>
     </Router>
