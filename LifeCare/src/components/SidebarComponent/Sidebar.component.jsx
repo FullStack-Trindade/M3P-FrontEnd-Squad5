@@ -102,7 +102,7 @@ export const SidebarComponent = ({ children }) => {
 
   return (
     <Styled.Container>
-      <Styled.SideBarContainer $colors={theme} $isOpen={isOpen}>
+      <Styled.SideBarContainer $colors={theme.cores} $isOpen={isOpen}>
         <Styled.TopSection>
           <Styled.Logo $isOpen={isOpen} />
           <Styled.Bars $isOpen={isOpen}>
@@ -110,12 +110,7 @@ export const SidebarComponent = ({ children }) => {
           </Styled.Bars>
         </Styled.TopSection>
         {menuItem.map((item, index) => (
-          <Styled.StyledLink
-            $colors={theme}
-            to={item.path}
-            key={index}
-            $admin={item.admin}
-          >
+          <Styled.StyledLink to={item.path} key={index} $admin={item.admin}>
             <Styled.Icon>{item.icon}</Styled.Icon>
             <Styled.LinkText $isOpen={isOpen}>{item.name}</Styled.LinkText>
           </Styled.StyledLink>
