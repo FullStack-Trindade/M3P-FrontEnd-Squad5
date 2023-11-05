@@ -11,7 +11,6 @@ export const AuthProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
 
   const login = async (data) => {
-    console.log("Entrou no login");
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const token = await axiosInstance
@@ -45,7 +44,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    console.log("auth.context.js - logout()");
     setIsLogged(false);
     setUser(null);
     deleteLocalStorage("token");
