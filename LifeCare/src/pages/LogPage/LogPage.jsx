@@ -2,13 +2,15 @@ import { useAxios } from "../../hooks/useAxios";
 import * as Style from "./LogPage.styles";
 import { DataGrid } from "@mui/x-data-grid";
 import CircularProgress from "@mui/material/CircularProgress";
+import { LogCardComponent } from "../../components/LogCard/LogCardComponent";
+
 export const LogPage = () => {
-  const [data, isLoading, hasError] = useAxios({
+  const [data, isLoading] = useAxios({
     method: "get",
     resource: "/logs",
   });
 
-  console.log(data);
+  const method = ["create", "read", "update", "delete"];
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
@@ -20,7 +22,11 @@ export const LogPage = () => {
 
   return (
     <Style.Container>
-      <Style.Header></Style.Header>
+      <Style.Header>
+        {method.map((method, index) => (
+          <LogCardComponent key={index * 2} method={method} value={data.data} />
+        ))}
+      </Style.Header>
       <Style.Body>
         {isLoading ? (
           <CircularProgress color="secondary" size={90} />
