@@ -12,6 +12,7 @@ import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPag
 import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
 import { ThemeConfigPage } from "../pages/ThemeConfigPage/ThemeConfig.page.jsx";
 import { LogPage } from "../pages/LogPage/LogPage.jsx";
+import { PatientHandbookPage } from "../pages/PatientHandbookPage/PatientHandbook.page.jsx";
 
 export const AppRoutes = () => {
   return (
@@ -66,7 +67,7 @@ export const AppRoutes = () => {
             element={<AppointmentRegistrationPage />}
           />
           <Route path="/prontuario" element={<HandbookPage />} />
-          <Route path="/prontuario/:id" element={<HandbookPage />} />
+          <Route path="/prontuario/:id" element={<PatientHandbookPage />} />
           <Route
             path="/cadastro/medicamento"
             element={<MedicineRegistrationPage />}
