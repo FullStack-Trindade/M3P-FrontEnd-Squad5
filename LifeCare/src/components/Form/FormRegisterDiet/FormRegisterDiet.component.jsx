@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import * as Styled from "../Form.styles";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { GetEmail, GetID } from "../../../services/Patient/Patient.service";
 import {
   DeleteDiet,
@@ -15,6 +15,7 @@ import {
   StoreDiet,
   UpdateDiet,
 } from "../../../services/Diet/Diet.service";
+import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
 
 export const FormRegisterDiet = () => {
   const {
@@ -27,6 +28,7 @@ export const FormRegisterDiet = () => {
   const { id } = useParams();
   const [disable, setDisable] = useState(true);
   const [saveDisable, setSaveDisable] = useState(false);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (id) {
@@ -90,10 +92,12 @@ export const FormRegisterDiet = () => {
 
   return (
     <>
-      <Styled.Form onSubmit={handleSubmit(submitForm)}>
-        <Styled.FormTitle>Cadastrar Dieta</Styled.FormTitle>
+      <Styled.Form $colors={theme.cores} onSubmit={handleSubmit(submitForm)}>
+        <Styled.FormTitle $colors={theme.texto}>
+          Cadastrar Dieta
+        </Styled.FormTitle>
         <Styled.FormColumn>
-          <Styled.FormSubTitle>
+          <Styled.FormSubTitle $colors={theme.texto}>
             Procure o Paciente pelo email
           </Styled.FormSubTitle>
           <Styled.FormRow>

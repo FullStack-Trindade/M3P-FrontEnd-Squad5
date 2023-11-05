@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaBars,
   FaArrowRight,
@@ -15,96 +15,98 @@ import { MdHome } from "react-icons/md";
 import { FiUserPlus } from "react-icons/fi";
 import { LuSettings } from "react-icons/lu";
 import * as Styled from "./Sidebar.styles";
+import { ThemeContext } from "../../contexts/ThemeContext/Theme.context";
 
 const menuItem = [
   {
     path: "/",
     name: "Home",
     icon: <MdHome />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/paciente",
     name: "Cadastro de Paciente",
     icon: <HiMiniUsers />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/consulta",
     name: "Cadastro de Consulta",
     icon: <FaBriefcaseMedical />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/exame",
     name: "Cadastro de Exame",
     icon: <LiaFileMedicalAltSolid />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/medicamento",
     name: "Cadastro de Medicamento",
     icon: <RiMedicineBottleFill />,
-    admin: false
+    admin: false,
   },
   {
     path: "/cadastro/dieta",
     name: "Cadastro de Dieta",
     icon: <IoFastFood />,
-    admin: false
+    admin: false,
   },
 
   {
     path: "/cadastro/exercicio",
     name: "Cadastro de Exercício",
     icon: <FaRunning />,
-    admin: false
+    admin: false,
   },
 
   {
     path: "/prontuario",
     name: "Prontuários",
     icon: <FaListUl />,
-    admin: false
+    admin: false,
   },
 
   {
     path: "/login",
     name: "Sair",
     icon: <FaArrowRight />,
-    admin: false
+    admin: false,
   },
 
   {
     path: "/cadastro/usuarios",
     name: "Cadastro de Usuários",
     icon: <FiUserPlus />,
-    admin: true
+    admin: true,
   },
 
   {
     path: "/logs",
     name: "Logs",
     icon: <FaCashRegister />,
-    admin: true
+    admin: true,
   },
   {
     path: "/configuracoes",
     name: "Configuracões",
     icon: <LuSettings />,
-    admin: true
+    admin: true,
   },
 ];
 
 export const SidebarComponent = ({ children }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <Styled.Container>
-      <Styled.SideBarContainer $isOpen={isOpen}>
+      <Styled.SideBarContainer $colors={theme.cores} $isOpen={isOpen}>
         <Styled.TopSection>
-          <Styled.Logo $isOpen={isOpen}/>
+          <Styled.Logo $isOpen={isOpen} />
           <Styled.Bars $isOpen={isOpen}>
             <FaBars onClick={toggle} />
           </Styled.Bars>

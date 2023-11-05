@@ -10,8 +10,11 @@ import {
   MdNoMeals,
   MdSportsGymnastics,
 } from "react-icons/md";
+import { useContext } from "react";
+import { ThemeContext } from "../../contexts/ThemeContext/Theme.context";
 
 export const BoxComponent = ({ numPatients }) => {
+  const { theme, setTheme } = useContext(ThemeContext);
   const datas = [
     {
       id: 1,
@@ -55,7 +58,7 @@ export const BoxComponent = ({ numPatients }) => {
     <Styled.BoxWrapper>
       {datas.map((data, index) => {
         return (
-          <Styled.Box key={index}>
+          <Styled.Box $colors={theme.cores} key={index}>
             <Styled.Tag>{data.img}</Styled.Tag>
             <Styled.Number>{data.number}</Styled.Number>
             <Styled.ServiceName>{data.name}</Styled.ServiceName>
