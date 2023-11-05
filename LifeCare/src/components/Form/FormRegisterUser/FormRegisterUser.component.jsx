@@ -4,13 +4,19 @@ import * as Styled from "../Form.styles";
 
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+
+import { Store } from "../../../services/Users/";
 
 export const FormRegisterUser = () => {
+  const [disabled, setDisabled] = useState(true);
+
   const {
     register,
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -27,25 +33,12 @@ export const FormRegisterUser = () => {
     { value: "nurse", label: "Enfermeiro(a)" },
   ];
   const submitForm = async (data) => {
-    const body = {
-      fullName,
-      gender,
-      type,
-      cpf,
-      email,
-      password,
-    };
-    console.log(body);
+    const isStored = await Store(data, reset);
+    console.log("isStored", isStored);
+    isStored && reset();
   };
   const submitEdit = async (data) => {
-    const body = {
-      fullName,
-      gender,
-      type,
-      cpf,
-      email,
-      password,
-    };
+    console.log("data: ", data);
   };
   const submitDelete = async () => {};
 
@@ -205,10 +198,15 @@ export const FormRegisterUser = () => {
             variant="outlined"
             type="button"
             onClick={handleSubmit(submitEdit)}
+            disabled={disabled}
           >
             Editar
           </Button>
-          <Button variant="outlined" onClick={handleSubmit(submitDelete)}>
+          <Button
+            variant="outlined"
+            onClick={handleSubmit(submitDelete)}
+            disabled={disabled}
+          >
             Deletar
           </Button>
           <Button variant="outlined" type="submit">
