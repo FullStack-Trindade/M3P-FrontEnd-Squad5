@@ -24,7 +24,7 @@ import { useAuth } from "../../hooks";
 
 export const BoxComponent = () => {
   const { user } = useAuth();
-  const { role = "adim" } = user;
+  const { role = "admin" } = user;
   const [numPatients, setNumPatients] = useState(null);
   const [numAppointments, setNumAppointments] = useState(null);
   const [numExams, setNumExams] = useState(null);
