@@ -154,6 +154,34 @@ export const PatientHandbookComponent = () => {
             })}
         </div>
       </div>
+      <div className="patientRecordsContent">
+        <h1>Medicamento</h1>
+        {medicine &&
+          medicine.map((medicine) => {
+            return (
+              <div className="patientRecordsContent" key={medicine.id}>
+                <div className=" PatientRecordsRow">
+                  <h2>Nome do Medicamento: {medicine.name}</h2>
+                  <Link
+                    className="LinkPatientRecord"
+                    to={`/cadastro/exercicio/${medicine.id}`}
+                  >
+                    Editar
+                  </Link>
+                </div>
+                <span>Tipo de medicação:{medicine.medicineType}</span>
+                <span>Quantidade de medicação:{medicine.amount}</span>
+                <span>Unidade de medicação:{medicine.unit}</span>
+                <span>Observações :{medicine.comments}</span>
+
+                <div>
+                  <span>Data :{exercise.date}</span>
+                  <span>Horário :{exercise.time}</span>
+                </div>
+              </div>
+            );
+          })}
+      </div>
     </section>
   );
 };

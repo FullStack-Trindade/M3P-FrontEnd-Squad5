@@ -150,7 +150,7 @@ export const AppRoutes = () => {
             path="/prontuario/:id"
             element={
               <PrivateRoutes>
-                <HandbookPage />
+                <PatientHandbookPage />
               </PrivateRoutes>
             }
           />
