@@ -14,6 +14,7 @@ import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/Medi
 // import { useAuth } from "../hooks/useAuth.js";
 import { ThemeConfigPage } from "../pages/ThemeConfigPage/ThemeConfig.page.jsx";
 import { LogPage } from "../pages/LogPage/LogPage.jsx";
+import { PatientHandbookPage } from "../pages/PatientHandbookPage/PatientHandbook.page.jsx";
 
 import { PrivateRoutes } from "./PrivateRoutes.jsx";
 
@@ -150,6 +151,22 @@ export const AppRoutes = () => {
             element={
               <PrivateRoutes>
                 <HandbookPage />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/prontuario"
+            element={
+              <PrivateRoutes>
+                <HandbookPage />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/prontuario/:id"
+            element={
+              <PrivateRoutes>
+                <PatientHandbookPage />
               </PrivateRoutes>
             }
           />

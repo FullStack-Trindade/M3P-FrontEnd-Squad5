@@ -102,14 +102,14 @@ export const FormRegisterPatientComponent = () => {
   const submitForm = async (data) => {
     const body = {
       ...data,
-      userId: 1,
+      userId: 2,
     };
     await StorePatient(body);
   };
   const submitEdit = async (data) => {
     const body = {
       ...data,
-      userId: 1,
+      userId: 2,
     };
     await Update(id, body);
   };

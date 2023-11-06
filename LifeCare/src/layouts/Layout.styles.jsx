@@ -26,3 +26,9 @@ export const Content = styled.div`
     padding: 0 5px;
     flex: 1;
 `
+
+export const Paragraph = styled.p`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
