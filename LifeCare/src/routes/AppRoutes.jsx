@@ -10,71 +10,189 @@ import { PhysicalExerciseRegistrationPage } from "../pages/PhysicalExerciseRegis
 import { HandbookPage } from "../pages/HandbookPage/Handbook.page";
 import { AppointmentRegistrationPage } from "../pages/AppointmentRegistrationPage/AppointmentRegistration.page";
 import { MedicineRegistrationPage } from "../pages/MedicineRegistrationPage/MedicineRegistration.page";
+
+// import { useAuth } from "../hooks/useAuth.js";
 import { ThemeConfigPage } from "../pages/ThemeConfigPage/ThemeConfig.page.jsx";
 import { LogPage } from "../pages/LogPage/LogPage.jsx";
 import { PatientHandbookPage } from "../pages/PatientHandbookPage/PatientHandbook.page.jsx";
 
+import { PrivateRoutes } from "./PrivateRoutes.jsx";
+
 export const AppRoutes = () => {
+  // const { isLogged } = useAuth();
+
   return (
     <Router>
       <Routes>
         <Route path="login" element={<LoginPage />} />
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />} />
+
+        <Route
+          path="/"
+          element={
+            <PrivateRoutes>
+              <Layout />
+            </PrivateRoutes>
+          }
+        >
+          <Route
+            index
+            element={
+              <PrivateRoutes>
+                <HomePage />
+              </PrivateRoutes>
+            }
+          />
           <Route
             path="/cadastro/usuarios/"
-            element={<UserRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <UserRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/usuarios/:id"
-            element={<UserRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <UserRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/paciente"
-            element={<PatientRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <PatientRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/paciente/:id"
-            element={<PatientRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <PatientRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/exame"
-            element={<ExaminationRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <ExaminationRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/exame/:id"
-            element={<ExaminationRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <ExaminationRegistrationPage />
+              </PrivateRoutes>
+            }
           />
-          <Route path="/cadastro/dieta" element={<DietRegistrationPage />} />
+          <Route
+            path="/cadastro/dieta"
+            element={
+              <PrivateRoutes>
+                <DietRegistrationPage />
+              </PrivateRoutes>
+            }
+          />
           <Route
             path="/cadastro/dieta/:id"
-            element={<DietRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <DietRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/exercicio"
-            element={<PhysicalExerciseRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <PhysicalExerciseRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/exercicio/:id"
-            element={<PhysicalExerciseRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <PhysicalExerciseRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/consulta"
-            element={<AppointmentRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <AppointmentRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/consulta/:id"
-            element={<AppointmentRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <AppointmentRegistrationPage />
+              </PrivateRoutes>
+            }
           />
-          <Route path="/prontuario" element={<HandbookPage />} />
-          <Route path="/prontuario/:id" element={<PatientHandbookPage />} />
+          <Route
+            path="/prontuario"
+            element={
+              <PrivateRoutes>
+                <HandbookPage />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/prontuario/:id"
+            element={
+              <PrivateRoutes>
+                <HandbookPage />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/prontuario"
+            element={
+              <PrivateRoutes>
+                <HandbookPage />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/prontuario/:id"
+            element={
+              <PrivateRoutes>
+                <PatientHandbookPage />
+              </PrivateRoutes>
+            }
+          />
           <Route
             path="/cadastro/medicamento"
-            element={<MedicineRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <MedicineRegistrationPage />
+              </PrivateRoutes>
+            }
           />
           <Route
             path="/cadastro/medicamento/:id"
-            element={<MedicineRegistrationPage />}
+            element={
+              <PrivateRoutes>
+                <MedicineRegistrationPage />
+              </PrivateRoutes>
+            }
+          />
+          <Route
+            path="/admin/logs"
+            element={
+              <PrivateRoutes>
+                <LogPage />
+              </PrivateRoutes>
+            }
           />
           <Route path="/configuracoes" element={<ThemeConfigPage />} />
           <Route path="/admin/logs" element={<LogPage />} />
