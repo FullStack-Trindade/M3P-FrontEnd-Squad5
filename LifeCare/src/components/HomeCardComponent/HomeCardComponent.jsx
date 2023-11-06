@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { setLocalStorage } from "../../services/LocalStorage.service";
 
 import {
@@ -81,16 +81,18 @@ export const HomeCardComponent = ({
         </CardHeader>
         <CardBody>
           <ul>
-            <li>Idade: {getAge(birthday)} Anos</li>
+            <li>
+              Idade: {getAge(birthday)} {birthday && "anos"}
+            </li>
             <li>Telefone: {formatPhoneNumber(phoneNumber)}</li>
             <li>E-mail: {content(email)}</li>
             <li>Plano: {content(healthInsurance)}</li>
           </ul>
         </CardBody>
         <CardFooter>
-          <button size="small" onClick={handlerNavigate}>
-            Ver mais
-          </button>
+          <Link to={`${resource}/${id}`}>
+            <button size="small">Ver mais</button>
+          </Link>
         </CardFooter>
       </CardWrapper>
     </CardContainer>

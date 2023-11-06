@@ -95,8 +95,6 @@ export const StorePatient = async (newData) => {
 };
 
 export const Update = async (id, newData) => {
-  console.log("ID", id);
-  console.log("newData", newData);
   const data = {
     fullName: newData.fullName,
     gender: newData.gender,

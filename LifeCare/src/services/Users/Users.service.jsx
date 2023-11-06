@@ -17,6 +17,23 @@ export const GetUsers = async () => {
   }
 };
 
+export const GetID = async (id) => {
+  try {
+    const patientData = await axiosInstance
+      .get(`/usuarios/${id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((r) => {
+        return r.data;
+      })
+      .catch((e) => console.log(e));
+
+    return patientData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const Store = async (data) => {
   function formatCPF(cpf) {
     cpf = cpf.replace(/\D/g, "");
@@ -46,5 +63,41 @@ export const Store = async (data) => {
     .catch((err) => {
       console.log("err: ", err.response.data);
       alert(`Erro ao cadastrar ${err.response.data.message}`);
+    });
+};
+
+export const Delete = async (id) => {
+  await axiosInstance
+    .delete(`/usuarios/${id}`)
+    .then(() => {
+      alert("Usuário removido com sucesso");
+    })
+    .catch((err) => {
+      console.log("err: ", err.response.data);
+    });
+};
+
+export const Update = async (id, newData) => {
+  const data = {
+    fullName: newData.fullName,
+    gender: newData.gender,
+    type: newData.type,
+    cpf: newData.cpf,
+    phoneNumber: newData.phoneNumber,
+    email: newData.email,
+    password: newData.password,
+    systemStatus: true,
+  };
+
+  await axiosInstance
+    .put(`/usuarios/${id}`, data, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+    .then(() => {
+      alert("Atualizado com sucesso");
+    })
+    .catch((err) => {
+      console.log("err: ", err);
+      alert(`Erro ao atualizar ${err.message}`);
     });
 };

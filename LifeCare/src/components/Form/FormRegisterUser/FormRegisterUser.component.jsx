@@ -4,14 +4,14 @@ import * as Styled from "../Form.styles";
 
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { Store } from "../../../services/Users/";
+import { useEffect, useState } from "react";
+import { Delete, GetID, Store, Update } from "../../../services/Users/";
 import { useContext } from "react";
 import { ThemeContext } from "../../../contexts/ThemeContext/Theme.context";
+import { useParams } from "react-router-dom";
 
 export const FormRegisterUser = () => {
-  const [disabled, setDisabled] = useState(true);
-
+  const { id } = useParams();
   const {
     register,
     handleSubmit,
@@ -20,6 +20,26 @@ export const FormRegisterUser = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const [disabled, setDisabled] = useState(true);
+
+  useEffect(() => {
+    if (id) {
+      setDisabled(false);
+      (async () => {
+        await GetID(id).then(async ({ data }) => {
+          console.log("data:", data);
+          console.log("to dentro ");
+          setValue("fullName", data.fullName || "");
+          setValue("gender", data.gender || "");
+          setValue("type", data.type || "");
+          setValue("cpf", data.cpf || "");
+          setValue("civilStatus", data.civilStatus || "");
+          setValue("phoneNumber", data.phoneNumber || "");
+          setValue("email", data.email || "");
+        });
+      })();
+    }
+  }, []);
 
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -42,8 +62,14 @@ export const FormRegisterUser = () => {
   };
   const submitEdit = async (data) => {
     console.log("data: ", data);
+    await Update(id, data);
   };
-  const submitDelete = async () => {};
+  const submitDelete = async () => {
+    await Delete(id);
+    reset();
+    setDisabled(true);
+    alert("Removido com sucesso");
+  };
 
   return (
     <>
@@ -58,6 +84,7 @@ export const FormRegisterUser = () => {
           <Styled.FormRow>
             <InputComponent
               id="fullName"
+              name="fullName"
               type="text"
               placeholder="Digite seu nome"
               label="Nome Completo"
@@ -89,6 +116,7 @@ export const FormRegisterUser = () => {
             />
             <SelectComponent
               id={"type"}
+              name="type"
               label={"Tipo de Usuario"}
               error={!!errors.type}
               helperText={errors.type?.message}
@@ -209,11 +237,7 @@ export const FormRegisterUser = () => {
           >
             Editar
           </Button>
-          <Button
-            variant="outlined"
-            onClick={handleSubmit(submitDelete)}
-            disabled={disabled}
-          >
+          <Button variant="outlined" onClick={submitDelete} disabled={disabled}>
             Deletar
           </Button>
           <Button variant="outlined" type="submit">
