@@ -70,14 +70,9 @@ const menuItem = [
     icon: <FaListUl />,
     admin: false,
   },
+];
 
-  {
-    path: "/login",
-    name: "Sair",
-    icon: <FaArrowRight />,
-    admin: false,
-  },
-
+const adminMenuItens = [
   {
     path: "/cadastro/usuarios",
     name: "Cadastro de Usuários",
@@ -101,8 +96,9 @@ const menuItem = [
 
 export const SidebarComponent = ({ children }) => {
   const { theme, setTheme } = useContext(ThemeContext);
-  const { user, logout } = useAuth();
-  const role = user?.role || "admin";
+  const { logout, getRole } = useAuth();
+  const { role } = getRole();
+
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -126,6 +122,28 @@ export const SidebarComponent = ({ children }) => {
             <Styled.LinkText $isOpen={isOpen}>{item.name}</Styled.LinkText>
           </Styled.StyledLink>
         ))}
+        {role === "admin" &&
+          adminMenuItens.map((item, index) => (
+            <Styled.StyledLink
+              $colors={theme}
+              to={item.path}
+              key={index}
+              $admin={item.admin}
+            >
+              <Styled.Icon>{item.icon}</Styled.Icon>
+              <Styled.LinkText $isOpen={isOpen}>{item.name}</Styled.LinkText>
+            </Styled.StyledLink>
+          ))}
+
+        <Styled.StyledLink
+          $colors={theme}
+          to={"/login"}
+          $admin={false}
+          onClick={logout}
+        >
+          <Styled.Icon>{<FaArrowRight />}</Styled.Icon>
+          <Styled.LinkText $isOpen={isOpen}>{"Sair"}</Styled.LinkText>
+        </Styled.StyledLink>
       </Styled.SideBarContainer>
 
       <Styled.Main>{children}</Styled.Main>

@@ -1,6 +1,6 @@
 import { axiosInstance } from "../../helper/axiosInstance";
 
-export const Index = async () => {
+export const GetUsers = async () => {
   try {
     const data = await axiosInstance
       .get(`/usuarios`, {
