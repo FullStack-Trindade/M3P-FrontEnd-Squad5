@@ -1,11 +1,9 @@
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Get } from "../services/AuthService";
 
 export const PrivateRoutes = ({ children }) => {
-  const navigate = useNavigate();
-
-  return Get() ? children : navigate("/login");
+  return Get() ? children : <Navigate to="/login" />;
 };
 
 PrivateRoutes.propTypes = {

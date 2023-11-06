@@ -13,9 +13,8 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useAuth } from "../../hooks";
 
 export const HomePage = () => {
-  const { user } = useAuth();
-  const role = user?.role || "admin";
-  console.log("role", role);
+  const { getRole } = useAuth();
+  const { role } = getRole();
 
   const { setTitle } = useContext(HeaderContext);
 
@@ -80,11 +79,9 @@ export const HomePage = () => {
     phoneNumber: "Telefone",
   };
 
-  const statistics = { numPatients: patientData?.data?.length };
-
   return (
     <ModalProvider>
-      <BoxComponent {...statistics} />
+      <BoxComponent />
       <Styles.Container>
         <Styles.Columns>
           <h3 style={{ textAlign: "center" }}>Pacientes</h3>
@@ -117,37 +114,39 @@ export const HomePage = () => {
             )}
           </Styles.CardContainer>
         </Styles.Columns>
-        <Styles.Columns>
-          <h3 style={{ textAlign: "center" }}>Usuários</h3>
-          <Styles.InputContainer>
-            <select name="select" id="select" onChange={handlerSearchUserBy}>
-              <option value="email">E-mail</option>
-              <option value="fullName">nome</option>
-              <option value="cpf">cpf</option>
-              <option value="phoneNumber">Telefone</option>
-            </select>
-            <input
-              type="text"
-              placeholder={`Informe o ${translate[searchUserBy]} do usuário`}
-              onChange={handlerSearchUser}
-            />
-          </Styles.InputContainer>
-          <Styles.CardContainer>
-            {userIsLoading ? (
-              <CircularProgress color="success" />
-            ) : (
-              filteredUsers?.data?.map((p, i) => {
-                return (
-                  <HomeCardComponent
-                    {...p}
-                    key={`${i * p.id}${p.cpf}`}
-                    type="user"
-                  />
-                );
-              })
-            )}
-          </Styles.CardContainer>
-        </Styles.Columns>
+        {role === "admin" && (
+          <Styles.Columns>
+            <h3 style={{ textAlign: "center" }}>Usuários</h3>
+            <Styles.InputContainer>
+              <select name="select" id="select" onChange={handlerSearchUserBy}>
+                <option value="email">E-mail</option>
+                <option value="fullName">nome</option>
+                <option value="cpf">cpf</option>
+                <option value="phoneNumber">Telefone</option>
+              </select>
+              <input
+                type="text"
+                placeholder={`Informe o ${translate[searchUserBy]} do usuário`}
+                onChange={handlerSearchUser}
+              />
+            </Styles.InputContainer>
+            <Styles.CardContainer>
+              {userIsLoading ? (
+                <CircularProgress color="success" />
+              ) : (
+                filteredUsers?.data?.map((p, i) => {
+                  return (
+                    <HomeCardComponent
+                      {...p}
+                      key={`${i * p.id}${p.cpf}`}
+                      type="user"
+                    />
+                  );
+                })
+              )}
+            </Styles.CardContainer>
+          </Styles.Columns>
+        )}
       </Styles.Container>
     </ModalProvider>
   );

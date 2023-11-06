@@ -1,8 +1,13 @@
 import { createContext, useState } from "react";
 import PropTypes from "prop-types";
-import { axiosInstance } from "../../helper/axiosInstance";
+
 import { jwtDecode } from "jwt-decode";
-import { deleteLocalStorage } from "../../services/LocalStorage.service";
+import {
+  getLocalStorage,
+  deleteLocalStorage,
+  setLocalStorage,
+} from "../../services/LocalStorage.service";
+import { GetToken } from "../../services/AuthService";
 
 export const AuthContext = createContext({});
 
@@ -11,33 +16,14 @@ export const AuthProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
 
   const login = async (data) => {
-    const apiUrl = import.meta.env.VITE_API_URL;
-
-    const token = await axiosInstance
-      .post(`${apiUrl}/usuarios/login`, data)
-      .then((response) => {
-        if (response.data.status == 401) {
-          return null;
-        } else {
-          return response.data.access_token;
-        }
-      })
-      .catch((e) => console.log("token_fail :", e.message));
+    const token = await GetToken(data);
 
     if (token) {
-      const GetToken = () => {
-        return localStorage.getItem("token");
-      };
-
-      const SetToken = (token) => {
-        localStorage.setItem("token", token);
-        return GetToken() === token;
-      };
-
       const jwtDecoded = jwtDecode(token);
+      setLocalStorage("user", jwtDecoded);
       setUser({ ...jwtDecoded });
       setIsLogged(true);
-      return SetToken(token);
+      return true;
     }
 
     return false;
@@ -47,10 +33,15 @@ export const AuthProvider = ({ children }) => {
     setIsLogged(false);
     setUser(null);
     deleteLocalStorage("token");
+    deleteLocalStorage("user");
+  };
+
+  const getRole = () => {
+    return getLocalStorage("user");
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLogged, login, logout }}>
+    <AuthContext.Provider value={{ user, isLogged, login, logout, getRole }}>
       {children}
     </AuthContext.Provider>
   );
